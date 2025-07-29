@@ -56,6 +56,7 @@ namespace Szakdoga
        
         private void Add(object sender, RoutedEventArgs e)
         {
+
             if(HeighgtTxt.Text == string.Empty || WidthTxt.Text == string.Empty)
             {
                 MessageBox.Show("Please enter both height and width.","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
@@ -68,21 +69,23 @@ namespace Szakdoga
         }
 
          public void Update(object sender, RoutedEventArgs e)
+         {
+            if (PiecesListView.SelectedItem is Piece selectedPiece)
+            {
+                if (HeighgtTxt.Text == string.Empty || WidthTxt.Text == string.Empty)
                 {
-                    if (PiecesListView.SelectedItem is Piece selectedPiece)
-                    {
-                        if (HeighgtTxt.Text == string.Empty || WidthTxt.Text == string.Empty)
-                        {
-                            MessageBox.Show("Please enter both height and width.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            return;
-                        }
-                        double height = Convert.ToDouble(HeighgtTxt.Text.Replace('.', ','));
-                        double width = Convert.ToDouble(WidthTxt.Text.Replace('.', ','));
-                        CutDirection direction = viewModel.Direction;
+                    MessageBox.Show("Please enter both height and width.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                double height = Convert.ToDouble(HeighgtTxt.Text.Replace('.', ','));
+                double width = Convert.ToDouble(WidthTxt.Text.Replace('.', ','));
+                CutDirection direction = viewModel.Direction;
                 Console.WriteLine($"Updating piece {selectedPiece.Id} with Height: {height}, Width: {width}, Direction: {direction}");
                 manager.UpdatePiece(selectedPiece.Id ?? 0, height, width, direction);
-                    }
-                }
+                // Refresh the ListView to reflect the change
+                PiecesListView.Items.Refresh();
+            }
+        }
 
         public void Delete(object sender, RoutedEventArgs e)
         {
