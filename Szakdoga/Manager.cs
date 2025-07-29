@@ -18,10 +18,26 @@ namespace Szakdoga
             Pieces = new ObservableCollection<Piece>();
             nextId = 1;
         }
-        public void AddPiece( double height, double width,CutDirection cutDirection)
+        public void AddPiece(double height, double width, CutDirection cutDirection, string? name)
         {
+            if (Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection) 
+                && MessageBox.Show("A piece with the same dimensions and cut direction already exists. Continue?", "Duplicate Piece", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No ) 
+            {
+                return;
+            }
+            if (height <= 0 || width <= 0)
+            {
+                MessageBox.Show("Height and width must be greater than zero.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (name == "" && name == string.Empty)
+            {
+                name = "Unknown";
+            }
+
             Piece piece = new Piece
             {
+                Name = name,
                 Id = nextId++,
                 Width = width,
                 Height = height,
@@ -30,11 +46,12 @@ namespace Szakdoga
             Pieces.Add(piece);
         }
 
-        public void UpdatePiece(int id, double height, double width, CutDirection cutDirection)
+        public void UpdatePiece(int id, double height, double width, CutDirection cutDirection, string? name)
         {
             var piece = Pieces.FirstOrDefault(p => p.Id == id);
             if (piece != null)
             {
+                piece.Name = name ?? piece.Name;
                 piece.Height = height;
                 piece.Width = width;
                 piece.CutDirection = cutDirection;
@@ -61,7 +78,5 @@ namespace Szakdoga
             Pieces.Clear();
             nextId = 1; // Reset ID counter
         }
-
     }
-
 }

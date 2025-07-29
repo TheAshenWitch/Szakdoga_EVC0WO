@@ -62,10 +62,11 @@ namespace Szakdoga
                 MessageBox.Show("Please enter both height and width.","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                 return;
             }
+            string name= NameTxt.Text.Trim();        
             double height = Convert.ToDouble(HeighgtTxt.Text.Replace('.',','));
             double width = Convert.ToDouble(WidthTxt.Text.Replace('.',','));
             CutDirection direction = viewModel.Direction;
-            manager.AddPiece(height, width, direction);
+            manager.AddPiece(height, width, direction, name);
         }
 
          public void Update(object sender, RoutedEventArgs e)
@@ -77,11 +78,11 @@ namespace Szakdoga
                     MessageBox.Show("Please enter both height and width.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+                string name = NameTxt.Text.Trim();
                 double height = Convert.ToDouble(HeighgtTxt.Text.Replace('.', ','));
                 double width = Convert.ToDouble(WidthTxt.Text.Replace('.', ','));
                 CutDirection direction = viewModel.Direction;
-                Console.WriteLine($"Updating piece {selectedPiece.Id} with Height: {height}, Width: {width}, Direction: {direction}");
-                manager.UpdatePiece(selectedPiece.Id ?? 0, height, width, direction);
+                manager.UpdatePiece(selectedPiece.Id ?? 0, height, width, direction, name);
                 // Refresh the ListView to reflect the change
                 PiecesListView.Items.Refresh();
             }
@@ -95,7 +96,6 @@ namespace Szakdoga
             }
         }
 
-       
         public void Clear(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to clear all pieces?", "Confirm Clear", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
@@ -106,12 +106,14 @@ namespace Szakdoga
 
         private void PiecesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            NameTxt.Text = string.Empty;
             HeighgtTxt.Text = string.Empty;
             WidthTxt.Text = string.Empty;
             viewModel.Direction = 0; // Reset to default direction
 
             if (PiecesListView.SelectedItem is Piece selectedPiece)
             {
+                NameTxt.Text = selectedPiece.Name ?? string.Empty;
                 HeighgtTxt.Text = selectedPiece.Height.ToString();
                 WidthTxt.Text = selectedPiece.Width.ToString();
                 viewModel.Direction = selectedPiece.CutDirection;
