@@ -38,6 +38,8 @@
         
         <!--Settings-->
         <Button Grid.Column="2" Content="Sett" HorizontalAlignment="Left" Height="26" Margin="1076,19,0,0" VerticalAlignment="Top" Width="49"/>
+        <Button Grid.Column="2" Content="Save" HorizontalAlignment="Left" Height="26" Margin="1076,51,0,0" VerticalAlignment="Top" Width="49" Click="Save"/>
+        <Button Grid.Column="2" Content="Load" HorizontalAlignment="Left" Height="26" Margin="1076,85,0,0" VerticalAlignment="Top" Width="49" Click="Load"/>
         
         <!--Piece layout-->
         <Rectangle Grid.Column="2" HorizontalAlignment="Left" Height="438"  Margin="15,19,0,0" Stroke="Black" VerticalAlignment="Top" Width="713" Grid.ColumnSpan="2"/>

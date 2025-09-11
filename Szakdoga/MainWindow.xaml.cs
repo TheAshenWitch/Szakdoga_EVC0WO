@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Szakdoga
 {
@@ -118,6 +120,66 @@ namespace Szakdoga
                 WidthTxt.Text = selectedPiece.Width.ToString();
                 viewModel.Direction = selectedPiece.CutDirection;
             }
+        }
+
+        private void Save(object sender, RoutedEventArgs e)
+        {
+            Thread saveThread = new Thread(SaveToFile);
+            saveThread.Start();
+            saveThread.Join(); // Wait for the thread to finish
+        }
+        public void SaveToFile()
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("pieces.txt"))
+                {
+                    foreach (var piece in manager.Pieces)
+                    {
+                        sw.WriteLine($"{piece.Id},{piece.Name},{piece.Height},{piece.Width},{piece.CutDirection}");
+                    }
+                }
+                MessageBox.Show("Pieces saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Load(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!File.Exists("pieces.txt"))
+                {
+                    MessageBox.Show("No saved pieces found.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                using (StreamReader sr = new StreamReader("pieces.txt"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        var parts = line.Split(',');
+                        if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
+                        {
+                            CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
+                            string name = parts[1];
+                            manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
+                        }
+                    }
+                }
+                MessageBox.Show("Pieces loaded successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public void LoadFromFile()
+        {
+           
         }
     }  
 }

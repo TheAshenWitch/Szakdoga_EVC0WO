@@ -18,9 +18,9 @@ namespace Szakdoga
             Pieces = new ObservableCollection<Piece>();
             nextId = 1;
         }
-        public void AddPiece(double height, double width, CutDirection cutDirection, string? name)
+        public void AddPiece(double height, double width, CutDirection cutDirection, string? name, bool fromLoad = false)
         {
-            if (Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection) 
+            if ((Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection) && !fromLoad)
                 && MessageBox.Show("A piece with the same dimensions and cut direction already exists. Continue?", "Duplicate Piece", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No ) 
             {
                 return;
