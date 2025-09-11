@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Szakdoga"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200">
+        
+        Title="MainWindow" Height="1080" Width="1920" Background="#FF9C9C9C">
     <Window.Resources>
         <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="0,0,0,11">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
