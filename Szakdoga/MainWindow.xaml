@@ -5,45 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Szakdoga"
         mc:Ignorable="d"
-        
+        WindowState="Maximized"
         Title="MainWindow" Height="1080" Width="1920" Background="#FF9C9C9C">
     <Window.Resources>
         <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
     </Window.Resources>
-    <Grid Margin="0,0,0,11">
-
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="41*"/>
-            <ColumnDefinition Width="1159*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="450*"/>
+            <ColumnDefinition Width="1030*"/>
+            <ColumnDefinition Width="460"/>
         </Grid.ColumnDefinitions>
-        
-        <!--User inputs-->
-        <TextBox Name="HeighgtTxt" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Margin="118,582,0,0" TextWrapping="Wrap" Width="203" VerticalContentAlignment="Center"/>
-        <Label Grid.Column="2" Content="Height" HorizontalAlignment="Left" Margin="273,585,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="WidthTxt" Grid.Column="2" HorizontalAlignment="Left" Height="34" Margin="118,620,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" VerticalContentAlignment="Center"/>
-        <Label Grid.Column="2" Content="Width" HorizontalAlignment="Left" Margin="275,623,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="NameTxt" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Margin="118,544,0,0" TextWrapping="Wrap" Width="203" VerticalContentAlignment="Center"/>
-        <Label Grid.Column="2" Content="Name" HorizontalAlignment="Left" Margin="275,548,0,0" VerticalAlignment="Top"/>
-        
-        <Button Grid.Column="2" Content="Add" HorizontalAlignment="Left" Height="72" Margin="0,582,0,0" VerticalAlignment="Top" Width="109" Click="Add"/>
-       
-        <RadioButton Grid.Column="2" Content="Szálirány" HorizontalAlignment="Left" Margin="326,582,0,0" VerticalAlignment="Top" GroupName="CutDirection" Height="21" Width="75" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Szálirány}"/>
-        <RadioButton Grid.Column="2" Content="Keresztirány" HorizontalAlignment="Left" Margin="326,607,0,0" VerticalAlignment="Top" GroupName="CutDirection" Height="21" Width="95" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Keresztirány}"/>
-        <RadioButton Grid.Column="2" Content="Vegyes" HorizontalAlignment="Left" Margin="326,631,0,0" VerticalAlignment="Top" GroupName="CutDirection" Height="21" Width="64" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Vegyes}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="900*"/>
+            <RowDefinition Height="160*"/>
+        </Grid.RowDefinitions>
 
-        <ListBox Grid.Column="2" Name="PiecesListView" HorizontalAlignment="Left" Height="438" Margin="751,19,0,0" VerticalAlignment="Top" Width="189" ItemsSource="{Binding PieceList}" SelectionChanged="PiecesListView_SelectionChanged"/>
-        <Button Grid.Column="2" Content="Delete" HorizontalAlignment="Left" Height="45" Margin="945,69,0,0" VerticalAlignment="Top" Width="109" Click="Delete" Foreground="Red"/>
-        <Button Grid.Column="2" Content="Clear all" HorizontalAlignment="Left" Height="45" Margin="945,119,0,0" VerticalAlignment="Top" Width="109" Click="Clear" Foreground="Red" FontFamily="Arial" BorderBrush="Red"/>
-        <Button Grid.Column="2" Content="Update" HorizontalAlignment="Left" Height="45" Margin="945,19,0,0" VerticalAlignment="Top" Width="109" Click="Update"/>
-        
-        <!--Settings-->
-        <Button Grid.Column="2" Content="Sett" HorizontalAlignment="Left" Height="26" Margin="1076,19,0,0" VerticalAlignment="Top" Width="49"/>
-        <Button Grid.Column="2" Content="Save" HorizontalAlignment="Left" Height="26" Margin="1076,51,0,0" VerticalAlignment="Top" Width="49" Click="Save"/>
-        <Button Grid.Column="2" Content="Load" HorizontalAlignment="Left" Height="26" Margin="1076,85,0,0" VerticalAlignment="Top" Width="49" Click="Load"/>
-        
         <!--Piece layout-->
-        <Rectangle Grid.Column="2" HorizontalAlignment="Left" Height="438"  Margin="15,19,0,0" Stroke="Black" VerticalAlignment="Top" Width="713" Grid.ColumnSpan="2"/>
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
+            <Rectangle  Margin="28,19,27,0" Stroke="Black" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        </Grid>
+
+        <!--User inputs-->
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,10,0,-10">
+
+            <TextBox x:Name="NameTxt" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Margin="132,0,0,0" TextWrapping="Wrap" Width="202" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
+            <Label Content="Name" HorizontalAlignment="Left" Margin="288,4,0,0" VerticalAlignment="Top" Height="26" Width="42" Grid.RowSpan="2"/>
+            <TextBox Name="WidthTxt"  HorizontalAlignment="Left" Height="34" Margin="132,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202" VerticalContentAlignment="Center"/>
+            <Label  Content="Width" HorizontalAlignment="Left" Margin="288,40,0,0" VerticalAlignment="Top" Height="26" Width="42"/>
+            <TextBox Name="HeighgtTxt" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Margin="132,74,0,0" TextWrapping="Wrap" Width="202" VerticalContentAlignment="Center"/>
+            <Label  Content="Height" HorizontalAlignment="Left" Margin="286,77,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
+
+            <Button  Content="Add" HorizontalAlignment="Left" Height="72" Margin="14,35,0,0" VerticalAlignment="Top" Width="108" Click="Add"/>
+
+            <RadioButton Content="Szálirány" Margin="341,24,0,0" GroupName="CutDirection" Height="25" Width="74" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Szálirány}" VerticalAlignment="Top"/>
+            <RadioButton Content="Keresztirány" Margin="341,52,0,0" GroupName="CutDirection" Width="94" Height="25" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Keresztirány}" VerticalAlignment="Top"/>
+            <RadioButton Content="Vegyes" Margin="341,80,0,0" GroupName="CutDirection" Height="25" Width="64" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Vegyes}" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="0">
+            <ListBox Name="PiecesListView" Height="864" Margin="22,0,0,0" VerticalAlignment="Center" ItemsSource="{Binding PieceList}" SelectionChanged="PiecesListView_SelectionChanged" HorizontalAlignment="Left" Width="199"/>
+            <Button Content="Delete" Height="44" Margin="0,70,126,0" VerticalAlignment="Top" Click="Delete" Foreground="Red" HorizontalAlignment="Right" Width="109"/>
+            <Button Content="Clear all" Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear" Foreground="Red" FontFamily="Arial" BorderBrush="Red" HorizontalAlignment="Right" Width="109"/>
+            <Button Content="Update" Height="44" Margin="0,20,126,0" VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
+
+            <!--Settings-->
+            <Button Content="Sett" Height="44" Margin="0,20,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115"/>
+            <Button Content="Save" Height="44" Margin="0,70,6,0" VerticalAlignment="Top" Click="Save" HorizontalAlignment="Right" Width="115"/>
+            <Button Content="Load" Height="44" Margin="0,120,6,0" VerticalAlignment="Top" Click="Load" HorizontalAlignment="Right" Width="115"/>
+        </Grid>
 
 
     </Grid>
