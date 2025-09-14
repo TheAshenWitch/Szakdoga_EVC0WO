@@ -12,6 +12,10 @@ namespace Szakdoga
 {
     class Manager {
         public ObservableCollection<Piece> Pieces { get; }
+        public int? SheetHeight;    //Deafult 2070
+        public int? SheetWidth;     //default 2800
+        public string? SheetColor;  //default "White"
+        public string? SheetManufacturer;
         private int nextId;
         public Manager()
         {

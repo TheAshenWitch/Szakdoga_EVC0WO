@@ -65,9 +65,27 @@ namespace Szakdoga
                 MessageBox.Show("Please enter both height and width.","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                 return;
             }
-            string name= NameTxt.Text.Trim();        
-            double height = Convert.ToDouble(HeighgtTxt.Text.Replace('.',','));
-            double width = Convert.ToDouble(WidthTxt.Text.Replace('.',','));
+            string name= NameTxt.Text.Trim();
+            double height;
+            double width;
+            try
+            {
+                width = Convert.ToDouble(WidthTxt.Text.Replace('.',','));
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid width format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                height = Convert.ToDouble(HeighgtTxt.Text.Replace('.',','));
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid height format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             CutDirection direction = viewModel.Direction;
             manager.AddPiece(height, width, direction, name);
         }
@@ -82,8 +100,26 @@ namespace Szakdoga
                     return;
                 }
                 string name = NameTxt.Text.Trim();
-                double height = Convert.ToDouble(HeighgtTxt.Text.Replace('.', ','));
-                double width = Convert.ToDouble(WidthTxt.Text.Replace('.', ','));
+                double height; 
+                double width;
+                try
+                {
+                    width = Convert.ToDouble(WidthTxt.Text.Replace('.', ','));
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Invalid width format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                try
+                {
+                    height = Convert.ToDouble(HeighgtTxt.Text.Replace('.', ','));
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Invalid height format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 CutDirection direction = viewModel.Direction;
                 manager.UpdatePiece(selectedPiece.Id ?? 0, height, width, direction, name);
                 // Refresh the ListView to reflect the change
@@ -149,28 +185,6 @@ namespace Szakdoga
                 }
                 fs.Close();
             }
-            
-             /*   Thread saveThread = new Thread(SaveToFile);
-            saveThread.Start();
-            saveThread.Join(); // Wait for the thread to finish*/
-        }
-        public void SaveToFile()
-        {
-            try
-            {
-                using (StreamWriter sw = new StreamWriter("pieces.txt"))
-                {
-                    foreach (var piece in manager.Pieces)
-                    {
-                        sw.WriteLine($"{piece.Id},{piece.Name},{piece.Height},{piece.Width},{piece.CutDirection}");
-                    }
-                }
-                MessageBox.Show("Pieces saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error saving pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void Load(object sender, RoutedEventArgs e)
@@ -187,18 +201,25 @@ namespace Szakdoga
                 using (StreamReader sr = new StreamReader(fs))
                 {
                     string line;
-                    while ((line = sr.ReadLine()) != null)
+                    try
                     {
-                        var parts = line.Split(',');
-                        if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
+                        while ((line = sr.ReadLine()) != null)
                         {
-                            CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
-                            string name = parts[1];
-                            manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
+                            var parts = line.Split(',');
+                            if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
+                            {
+                                CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
+                                string name = parts[1];
+                                manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    fs.Close();
                 }
-                fs.Close();
             }
             //try
             //{
@@ -228,10 +249,11 @@ namespace Szakdoga
             //    MessageBox.Show($"Error loading pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             //}
         }
-        public void LoadFromFile()
-        {
-           
-        }
 
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.Show();
+        }
     }  
 }
