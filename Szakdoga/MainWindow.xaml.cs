@@ -25,13 +25,43 @@ namespace Szakdoga
     {
         MainViewModel viewModel;
         Manager manager;
+        Optimizer optimizer;
         public MainWindow()
         {
             InitializeComponent();
+            SizeChanged += MainWindow_SizeChanged;
             manager = new Manager();
             viewModel = new MainViewModel(manager.Pieces);
+            optimizer = new Optimizer();
             this.DataContext = viewModel;
+            var canvas = new Canvas();
+
+
             
+            
+        }
+        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            
+            if (e.PreviousSize.Width == 0 || e.PreviousSize.Height == 0)
+                return;
+            double wscale = e.NewSize.Width / e.PreviousSize.Width;
+            double hscale = e.NewSize.Height / e.PreviousSize.Height;
+            foreach (var child in PieceCanvas.Children.OfType<Rectangle>())
+            {
+                if (e.PreviousSize.Width != e.NewSize.Width)
+                {
+                    child.Width = child.Width * wscale;
+                    double left = Canvas.GetLeft(child);
+                    Canvas.SetLeft(child, left * wscale);
+                }
+                if (e.PreviousSize.Height != e.NewSize.Height)
+                {
+                    child.Height = child.Height * hscale;
+                    double top = Canvas.GetTop(child);
+                    Canvas.SetTop(child, top * hscale);
+                }
+            }
         }
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
         {
@@ -126,7 +156,6 @@ namespace Szakdoga
                 PiecesListView.Items.Refresh();
             }
         }
-
         public void Delete(object sender, RoutedEventArgs e)
         {
             if (PiecesListView.SelectedItem is Piece selectedPiece)
@@ -167,7 +196,7 @@ namespace Szakdoga
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != "")
             {
-                System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+                FileStream fs = (FileStream)saveFileDialog.OpenFile();
                 try
                 {
                     using (StreamWriter sw = new StreamWriter(fs))
@@ -190,6 +219,7 @@ namespace Szakdoga
         private void Load(object sender, RoutedEventArgs e)
         {
             manager.ClearPieces();
+
             OpenFileDialog saveFileDialog = new OpenFileDialog();
             saveFileDialog.Filter = "Text File|*.txt";
             saveFileDialog.Title = "Save pieces list";
@@ -197,7 +227,7 @@ namespace Szakdoga
             if (saveFileDialog.FileName != "")
             {
                 // Saves the Image via a FileStream created by the OpenFile method.
-                System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+                FileStream fs = (FileStream)saveFileDialog.OpenFile();
                 using (StreamReader sr = new StreamReader(fs))
                 {
                     string line;
@@ -221,39 +251,52 @@ namespace Szakdoga
                     fs.Close();
                 }
             }
-            //try
-            //{
-            //    if (!File.Exists("pieces.txt"))
-            //    {
-            //        MessageBox.Show("No saved pieces found.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            //        return;
-            //    }
-            //    using (StreamReader sr = new StreamReader("pieces.txt"))
-            //    {
-            //        string line;
-            //        while ((line = sr.ReadLine()) != null)
-            //        {
-            //            var parts = line.Split(',');
-            //            if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
-            //            {
-            //                CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
-            //                string name = parts[1];
-            //                manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
-            //            }
-            //        }
-            //    }
-            //    MessageBox.Show("Pieces loaded successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Error loading pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            Settings settings = new Settings();
+            SettingsWindow settings = new SettingsWindow();
             settings.Show();
+        }
+        private void Optimize(object sender, RoutedEventArgs e)
+        {
+            manager.optimize("Test",2700,2080,10,3.2);
+            foreach (var piece in manager.Pieces)
+            {
+                if (piece.SheetId == 1)
+                {
+                    Rectangle rect = new Rectangle
+                    {
+                        Width = (piece.Height * 0.52),
+                        Height = (piece.Width * 0.71),
+                        Stroke = Brushes.Black,
+                        Fill = Brushes.LightGray,
+                        StrokeThickness = 1
+                    };
+                    Canvas.SetLeft(rect, piece.x * 0.52 ?? 0);
+                    Canvas.SetTop(rect, piece.y * 0.71 ?? 0);
+                    PieceCanvas.Children.Add(rect);
+                }
+            }
+            //dinamikusan gombok létrehozása példa
+            //for (int i = 1; i <= 5; i++)
+            //{
+            //    var btn = new Button
+            //    {
+            //        Content = $"Gomb {i}",
+            //        Width = 100,
+            //        Margin = new Thickness(5)
+            //    };
+
+            //    // eseménykezelő hozzáadása
+            //    btn.Click += (s, e) =>
+            //    {
+            //        MessageBox.Show($"Megnyomtad a {((Button)s).Content} gombot");
+            //    };
+
+            //    // hozzáadjuk a panelhez
+            //    ButtonPanel.Children.Add(btn);
+            //}
         }
     }  
 }

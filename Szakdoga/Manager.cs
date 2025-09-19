@@ -12,10 +12,7 @@ namespace Szakdoga
 {
     class Manager {
         public ObservableCollection<Piece> Pieces { get; }
-        public int? SheetHeight;    //Deafult 2070
-        public int? SheetWidth;     //default 2800
-        public string? SheetColor;  //default "White"
-        public string? SheetManufacturer;
+       
         private int nextId;
         public Manager()
         {
@@ -81,6 +78,27 @@ namespace Szakdoga
         {
             Pieces.Clear();
             nextId = 1; // Reset ID counter
+        } 
+        public void optimize(string method, double sheetWidth, double sheetHeight, double sheetPadding, double bladeThickness)
+        {
+            if (Pieces.Count == 0)
+            {
+                MessageBox.Show("No pieces to optimize.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            Optimizer optimizer = new Optimizer();
+            List<Piece> optimizedPieces = method switch
+            {
+                "Test" => optimizer.Test(GetPiecesList(), sheetWidth, sheetHeight, sheetPadding, bladeThickness),
+                "Guillotine" => optimizer.Guillotine(GetPiecesList(), sheetWidth, sheetHeight, sheetPadding, bladeThickness),
+                "Heuristic" => optimizer.Heuristic(GetPiecesList(), sheetWidth, sheetHeight, sheetPadding, bladeThickness),
+                _ => throw new ArgumentException("Invalid optimization method"),
+            };
+            Pieces.Clear();
+            foreach (var piece in optimizedPieces)
+            {
+                Pieces.Add(piece);
+            }
         }
     }
 }
