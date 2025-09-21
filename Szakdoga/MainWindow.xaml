@@ -12,7 +12,7 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="450*"/>
             <ColumnDefinition Width="1030*"/>
             <ColumnDefinition Width="460"/>
@@ -23,10 +23,13 @@
         </Grid.RowDefinitions>
 
         <!--Piece layout-->
-        <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
-            <Canvas x:Name="PieceCanvas" Margin="28,19,27,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF9C9C9C"/>
-            <Rectangle  Margin="28,19,27,0" Stroke="Black" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <Grid x:Name="CanvGrid" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
+            <Viewbox Stretch="Uniform" StretchDirection="Both" VerticalAlignment="top" HorizontalAlignment="left">
+                <Canvas  x:Name="PieceCanvas" Margin="0,20,0,0" Width="1400" Height="850" VerticalAlignment="top" HorizontalAlignment="left" Background="#FF7D7D7D"/>
+            </Viewbox>
+            <!--<Rectangle x:Name="CanvBorder" Margin="28,19,0,0" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1384" Height="874" />-->
         </Grid>
+
 
         <!--User inputs-->
         <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,10,0,-10">
@@ -48,7 +51,7 @@
             <ListBox Name="PiecesListView" Height="864" Margin="22,20,0,0" VerticalAlignment="Top" ItemsSource="{Binding PieceList}" SelectionChanged="PiecesListView_SelectionChanged" HorizontalAlignment="Left" Width="199"/>
             <Button Content="Delete" Height="44" Margin="0,70,126,0" VerticalAlignment="Top" Click="Delete" Foreground="Red" HorizontalAlignment="Right" Width="109"/>
             <Button Content="Clear all" Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear" Foreground="Red" FontFamily="Arial" BorderBrush="Red" HorizontalAlignment="Right" Width="109"/>
-            <Button Content="Update" Height="44" Margin="0,20.5,126,0" VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
+            <Button Content="Update" Height="44" Margin="0,20,126,0" VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
 
             <!--Settings-->
             <Button Content="Sett" Height="44" Margin="0,20,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="OpenSettings"/>
