@@ -18,12 +18,12 @@ namespace Szakdoga
         public int? Id { get; set; }
         public int? SheetId { get; set; }
         public string? Name { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
+        public double Width { get; set; } // /\
+        public double Height { get; set; } // <->
         public double? x { get; set; }
         public double? y { get; set; }
         public CutDirection CutDirection { get; set; }
-
+        public CutDirection VirtualCutDirection { get; set; }
         public override string ToString()
         {
             return $"{Id}. {Name} : {Height} x {Width}  |  {CutDirection}";

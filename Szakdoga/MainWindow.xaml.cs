@@ -29,19 +29,22 @@ namespace Szakdoga
         Manager manager;
         private DispatcherTimer? resizeTimer;
 
+        int sheetId;
         double _pcw;
         double _pch;
         public MainWindow()
         {
             InitializeComponent();
             SizeChanged += MainWindow_SizeChanged;
-            StateChanged += MainWindow_Maximized;
+            //StateChanged += MainWindow_Maximized;
             manager = new Manager();
             viewModel = new MainViewModel(manager.Pieces);
             this.DataContext = viewModel;
            // var canvas = new Canvas();
             settings = new Settings();
-            
+            sheetId = 1;
+            SheetIdBox.Text = sheetId.ToString();
+
             _pch = PieceCanvas.Height;
             _pcw = PieceCanvas.Width;
         }
@@ -74,7 +77,7 @@ namespace Szakdoga
         }
         private void Optimize(object sender, RoutedEventArgs e)
         {
-            manager.optimize("Test",2800,2080,10,3.2);
+            manager.optimize("Test",2800,2070,10,3.2);
             PlacePieces();
             //dinamikusan gombok létrehozása példa
             //for (int i = 1; i <= 5; i++)
@@ -96,7 +99,7 @@ namespace Szakdoga
             //    ButtonPanel.Children.Add(btn);
             //}
         }
-
+        /*
         private void MainWindow_Maximized(object? sender, EventArgs e)
         {
             if (resizeTimer == null)
@@ -111,7 +114,7 @@ namespace Szakdoga
 
             resizeTimer.Stop();
             resizeTimer.Start(); 
-        }
+        }*/
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.PreviousSize.Width == 0 || e.PreviousSize.Height == 0)
@@ -173,7 +176,10 @@ namespace Szakdoga
                     {
                         foreach (var piece in manager.Pieces)
                         {
-                            sw.WriteLine($"{piece.Id},{piece.Name},{piece.Height},{piece.Width},{piece.CutDirection}");
+                            if (piece.x == null || piece.y == null || piece.SheetId == null)
+                                sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
+                            else
+                                sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x,2)};{Math.Round((double)piece.y,2)};{piece.SheetId}");
                         }
                     }
                     MessageBox.Show("Pieces saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -188,8 +194,7 @@ namespace Szakdoga
 
         private void Load(object sender, RoutedEventArgs e)
         {
-            manager.ClearPieces();
-
+            
             OpenFileDialog saveFileDialog = new OpenFileDialog();
             saveFileDialog.Filter = "Text File|*.txt";
             saveFileDialog.Title = "Save pieces list";
@@ -200,17 +205,25 @@ namespace Szakdoga
                 FileStream fs = (FileStream)saveFileDialog.OpenFile();
                 using (StreamReader sr = new StreamReader(fs))
                 {
+                    manager.ClearPieces();
+                    PieceCanvas.Children.Clear();
                     string line;
                     try
                     {
                         while ((line = sr.ReadLine()) != null)
                         {
-                            var parts = line.Split(',');
+                            var parts = line.Split(';');
                             if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
                             {
                                 CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
                                 string name = parts[1];
                                 manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
+                            }
+                            else if(parts.Length == 8 && int.TryParse(parts[0], out int oid) && double.TryParse(parts[2], out double oheight) && double.TryParse(parts[3], out double owidth) && double.TryParse(parts[5], out double x) && double.TryParse(parts[6], out double y) && double.TryParse(parts[7], out double sheetId))
+                            {
+                                CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
+                                string name = parts[1];
+                                manager.AddPiece(oheight, owidth, cutDirection, name, fromLoad: true, optimised : true, x, y, sheetId);
                             }
                         }
                     }
@@ -236,10 +249,11 @@ namespace Szakdoga
             
             foreach (var piece in manager.Pieces)
             {
-                double wscale = PieceCanvas.ActualHeight / (settings.SheetWidth ?? 2080);
+                double wscale = PieceCanvas.ActualHeight / (settings.SheetWidth ?? 2070);
                 double hscale = PieceCanvas.ActualWidth / (settings.SheetHeight ?? 2800);
-                if (piece.SheetId == 1)
+                if (piece.SheetId == sheetId)
                 {
+                    
                     Rectangle rect = new Rectangle
                     {
                         Width = (piece.Height * hscale),
@@ -254,6 +268,24 @@ namespace Szakdoga
                     
                     PieceCanvas.Children.Add(rect);
                 }
+            }
+        }
+        private void NextSheet(object sender, RoutedEventArgs e)
+        {
+            if (manager.Pieces.Max(p => p.SheetId) > sheetId)
+            {
+                sheetId++;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
+            }
+        }
+        private void PrevSheet(object sender, RoutedEventArgs e)
+        {
+            if (sheetId > 1)
+            {
+                sheetId--;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
             }
         }
         private void Add(object sender, RoutedEventArgs e)
@@ -337,7 +369,9 @@ namespace Szakdoga
             if (MessageBox.Show("Are you sure you want to clear all pieces?", "Confirm Clear", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 manager.ClearPieces();
+                PieceCanvas.Children.Clear();
             }
         }
+
     }  
 }

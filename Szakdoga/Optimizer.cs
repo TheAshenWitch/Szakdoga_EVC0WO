@@ -9,18 +9,18 @@ namespace Szakdoga
 {
     internal class Optimizer
     {
-        public List<Piece> Test(List<Piece> Pieces, double SheetWidth, double SheetHeight, double SheetPadding, double BladeThickness)
+        public List<Piece> Test(List<Piece> Pieces, double SheetX = 2800, double SheetY = 2080, double SheetPadding = 10, double BladeThickness = 3)
         {
+            List<Piece> PiecesRemaining = new List<Piece>(Pieces);
             int _SheetId = 1;
             double CurrentX, CurrentY, TempY;
             CurrentX = CurrentY = TempY = SheetPadding;
             foreach (var piece in Pieces)
             {
-                if(piece.CutDirection == CutDirection.Keresztirány)
+                if(piece.CutDirection == CutDirection.Keresztirány && piece.VirtualCutDirection == CutDirection.Keresztirány)
                 {
-                    double temp = piece.Height;
-                    piece.Height = piece.Width;
-                    piece.Width = temp;
+                    (piece.Height, piece.Width) = (piece.Width, piece.Height);
+                    piece.VirtualCutDirection = CutDirection.Szálirány;
                 }    
             }
             Pieces.Sort((a, b) => 
@@ -30,34 +30,59 @@ namespace Szakdoga
             });
             foreach (var piece in Pieces)
             {
-                if (CurrentX + piece.Height <= SheetWidth - SheetPadding)
+                if (piece.x == null || piece.y == null)
                 {
-                    piece.x = CurrentX;
-                    piece.y = CurrentY;
-                    CurrentX += piece.Height + BladeThickness;
-                    piece.SheetId = _SheetId;
-                    if (piece.Width > TempY)
+                    if (CurrentX + piece.Height <= SheetX - SheetPadding) // sheetheight(x) <->, sheetwidth(y) ↕, piece width(x) <->, piece height(y) ↕
+                    {
+                        piece.x = CurrentX;
+                        piece.y = CurrentY;
+                        CurrentX += piece.Height + BladeThickness;
+                        piece.SheetId = _SheetId;
+                        if (piece.Width > TempY)
+                            TempY = piece.Width;
+                        PiecesRemaining.Remove(piece);
+                    }
+                    else if (CurrentY + TempY + BladeThickness + piece.Width <= SheetY - SheetPadding)
+                    {
+                        Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX));
+                        if (StillFittingPiece != null)
+                        {
+                            var FittedPiece = Pieces.FirstOrDefault(p => p.Id == StillFittingPiece.Id);
+                            FittedPiece!.x = CurrentX;
+                            FittedPiece!.y = CurrentY;
+                            FittedPiece!.SheetId = _SheetId;
+                            PiecesRemaining.Remove(StillFittingPiece);
+                        }
+                        CurrentX = SheetPadding;
+                        CurrentY += TempY + BladeThickness;
+                        piece.x = CurrentX;
+                        piece.y = CurrentY;
+                        piece.SheetId = _SheetId;
+                        CurrentX += piece.Height + BladeThickness;
                         TempY = piece.Width;
-                }
-                else if (CurrentY + TempY + BladeThickness + piece.Width <= SheetHeight - SheetPadding)
-                {
-                    CurrentX = SheetPadding;
-                    CurrentY += TempY + BladeThickness;
-                    piece.x = CurrentX;
-                    piece.y = CurrentY;
-                    piece.SheetId = _SheetId;
-                    CurrentX += piece.Height + BladeThickness;
-                    TempY = piece.Width;
-                }
-                else
-                {
-                    // No more space on the sheet
-                    piece.x = SheetPadding;
-                    piece.y = SheetPadding;
-                    _SheetId++;
+                    }
+                    else
+                    {
+                        // No more space on the sheet
+                        piece.x = SheetPadding;
+                        piece.y = SheetPadding;
+                        TempY = SheetPadding;
+                        CurrentX = SheetPadding;
+                        CurrentY = SheetPadding;
+                        _SheetId++;
+                    }
                 }
             }
             return Pieces;
+        }
+        public Piece? TryFitMorePiece(List<Piece> PiecesRemaining, double RemainingX)
+        {
+            foreach (var piece in PiecesRemaining)
+            {
+                if (piece.Height <= RemainingX)
+                    return piece;
+            }
+            return null;
         }
         public List<Piece> Guillotine(List<Piece> Pieces, double SheetWidth, double SheetHeight, double SheetPadding, double BladeThickness)
         {

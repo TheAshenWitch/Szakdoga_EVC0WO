@@ -19,11 +19,28 @@ namespace Szakdoga
             Pieces = new ObservableCollection<Piece>();
             nextId = 1;
         }
-        public void AddPiece(double height, double width, CutDirection cutDirection, string? name, bool fromLoad = false)
+        public void AddPiece(double height, double width, CutDirection cutDirection, string? name, bool fromLoad = false, bool optimised = false, double x = 0, double y = 0, double sheetId = 0)
         {
-            if ((Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection && p.Name == name) && !fromLoad)
+            if ((Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection && p.Name == name) && !fromLoad && !optimised)
                 && MessageBox.Show("A piece with the same dimensions and cut direction already exists. Continue?", "Duplicate Piece", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No ) 
             {
+                return;
+            }
+            if(fromLoad && optimised)
+            {
+                Piece optimisedPiece = new Piece
+                {
+                    Name = name,
+                    Id = nextId++,
+                    Width = width,
+                    Height = height,
+                    CutDirection = cutDirection,
+                    VirtualCutDirection = cutDirection,
+                    x = x,
+                    y = y,
+                    SheetId = (int)sheetId
+                };
+                Pieces.Add(optimisedPiece);
                 return;
             }
             if (height <= 0 || width <= 0)
@@ -42,7 +59,8 @@ namespace Szakdoga
                 Id = nextId++,
                 Width = width,
                 Height = height,
-                CutDirection = cutDirection
+                CutDirection = cutDirection,
+                VirtualCutDirection = cutDirection
             };
             Pieces.Add(piece);
         }
