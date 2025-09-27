@@ -32,7 +32,7 @@ namespace Szakdoga
             {
                 if (piece.x == null || piece.y == null)
                 {
-                    if (CurrentX + piece.Height <= SheetX - SheetPadding) // sheetheight(x) <->, sheetwidth(y) ↕, piece width(x) <->, piece height(y) ↕
+                    if (CurrentX + piece.Height <= SheetX - SheetPadding && piece.Width + CurrentY < SheetY) // sheetheight(x) <->, sheetwidth(y) ↕, piece width(x) <->, piece height(y) ↕
                     {
                         piece.x = CurrentX;
                         piece.y = CurrentY;
@@ -44,8 +44,8 @@ namespace Szakdoga
                     }
                     else if (CurrentY + TempY + BladeThickness + piece.Width <= SheetY - SheetPadding)
                     {
-                        Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX));
-                        if (StillFittingPiece != null)
+                        Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX), TempY);
+                        if (StillFittingPiece != null )
                         {
                             var FittedPiece = Pieces.FirstOrDefault(p => p.Id == StillFittingPiece.Id);
                             FittedPiece!.x = CurrentX;
@@ -75,11 +75,11 @@ namespace Szakdoga
             }
             return Pieces;
         }
-        public Piece? TryFitMorePiece(List<Piece> PiecesRemaining, double RemainingX)
+        public Piece? TryFitMorePiece(List<Piece> PiecesRemaining, double RemainingX, double RemainingY)
         {
             foreach (var piece in PiecesRemaining)
             {
-                if (piece.Height <= RemainingX)
+                if (piece.Height <= RemainingX && piece.Width <= RemainingY)
                     return piece;
             }
             return null;
