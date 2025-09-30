@@ -104,6 +104,12 @@ namespace Szakdoga
                 MessageBox.Show("No pieces to optimize.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            foreach (var piece in Pieces)
+            {
+                piece.x = null;
+                piece.y = null;
+                piece.SheetId = null;
+            }
             Optimizer optimizer = new Optimizer();
             List<Piece> optimizedPieces = method switch
             {

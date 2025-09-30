@@ -23,5 +23,18 @@ namespace Szakdoga
         {
             InitializeComponent();
         }
+
+        public SettingsWindow(Settings settings)
+        {
+            InitializeComponent();
+            SheetHeight.Text = settings.SheetHeight.ToString();
+            SheetWidth.Text = settings.SheetWidth.ToString();
+            BladeThickness.Text = settings.BladeThickness.ToString();
+            SheetPadding.Text = settings.SheetPadding.ToString();
+            SheetColor.Text = settings.SheetColor;
+            SheetManufacturer.Text = settings.SheetManufacturer;
+            SheetPrice.Text = settings.SheetPrice.ToString();
+            EdgeSealingPrice.Text = settings.EdgeSealingPrice.ToString();
+        }
     }
 }

@@ -25,9 +25,9 @@ namespace Szakdoga
     public partial class MainWindow : Window
     {
         public static Settings settings;
+        public static Statistics statistics;
         MainViewModel viewModel;
         Manager manager;
-        private DispatcherTimer? resizeTimer;
 
         int sheetId;
         double _pcw;
@@ -35,22 +35,20 @@ namespace Szakdoga
         public MainWindow()
         {
             InitializeComponent();
-            SizeChanged += MainWindow_SizeChanged;
-            //StateChanged += MainWindow_Maximized;
             manager = new Manager();
-            viewModel = new MainViewModel(manager.Pieces);
-            this.DataContext = viewModel;
-           // var canvas = new Canvas();
             settings = new Settings();
+            statistics = new Statistics();
+            viewModel = new MainViewModel(manager.Pieces);
+
+            DataContext = viewModel;
             sheetId = 1;
+            
+            SizeChanged += MainWindow_SizeChanged;
             SheetIdBox.Text = sheetId.ToString();
 
             _pch = PieceCanvas.Height;
             _pcw = PieceCanvas.Width;
-        }
-        public void LoadSetting()
-        {
-            // logic when settings is good
+            //StateChanged += MainWindow_Maximized;
         }
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
         {
@@ -77,72 +75,44 @@ namespace Szakdoga
         }
         private void Optimize(object sender, RoutedEventArgs e)
         {
-            manager.optimize("Test",2800,2070,10,3.2);
+            manager.optimize("Test", (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
+            sheetId = 1;
             PlacePieces();
-            //dinamikusan gombok létrehozása példa
-            //for (int i = 1; i <= 5; i++)
-            //{
-            //    var btn = new Button
-            //    {
-            //        Content = $"Gomb {i}",
-            //        Width = 100,
-            //        Margin = new Thickness(5)
-            //    };
-
-            //    // eseménykezelő hozzáadása
-            //    btn.Click += (s, e) =>
-            //    {
-            //        MessageBox.Show($"Megnyomtad a {((Button)s).Content} gombot");
-            //    };
-
-            //    // hozzáadjuk a panelhez
-            //    ButtonPanel.Children.Add(btn);
-            //}
+            SheetIdBox.Text = sheetId.ToString();
+            statistics.CalculateStatistics(manager.Pieces, settings);
+            statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
         }
-        /*
-        private void MainWindow_Maximized(object? sender, EventArgs e)
-        {
-            if (resizeTimer == null)
-            {
-                resizeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
-                resizeTimer.Tick += (s, args) =>
-                {
-                    resizeTimer.Stop();
-                    PlacePieces();
-                };
-            }
 
-            resizeTimer.Stop();
-            resizeTimer.Start(); 
-        }*/
+
+        //ez amúgy nem kell
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.PreviousSize.Width == 0 || e.PreviousSize.Height == 0)
                 return;
 
-            double wscale = _pcw / PieceCanvas.Width;// e.NewSize.Width / e.PreviousSize.Width;
-            double hscale = _pch / PieceCanvas.Height; // e.NewSize.Height / e.PreviousSize.Height;
-            _pcw = PieceCanvas.Width;
-            _pch = PieceCanvas.Height;
-            foreach (var child in PieceCanvas.Children.OfType<Rectangle>())
-            {
-                double left = Canvas.GetLeft(child);
-                double top = Canvas.GetTop(child);
-                if (e.PreviousSize.Width != e.NewSize.Width)
-                {
-                    child.Width = child.Width * wscale;
-                    child.Height = child.Height * wscale;
-                    Canvas.SetTop(child, top * wscale);
-                    Canvas.SetLeft(child, left * wscale);
-                }
-                else if (e.PreviousSize.Height != e.NewSize.Height)
-                {
-                    child.Height = child.Height * hscale;
-                    child.Width = child.Width * hscale;
-                    Canvas.SetLeft(child, left * hscale);
-                    Canvas.SetTop(child, top * hscale);
-                }
-            }
+            //double wscale = _pcw / PieceCanvas.Width;// e.NewSize.Width / e.PreviousSize.Width;
+            //double hscale = _pch / PieceCanvas.Height; // e.NewSize.Height / e.PreviousSize.Height;
+            //_pcw = PieceCanvas.Width;
+            //_pch = PieceCanvas.Height;
+            //foreach (var child in PieceCanvas.Children.OfType<Rectangle>())
+            //{
+            //    double left = Canvas.GetLeft(child);
+            //    double top = Canvas.GetTop(child);
+            //    if (e.PreviousSize.Width != e.NewSize.Width)
+            //    {
+            //        child.Width = child.Width * wscale;
+            //        child.Height = child.Height * wscale;
+            //        Canvas.SetTop(child, top * wscale);
+            //        Canvas.SetLeft(child, left * wscale);
+            //    }
+            //    else if (e.PreviousSize.Height != e.NewSize.Height)
+            //    {
+            //        child.Height = child.Height * hscale;
+            //        child.Width = child.Width * hscale;
+            //        Canvas.SetLeft(child, left * hscale);
+            //        Canvas.SetTop(child, top * hscale);
+            //    }
+            //}
         }
 
         private void PiecesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -238,22 +208,34 @@ namespace Szakdoga
 
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            SettingsWindow settings = new SettingsWindow();
-            settings.Show();
+            SettingsWindow settingsWindow = new SettingsWindow(settings);
+
+            settingsWindow.Closed += (s, ev) =>
+            {
+                settings.SheetWidth = Convert.ToDouble(settingsWindow.SheetWidth.Text);
+                settings.SheetHeight = Convert.ToDouble(settingsWindow.SheetHeight.Text);
+                settings.BladeThickness = Convert.ToDouble(settingsWindow.BladeThickness.Text);
+                settings.SheetPadding = Convert.ToDouble(settingsWindow.SheetPadding.Text);
+                settings.SheetColor = settingsWindow.SheetColor.Text;
+                settings.SheetManufacturer = settingsWindow.SheetManufacturer.Text;
+                settings.SheetPrice = Convert.ToDouble(settingsWindow.SheetPrice.Text);
+                settings.EdgeSealingPrice = Convert.ToDouble(settingsWindow.EdgeSealingPrice.Text);
+            };
             
+            settingsWindow.Show();
+
         }
 
         public void PlacePieces()
         {
             PieceCanvas.Children.Clear();
             
+            double wscale = PieceCanvas.ActualHeight / (double)settings.SheetHeight;
+            double hscale = PieceCanvas.ActualWidth / (double)settings.SheetWidth;
             foreach (var piece in manager.Pieces)
             {
-                double wscale = PieceCanvas.ActualHeight / (settings.SheetWidth ?? 2070);
-                double hscale = PieceCanvas.ActualWidth / (settings.SheetHeight ?? 2800);
                 if (piece.SheetId == sheetId)
                 {
-                    
                     Rectangle rect = new Rectangle
                     {
                         Width = (piece.Height * hscale),
@@ -263,8 +245,8 @@ namespace Szakdoga
                         StrokeThickness = 1,
                         ToolTip = $"ID: {piece.Id}\nName: {piece.Name}\nHeight: {piece.Height}\nWidth: {piece.Width}\nDirection: {piece.CutDirection}"
                     };
-                    Canvas.SetLeft(rect, (piece.x * hscale) ?? 0);
-                    Canvas.SetTop(rect, (piece.y * wscale) ?? 0);
+                    Canvas.SetLeft(rect, (double)(piece.x * hscale)!);
+                    Canvas.SetTop(rect, (double)(piece.y * wscale)!);
                     
                     PieceCanvas.Children.Add(rect);
                 }
@@ -277,6 +259,7 @@ namespace Szakdoga
                 sheetId++;
                 PlacePieces();
                 SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
             }
         }
         private void PrevSheet(object sender, RoutedEventArgs e)
@@ -286,6 +269,7 @@ namespace Szakdoga
                 sheetId--;
                 PlacePieces();
                 SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
             }
         }
         private void Add(object sender, RoutedEventArgs e)
@@ -356,6 +340,7 @@ namespace Szakdoga
                 PiecesListView.Items.Refresh();
             }
         }
+
         public void Delete(object sender, RoutedEventArgs e)
         {
             if (PiecesListView.SelectedItem is Piece selectedPiece)

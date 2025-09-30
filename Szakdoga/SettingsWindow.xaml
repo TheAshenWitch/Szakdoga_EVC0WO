@@ -6,15 +6,122 @@
         xmlns:local="clr-namespace:Szakdoga"
         mc:Ignorable="d"
         Title="Settings" Height="450" Width="800" Background="#FF9C9C9C">
-    <Grid>
-        <Label Content="Magasság" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Name="SheetHeight"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" Height="21" ToolTip="mm"/>
-        <Label Content="Szélesség" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Name="SheetWidth"/>
-        <TextBox HorizontalAlignment="Left" Margin="78,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" Height="21" ToolTip="mm"/>
-        <Label Content="BT" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Name="BladeThickness"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" Height="21" ToolTip="mm"/>
-        <Label Content="Ráhagyás" HorizontalAlignment="Left" Margin="78,62,0,0" VerticalAlignment="Top" Name="SheetPadding"/>
-        <TextBox HorizontalAlignment="Left" Margin="78,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="63" Height="21" ToolTip="mm"/>
 
+    <Window.Resources>
+        <Style x:Key="SunMoonToggleStyle" TargetType="ToggleButton">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Border x:Name="SwitchBackground" CornerRadius="25" Background="{TemplateBinding Background}">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black" ShadowDepth="1" BlurRadius="3"/>
+                                </Border.Effect>
+                            </Border>
+
+                            <Grid>
+                                <Ellipse x:Name="SunIcon" Width="24" Height="24" Fill="Yellow"
+                                         HorizontalAlignment="Left" Margin="8,0,0,0" VerticalAlignment="Center" Opacity="1">
+                                    <Ellipse.Effect>
+                                        <DropShadowEffect Color="Gold" BlurRadius="8" ShadowDepth="0"/>
+                                    </Ellipse.Effect>
+                                </Ellipse>
+                                <Grid HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Center" Width="24" Height="24">
+                                    <Ellipse x:Name="MoonFull" Width="24" Height="24" Fill="LightBlue" Opacity="0.6"/>
+                                    <Ellipse x:Name="MoonMask" Width="24" Height="24" Fill="#FF333333" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </Grid>
+
+                            <Ellipse x:Name="Knob" Width="40" Height="40" Fill="White" Margin="3.5"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="3.5" ShadowDepth="1"/>
+                                </Ellipse.Effect>
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform x:Name="KnobTransform" X="0"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="KnobTransform"
+                                                             Storyboard.TargetProperty="X"
+                                                             To="65" Duration="0:0:0.25" />
+                                            <ColorAnimation Storyboard.TargetName="SwitchBackground"
+                                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                            To="#FF4A90E2" Duration="0:0:0.25"/>
+                                            <DoubleAnimation Storyboard.TargetName="SunIcon"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0.7" Duration="0:0:0.25"/>
+                                            <DoubleAnimation Storyboard.TargetName="MoonFull"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" Duration="0:0:0.25"/>
+                                            <DoubleAnimation Storyboard.TargetName="MoonMask"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="KnobTransform"
+                                                             Storyboard.TargetProperty="X"
+                                                             To="0" Duration="0:0:0.25" />
+                                            <ColorAnimation Storyboard.TargetName="SwitchBackground"
+                                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                            To="LightGray" Duration="0:0:0.25"/>
+                                            <DoubleAnimation Storyboard.TargetName="SunIcon"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" Duration="0:0:0.25"/>
+                                            <DoubleAnimation Storyboard.TargetName="MoonFull"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0.6" Duration="0:0:0.25"/>
+                                            <DoubleAnimation Storyboard.TargetName="MoonMask"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1" Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TextBox Name="SheetWidth" HorizontalAlignment="Left" Margin="10,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="SheetHeight" HorizontalAlignment="Left" Margin="100,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="BladeThickness" HorizontalAlignment="Left" Margin="10,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="SheetPadding" HorizontalAlignment="Left" Margin="100,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="SheetPrice" HorizontalAlignment="Left" Margin="10,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="EdgeSealingPrice" HorizontalAlignment="Left" Margin="100,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="SheetColor" HorizontalAlignment="Left" Margin="14,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <TextBox Name="SheetManufacturer" HorizontalAlignment="Left" Margin="104,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" Height="28" ToolTip="mm" FontSize="18"/>
+        <Label Content="Szélesség" HorizontalAlignment="Left" Margin="3,8,0,0" VerticalAlignment="Top" Height="35" Width="98" FontSize="18"/>
+        <Label Content="Magasság" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Height="35" Width="88" FontSize="18"/>
+        <Label Content="BT" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Height="35" Width="30" FontSize="18"/>
+        <Label Content="Ráhagyás" HorizontalAlignment="Left" Margin="100,79,0,0" VerticalAlignment="Top" Height="35" Width="88" FontSize="18" />
+        <Label Content="Lap ár" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Height="35" Width="64" FontSize="18"/>
+        <Label Content="Élzáró ár" HorizontalAlignment="Left" Margin="100,152,0,0" VerticalAlignment="Top" Height="35" Width="84" FontSize="18"/>
+        <Label Content="Lap szín" HorizontalAlignment="Left" Margin="14,221,0,0" VerticalAlignment="Top" Height="35" Width="80" FontSize="18"/>
+        <Label Content="Lap gyártó" HorizontalAlignment="Left" Margin="104,221,0,0" VerticalAlignment="Top" Height="35" Width="98" FontSize="18"/>
+        <ComboBox Width="159" Height="33" SelectedIndex="0" Margin="0,0,394,287" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="2" FontSize="18">
+            <ComboBoxItem>Hu</ComboBoxItem>
+            <ComboBoxItem>En</ComboBoxItem>
+        </ComboBox>
+        <ToggleButton Style="{StaticResource SunMoonToggleStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,442,352" Height="46" Width="111"/>
     </Grid>
 </Window>

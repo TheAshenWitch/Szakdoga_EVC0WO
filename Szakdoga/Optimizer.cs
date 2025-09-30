@@ -9,7 +9,7 @@ namespace Szakdoga
 {
     internal class Optimizer
     {
-        public List<Piece> Test(List<Piece> Pieces, double SheetX = 2800, double SheetY = 2080, double SheetPadding = 10, double BladeThickness = 3)
+        public List<Piece> Test(List<Piece> Pieces, double SheetX = 2800, double SheetY = 2070, double SheetPadding = 10, double BladeThickness = 3)
         {
             List<Piece> PiecesRemaining = new List<Piece>(Pieces);
             int _SheetId = 1;
@@ -25,8 +25,8 @@ namespace Szakdoga
             }
             Pieces.Sort((a, b) => 
             {
-                int heightComparison = b.Height.CompareTo(a.Height);
-                return heightComparison != 0 ? heightComparison : b.Width.CompareTo(a.Width);
+                int widthComparison = b.Width.CompareTo(a.Width);
+                return widthComparison != 0 ? widthComparison : b.Height.CompareTo(a.Height);
             });
             foreach (var piece in Pieces)
             {
