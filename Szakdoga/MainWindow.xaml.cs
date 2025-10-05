@@ -32,6 +32,7 @@ namespace Szakdoga
         int sheetId;
         double _pcw;
         double _pch;
+        string OptMode;
         public MainWindow()
         {
             InitializeComponent();
@@ -48,8 +49,10 @@ namespace Szakdoga
 
             _pch = PieceCanvas.Height;
             _pcw = PieceCanvas.Width;
+            OptMode = "Test";
             //StateChanged += MainWindow_Maximized;
         }
+        
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
         {
             private CutDirection _direction;
@@ -73,9 +76,17 @@ namespace Szakdoga
             protected void OnPropertyChanged(string nev) =>
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nev));
         }
+        private void OptSelected(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton rb)
+            {
+                OptMode = rb.Content.ToString()!;
+            }
+        }
         private void Optimize(object sender, RoutedEventArgs e)
         {
-            manager.optimize("Test", (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
+            manager.optimize(OptMode, (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
+            //manager.optimize("Guillotine", (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
             sheetId = 1;
             PlacePieces();
             SheetIdBox.Text = sheetId.ToString();
@@ -261,12 +272,26 @@ namespace Szakdoga
                 SheetIdBox.Text = sheetId.ToString();
                 statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
             }
+            else
+            {
+                sheetId = 1;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
+            }
         }
         private void PrevSheet(object sender, RoutedEventArgs e)
         {
             if (sheetId > 1)
             {
                 sheetId--;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
+            }
+            else
+            {
+                sheetId = manager.Pieces.Max(p => p.SheetId) ?? 1;
                 PlacePieces();
                 SheetIdBox.Text = sheetId.ToString();
                 statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
