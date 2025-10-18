@@ -1,27 +1,22 @@
 ﻿using Microsoft.Win32;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Xps;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
+using System.Printing;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 
 namespace Szakdoga
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
     public partial class MainWindow : Window
     {
         public static Settings settings;
@@ -51,6 +46,8 @@ namespace Szakdoga
             _pcw = PieceCanvas.Width;
             OptMode = "Test";
             //StateChanged += MainWindow_Maximized;
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
         
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
@@ -76,6 +73,7 @@ namespace Szakdoga
             protected void OnPropertyChanged(string nev) =>
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nev));
         }
+       
         private void OptSelected(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton rb)
@@ -83,6 +81,7 @@ namespace Szakdoga
                 OptMode = rb.Content.ToString()!;
             }
         }
+        
         private void Optimize(object sender, RoutedEventArgs e)
         {
             manager.optimize(OptMode, (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
@@ -90,10 +89,173 @@ namespace Szakdoga
             sheetId = 1;
             PlacePieces();
             SheetIdBox.Text = sheetId.ToString();
-            statistics.CalculateStatistics(manager.Pieces, settings);
-            statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
+            FillStatistics();
+            FillStatisticsThisSheet();
+            //statistics.CalculateStatistics(manager.Pieces, settings);
+            //statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
         }
 
+        private void Export(object sender, RoutedEventArgs e)
+        {
+            if (PieceCanvas.Children.Count == 0)
+            {
+                MessageBox.Show("To export, optimize first", "Export error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            int maxSheet = (int)manager.Pieces.Max(m => m.SheetId)!;
+            double scalePercent = 0.7;     // 80% méret
+            double offsetXPercent = 0.01;  // 1% balról
+            double offsetYPercent = 0.01;  // 1% felülről
+
+            using (PdfDocument pdf = new PdfDocument())
+            {
+                for (int i = 1; i <= maxSheet; i++)
+                {
+                    NextSheet();
+
+                    double canvasWidth = PieceCanvas.ActualWidth;
+                    double canvasHeight = PieceCanvas.ActualHeight;
+
+
+
+                    RenderTargetBitmap rtb = new RenderTargetBitmap(
+                        (int)canvasWidth,
+                        (int)canvasHeight,
+                        96, 96,
+                        PixelFormats.Pbgra32);
+
+                    // Ideiglenes cache a gyorsabb renderhez
+                    var oldCache = PieceCanvas.CacheMode;
+                    PieceCanvas.CacheMode = new BitmapCache();
+
+                    // FONTOS: Canvas teljes elrendezés frissítése
+                    PieceCanvas.Measure(new System.Windows.Size(PieceCanvas.ActualWidth, PieceCanvas.ActualHeight));
+                    PieceCanvas.Arrange(new System.Windows.Rect(0, 0, PieceCanvas.ActualWidth, PieceCanvas.ActualHeight));
+                    PieceCanvas.UpdateLayout();
+
+                    // Render a bitmapre
+                    rtb.Render(PieceCanvas);
+
+                    PieceCanvas.CacheMode = oldCache;
+
+
+                    PdfPage page = pdf.AddPage();
+                    page.Width = canvasWidth;
+                    page.Height = canvasHeight;
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                    using (XImage img = XImage.FromBitmapSource(rtb))
+                    {
+                        // Skálázás a PDF oldalon
+                        double scaledWidth = page.Width * scalePercent;
+                        double scaledHeight = page.Height * scalePercent;
+
+                        double offsetX = page.Width * offsetXPercent;
+                        double offsetY = page.Height * offsetYPercent;
+
+                        gfx.DrawImage(img, offsetX, offsetY, scaledWidth, scaledHeight);
+
+                        var sheetPieces = manager.Pieces.Where(p => p.SheetId == sheetId).ToList();
+                        int totalItems = sheetPieces.Count;
+
+                        // Oszlopszám meghatározása
+                        int columns = 1;
+                        if (totalItems > 150)
+                            columns = 3;
+                        else if (totalItems > 75)
+                            columns = 2;
+
+                        int rowsPerColumn = (int)Math.Ceiling((double)totalItems / columns);
+
+                        XFont font = new XFont("Arial", 9, XFontStyle.Regular);
+                        double lineSpacing = font.Size * 1.2;
+
+                        double listOffsetX = offsetX + scaledWidth + 10; // kezdő X koordináta
+                        double listOffsetY = offsetY;
+
+                        for (int j = 0; j < totalItems; j++)
+                        {
+                            int column = j / rowsPerColumn;
+                            int row = j % rowsPerColumn;
+
+                            double x = listOffsetX + column * 150; // 150 pont távolság oszloponként, állítható
+                            double y = listOffsetY + row * lineSpacing;
+
+                            var piece = sheetPieces[j];
+                            string line = $"{piece.Name}  W:{piece.Width}  H:{piece.Height}";
+
+                            gfx.DrawString(line, font, XBrushes.Black, new XPoint(x, y));
+                        }
+                    }
+
+                    // RenderTargetBitmap elengedése memória felszabadításra
+                    rtb.Clear();
+                    rtb = null;
+                }
+
+                // Mentés
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "PDF File|*.pdf",
+                    Title = "Cut diagram"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write))
+                    {
+                        pdf.Save(fs);
+                    }
+                }
+            }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+
+
+
+
+        private void FillStatistics()
+        {
+            statistics.CalculateStatistics(manager.Pieces, settings);
+            NoOfSheets.Text = statistics.NumberOfSheets.ToString();
+            NoOfPices.Text = statistics.NumberOfPieces.ToString();
+            TotalAreaOfPieces.Text = statistics.PiecesArea.ToString() + " m2";
+            TotalWasteArea.Text = statistics.WasteArea.ToString() + " m2";
+            MaterialUtilization.Text = statistics.MaterialUtilization.ToString() + " %";
+            TotalCutLength.Text = statistics.TotalCutLength.ToString() + " m";
+            EdgeSealingNeeded.Text = statistics.EdgeSealingNeeded.ToString() + " m";
+            TotalSheetCost.Text = statistics.TotalSheetCost.ToString() + " " + settings.Currency;
+            TotalEdgeSealingCost.Text = statistics.TotalEdgeSealingCost.ToString() + " " + settings.Currency;
+            TotalCost.Text = statistics.TotalCost.ToString() + " " + settings.Currency;
+        }
+        
+        private void FillStatisticsThisSheet()
+        {
+            statistics.CalculateStatisticsForSheet(manager.Pieces, settings,sheetId);
+            PiecesThisSheet.Text = statistics.PiecesThisSheet.ToString();
+            MaterialUtilThisSheet.Text = statistics.MaterialUtilizationThisSheet.ToString() + " %";
+            WasteAreaThisShet.Text = statistics.WasteAreaThisSheet.ToString() + " m2";
+        }
+        
+        private void ClearStatistics()
+        {
+            NoOfSheets.Clear();
+            NoOfPices.Clear();
+            TotalAreaOfPieces.Clear();
+            TotalWasteArea.Clear();
+            MaterialUtilization.Clear();
+            TotalCutLength.Clear();
+            EdgeSealingNeeded.Clear();
+            TotalSheetCost.Clear();
+            TotalEdgeSealingCost.Clear();
+            TotalCost.Clear();
+            PiecesThisSheet.Clear();
+            MaterialUtilThisSheet.Clear();
+            WasteAreaThisShet.Clear();
+        }
 
         //ez amúgy nem kell
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -263,6 +425,7 @@ namespace Szakdoga
                 }
             }
         }
+        
         private void NextSheet(object sender, RoutedEventArgs e)
         {
             if (manager.Pieces.Max(p => p.SheetId) > sheetId)
@@ -279,7 +442,27 @@ namespace Szakdoga
                 SheetIdBox.Text = sheetId.ToString();
                 statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
             }
+            FillStatisticsThisSheet();
         }
+        private void NextSheet()
+        {
+            if (manager.Pieces.Max(p => p.SheetId) > sheetId)
+            {
+                sheetId++;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
+            }
+            else
+            {
+                sheetId = 1;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
+            }
+            FillStatisticsThisSheet();
+        }
+
         private void PrevSheet(object sender, RoutedEventArgs e)
         {
             if (sheetId > 1)
@@ -296,7 +479,9 @@ namespace Szakdoga
                 SheetIdBox.Text = sheetId.ToString();
                 statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
             }
+            FillStatisticsThisSheet();
         }
+
         private void Add(object sender, RoutedEventArgs e)
         {
             if(HeighgtTxt.Text == string.Empty || WidthTxt.Text == string.Empty)
@@ -380,6 +565,7 @@ namespace Szakdoga
             {
                 manager.ClearPieces();
                 PieceCanvas.Children.Clear();
+                ClearStatistics();
             }
         }
 

@@ -13,4 +13,9 @@
     <Content Include="ikon.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="PdfSharp.Xps" Version="1.0.0" />
+    <PackageReference Include="PdfSharpCore" Version="1.3.67" />
+  </ItemGroup>
+
 </Project>

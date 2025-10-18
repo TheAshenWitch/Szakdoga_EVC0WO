@@ -26,7 +26,7 @@
         <!--Piece layout-->
         <Grid x:Name="CanvGrid" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
             <Viewbox Stretch="Uniform" StretchDirection="Both" VerticalAlignment="top" HorizontalAlignment="left">
-                <Canvas  x:Name="PieceCanvas" Margin="0,20,0,0" Width="1400" Height="850" VerticalAlignment="top" HorizontalAlignment="left" Background="Black"/>
+                <Canvas  x:Name="PieceCanvas" Margin="0,20,0,0" Width="1400" Height="850" VerticalAlignment="top" HorizontalAlignment="left" Background="#FF5F5F5F"/>
             </Viewbox>
             <!--<Rectangle x:Name="CanvBorder" Margin="28,19,0,0" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1384" Height="874" />-->
         </Grid>
@@ -53,10 +53,11 @@
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="0">
-            <ListBox Name="PiecesListView" Height="864" Margin="22,20,0,0" VerticalAlignment="Top" ItemsSource="{Binding PieceList}" SelectionChanged="PiecesListView_SelectionChanged" HorizontalAlignment="Left" Width="199"/>
-            <Button Content="Delete"    Height="44" Margin="0,70,126,0"  VerticalAlignment="Top" Click="Delete" HorizontalAlignment="Right" Width="109" Foreground="Red"/>
-            <Button Content="Clear all" Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear"  HorizontalAlignment="Right" Width="109" Foreground="Red" BorderBrush="Red" FontFamily="Arial"/>
-            <Button Content="Update"    Height="44" Margin="0,20,126,0"  VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
+            <ListBox Name="PiecesListView"  Height="864" Margin="22,20,0,0"  VerticalAlignment="Top" ItemsSource="{Binding PieceList}" SelectionChanged="PiecesListView_SelectionChanged" HorizontalAlignment="Left" Width="199"/>
+            <Button Content="Delete"        Height="44" Margin="0,70,126,0"  VerticalAlignment="Top" Click="Delete" HorizontalAlignment="Right" Width="109" Foreground="Red"/>
+            <Button Content="Clear all"     Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear"  HorizontalAlignment="Right" Width="109" Foreground="Red" BorderBrush="Red" FontFamily="Arial"/>
+            <Button Content="Update"        Height="44" Margin="0,20,126,0"  VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
+            <Button Content="Export"        Height="44" Margin="0,169,126,0" VerticalAlignment="Top" Click="Export" HorizontalAlignment="Right" Width="109"/>
 
             <!--Settings-->
             <Button Content="Sett" Height="44" Margin="0,20,6,0"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="OpenSettings"/>
@@ -66,6 +67,36 @@
             <RadioButton Content="Test"         HorizontalAlignment="Left" Height="15" Margin="339,218,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected" IsChecked="True"/>
             <RadioButton Content="Guillotine"   HorizontalAlignment="Left" Height="15" Margin="339,233,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected"/>
             <RadioButton Content="Heuristic"    HorizontalAlignment="Left" Height="15" Margin="339,248,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected"/>
+
+            <!--Statistics-->
+            <Border BorderBrush="Black" BorderThickness="1" Margin="229,272,6,0" Height="564" VerticalAlignment="Top"/>
+            <Label Content="Statistics" Margin="347,272,6,0" VerticalAlignment="Top" FontSize="24"/>
+            <TextBox Name="NoOfSheets" HorizontalAlignment="Left" Height="35" Margin="343,316,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Number of&#xD;&#xA;sheets" HorizontalAlignment="Left" Height="40" Margin="230,311,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="NoOfPices"  HorizontalAlignment="Left" Height="35" Margin="343,356,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Number of&#xA;peices" HorizontalAlignment="Left" Height="45" Margin="230,351,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="TotalAreaOfPieces" HorizontalAlignment="Left" Height="35" Margin="343,396,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Total area of&#xA;pieces" HorizontalAlignment="Left" Height="45" Margin="230,391,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="TotalWasteArea" HorizontalAlignment="Left" Height="35" Margin="343,436,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Total waste&#xA;area" HorizontalAlignment="Left" Height="40" Margin="230,431,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="MaterialUtilization" HorizontalAlignment="Left" Height="35" Margin="343,476,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Material&#xA;utilization" HorizontalAlignment="Left" Height="40" Margin="230,471,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="TotalCutLength" HorizontalAlignment="Left" Height="35" Margin="343,516,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Total cut&#xA;length" HorizontalAlignment="Left" Height="43" Margin="230,511,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="EdgeSealingNeeded" HorizontalAlignment="Left" Height="35" Margin="343,556,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Edge sealing&#xA;needed" HorizontalAlignment="Left" Height="40" Margin="230,551,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="TotalSheetCost" HorizontalAlignment="Left" Height="35" Margin="343,596,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Total sheet&#xA;cost" HorizontalAlignment="Left" Height="40" Margin="230,591,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="TotalEdgeSealingCost" HorizontalAlignment="Left" Height="35" Margin="343,636,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Total edge&#xA;sealing cost" HorizontalAlignment="Left" Height="45" Margin="230,631,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="TotalCost" HorizontalAlignment="Left" Height="35" Margin="343,676,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Total cost" HorizontalAlignment="Left" Height="40" Margin="230,671,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
+            <TextBox Name="PiecesThisSheet" HorizontalAlignment="Left" Height="35" Margin="343,716,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Pieces this&#xA;sheet" HorizontalAlignment="Left" Height="40" Margin="230,711,0,0" VerticalAlignment="Top" Width="101"/>
+            <TextBox Name="MaterialUtilThisSheet" HorizontalAlignment="Left" Height="35" Margin="343,756,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Material utilization&#xA;this sheet" HorizontalAlignment="Left" Height="40" Margin="230,751,0,0" VerticalAlignment="Top" Width="113"/>
+            <TextBox Name="WasteAreaThisShet" HorizontalAlignment="Left" Height="35" Margin="343,796,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
+            <Label Content="Waste area&#xA;this sheet" HorizontalAlignment="Left" Height="40" Margin="230,791,0,0" VerticalAlignment="Top" Width="101"/>
         </Grid>
 
 

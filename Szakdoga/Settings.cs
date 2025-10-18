@@ -18,5 +18,6 @@ namespace Szakdoga
         public string? SheetManufacturer { get; set; }
         public double? SheetPrice { get; set; } = 10000.0; //default 0
         public double? EdgeSealingPrice { get; set; } = 150.0; //default 0
+        public string? Currency { get; set; } = "Huf";
     }
 }
