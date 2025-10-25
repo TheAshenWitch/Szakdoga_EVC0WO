@@ -1,23 +1,15 @@
 ﻿using Microsoft.Win32;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using PdfSharp.Xps;
-using Svg;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
-using System.Printing;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Xps;
-using System.Windows.Xps.Packaging;
-using System.Windows.Interop;
+
 
 namespace Szakdoga
 {
