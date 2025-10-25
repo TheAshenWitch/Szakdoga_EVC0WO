@@ -44,5 +44,21 @@ namespace Szakdoga
             MaterialUtilizationThisSheet = Math.Round((double)((pieces.Where(p => p.SheetId == _sheetId).Sum(p => p.Height * p.Width) * 100000) / (settings.SheetWidth * settings.SheetHeight) * 100)! /100000, 2);
             WasteAreaThisSheet = (double)((settings.SheetWidth * settings.SheetHeight) - pieces.Where(p => p.SheetId == _sheetId).Sum(p => p.Height * p.Width))! / 1000000; 
         }
+        public void ClearStatistics()
+        {
+            NumberOfSheets = 0;
+            NumberOfPieces = 0;
+            PiecesArea = 0;
+            WasteArea = 0;
+            MaterialUtilization = 0;
+            TotalCutLength = 0;
+            EdgeSealingNeeded = 0;
+            TotalSheetCost = 0;
+            TotalEdgeSealingCost = 0;
+            TotalCost = 0;
+            PiecesThisSheet = 0;
+            MaterialUtilizationThisSheet = 0;
+            WasteAreaThisSheet = 0;
+        }
     }
 }

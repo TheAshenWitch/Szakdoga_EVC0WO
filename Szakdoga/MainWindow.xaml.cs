@@ -2,10 +2,13 @@
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Xps;
+using Svg;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Printing;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
+using System.Windows.Interop;
 
 namespace Szakdoga
 {
@@ -89,8 +93,13 @@ namespace Szakdoga
             sheetId = 1;
             PlacePieces();
             SheetIdBox.Text = sheetId.ToString();
-            FillStatistics();
-            FillStatisticsThisSheet();
+            try
+            {
+                FillStatistics();
+                FillStatisticsThisSheet();
+            }
+            catch (Exception ex)
+            {}
             //statistics.CalculateStatistics(manager.Pieces, settings);
             //statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
         }
@@ -104,20 +113,18 @@ namespace Szakdoga
             }
 
             int maxSheet = (int)manager.Pieces.Max(m => m.SheetId)!;
+            sheetId = 1;
             double scalePercent = 0.7;     // 80% méret
             double offsetXPercent = 0.01;  // 1% balról
             double offsetYPercent = 0.01;  // 1% felülről
-
+            ProgressBarWindow progbar = new ProgressBarWindow(1, maxSheet);
+            progbar.Show();
             using (PdfDocument pdf = new PdfDocument())
             {
                 for (int i = 1; i <= maxSheet; i++)
                 {
-                    NextSheet();
-
                     double canvasWidth = PieceCanvas.ActualWidth;
                     double canvasHeight = PieceCanvas.ActualHeight;
-
-
 
                     RenderTargetBitmap rtb = new RenderTargetBitmap(
                         (int)canvasWidth,
@@ -192,8 +199,12 @@ namespace Szakdoga
                     // RenderTargetBitmap elengedése memória felszabadításra
                     rtb.Clear();
                     rtb = null;
-                }
 
+                    progbar.SetProgress(sheetId);
+                    System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
+                    NextSheet();
+                }
+                progbar.Close();
                 // Mentés
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
@@ -214,9 +225,7 @@ namespace Szakdoga
             GC.WaitForPendingFinalizers();
         }
 
-
-
-
+        
         private void FillStatistics()
         {
             statistics.CalculateStatistics(manager.Pieces, settings);
@@ -242,6 +251,7 @@ namespace Szakdoga
         
         private void ClearStatistics()
         {
+            statistics.ClearStatistics();
             NoOfSheets.Clear();
             NoOfPices.Clear();
             TotalAreaOfPieces.Clear();
@@ -337,7 +347,6 @@ namespace Szakdoga
 
         private void Load(object sender, RoutedEventArgs e)
         {
-            
             OpenFileDialog saveFileDialog = new OpenFileDialog();
             saveFileDialog.Filter = "Text File|*.txt";
             saveFileDialog.Title = "Save pieces list";
@@ -369,6 +378,7 @@ namespace Szakdoga
                                 manager.AddPiece(oheight, owidth, cutDirection, name, fromLoad: true, optimised : true, x, y, sheetId);
                             }
                         }
+                        ClearStatistics();
                     }
                     catch (Exception ex)
                     {
@@ -409,12 +419,12 @@ namespace Szakdoga
             {
                 if (piece.SheetId == sheetId)
                 {
-                    Rectangle rect = new Rectangle
+                    System.Windows.Shapes.Rectangle rect = new System.Windows.Shapes.Rectangle
                     {
                         Width = (piece.Height * hscale),
                         Height = (piece.Width * wscale),
-                        Stroke = Brushes.Black,
-                        Fill = Brushes.LightGray,
+                        Stroke = System.Windows.Media.Brushes.Black,
+                        Fill = System.Windows.Media.Brushes.LightGray,
                         StrokeThickness = 1,
                         ToolTip = $"ID: {piece.Id}\nName: {piece.Name}\nHeight: {piece.Height}\nWidth: {piece.Width}\nDirection: {piece.CutDirection}"
                     };
@@ -444,6 +454,7 @@ namespace Szakdoga
             }
             FillStatisticsThisSheet();
         }
+
         private void NextSheet()
         {
             if (manager.Pieces.Max(p => p.SheetId) > sheetId)

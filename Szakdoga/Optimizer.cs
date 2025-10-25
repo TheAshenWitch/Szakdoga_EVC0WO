@@ -104,17 +104,14 @@ namespace Szakdoga
             return Pieces;
         }
         
-        public Piece? TryFitMorePiece(List<Piece> PiecesRemaining, double RemainingX, double RemainingY,int PieceId)
+        public Piece? TryFitMorePiece(List<Piece> PiecesRemaining, double RemainingX, double RemainingY, int PieceId)
         {
-           List<Piece> candidates = new List<Piece>();
-            foreach (var piece in PiecesRemaining)
-            {
-                if (piece.Height <= RemainingX && piece.Width <= RemainingY && piece.Id != PieceId)
-                    candidates.Add(piece);
-                    
-            }
-            return candidates.OrderByDescending(piece => piece.Width * piece.Height)
-                                     .FirstOrDefault();
+            return PiecesRemaining
+                .Where(piece => piece.Height <= RemainingX && 
+                               piece.Width <= RemainingY && 
+                               piece.Id != PieceId)
+                .OrderByDescending(piece => piece.Width * piece.Height)
+                .FirstOrDefault();
         }
 
 
