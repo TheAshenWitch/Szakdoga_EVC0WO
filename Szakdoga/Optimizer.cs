@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media.Media3D;
-
+﻿using System.Windows;
 
 namespace Szakdoga
 {
@@ -106,7 +99,7 @@ namespace Szakdoga
                             }
                             else
                             {
-                                List<Piece> fittedRow = TryFitMorePieces(PiecesRemaining, _SheetId, SheetX, (SheetY - (CurrentY + TempY+SheetPadding)), BladeThickness);
+                                List<Piece> fittedRow = TryFitMorePieces(PiecesRemaining, _SheetId, SheetX - 2 * SheetPadding, (SheetY - (CurrentY + TempY+SheetPadding)), BladeThickness);
                                 if (fittedRow.Count > 0)
                                 {
                                     CurrentX = SheetPadding;
@@ -128,10 +121,11 @@ namespace Szakdoga
                                     // No more space: start a new sheet
                                     piece.x = SheetPadding;
                                     piece.y = SheetPadding;
-                                    CurrentX = SheetPadding + piece.Height;
+                                    CurrentX = SheetPadding + piece.Height + BladeThickness;
                                     CurrentY = SheetPadding;
                                     TempY = CurrentY;
                                     _SheetId++;
+                                    //increase sheetid before assigning it
                                     piece.SheetId = _SheetId;
                                     PiecesRemaining.Remove(piece);
                                 }
@@ -141,22 +135,21 @@ namespace Szakdoga
                 } while (placed);
             }
 
-            int problem = ValidatePlacements(Pieces, SheetX, SheetY);
-            if (problem > 0)
+            (int unplaced, int overlap) = ValidatePlacements(Pieces, SheetX, SheetY);
+            if (unplaced > 0 || overlap > 0)
             {
-                MessageBox.Show($"Placement validation failed:\n{problem}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Placement validation failed:\n{unplaced} unplaced\n{overlap} overlapping", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return Pieces;
         }
 
-        public static int ValidatePlacements(IEnumerable<Piece> pieces, double sheetWidth, double sheetHeight)
+        public static (int unplaced, int overlap) ValidatePlacements(IEnumerable<Piece> pieces, double sheetWidth, double sheetHeight)
         {
             var problems = new List<string>();
             var placed = pieces.Where(p => p.SheetId != null).ToList();
             var unplaced = pieces.Where(p => p.SheetId == null).ToList();
-            if (unplaced.Any())
-                problems.Add($"Unassigned pieces: {string.Join(',', unplaced.Select(p => p.Id))}");
+            
 
             foreach (var g in placed.GroupBy(p => p.SheetId))
             {
@@ -172,7 +165,7 @@ namespace Szakdoga
                             problems.Add($"Overlap on sheet {g.Key}: {a.Id} <-> {b.Id}");
                     }
             }
-            return unplaced.Count;
+            return (unplaced.Count, problems.Count);
         }
 
         public Piece? TryFitMorePiece(List<Piece> PiecesRemaining, double RemainingX, double RemainingY, int PieceId)
@@ -185,22 +178,6 @@ namespace Szakdoga
                 .FirstOrDefault();
         }
 
-
-        //double availWidth = (SheetX - SheetPadding) - CurrentX;
-        //double availHeight = TempY - SheetPadding; 
-
-        //if (availWidth > 0 && availHeight > 0)
-        //{
-        //    var fitted = TryFitMorePieces(PiecesRemaining, _SheetId, CurrentX, CurrentY, availWidth, availHeight, SheetPadding, BladeThickness);
-        //    if (fitted.Count > 0)
-        //    {
-        //        foreach (var fp in fitted)
-        //        {
-        //            CurrentX += fp.Height;
-        //            TempY = Math.Max(TempY, fp.Width);
-        //        }
-        //    }
-        //}
         public List<Piece> TryFitMorePieces(List<Piece> pieces, int sheetId, double availWidth, double availHeight, double BladeThickness, double offsetX = 0, double offsetY = 0)
         {
             var fitted = new List<Piece>();
@@ -269,7 +246,7 @@ namespace Szakdoga
         double _binWidth;
         double _binHeight;
         double _bladeThickness;
-        List<Rect> _freeRectangles;
+        List<Rect> _freeRectangles = new List<Rect>();
         const double EPS = 1e-9;
         public List<Piece> Guillotine(List<Piece> Pieces, double SheetX = 2800, double SheetY = 2070, double SheetPadding = 10, double BladeThickness = 3)
         {

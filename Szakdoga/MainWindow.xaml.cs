@@ -10,13 +10,19 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-
 namespace Szakdoga
 {
     public partial class MainWindow : Window
     {
+        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        #pragma warning disable CA2211 // Non-constant fields should not be visible
+        
         public static Settings settings;
         public static Statistics statistics;
+
+        #pragma warning restore CA2211 // Non-constant fields should not be visible
+        #pragma warning restore CS8618 // Will get initialized in constructor
+
         MainViewModel viewModel;
         Manager manager;
 
@@ -90,7 +96,7 @@ namespace Szakdoga
                 FillStatistics();
                 FillStatisticsThisSheet();
             }
-            catch (Exception ex)
+            catch (Exception)
             {}
             //statistics.CalculateStatistics(manager.Pieces, settings);
             //statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
@@ -118,7 +124,7 @@ namespace Szakdoga
                     double canvasWidth = PieceCanvas.ActualWidth;
                     double canvasHeight = PieceCanvas.ActualHeight;
 
-                    RenderTargetBitmap rtb = new RenderTargetBitmap(
+                    RenderTargetBitmap? rtb = new RenderTargetBitmap(
                         (int)canvasWidth,
                         (int)canvasHeight,
                         96, 96,
@@ -354,6 +360,7 @@ namespace Szakdoga
                     string line;
                     try
                     {
+                        #pragma warning disable CS8600 // sr.Readline() could return null
                         while ((line = sr.ReadLine()) != null)
                         {
                             var parts = line.Split(';');
@@ -370,6 +377,7 @@ namespace Szakdoga
                                 manager.AddPiece(oheight, owidth, cutDirection, name, fromLoad: true, optimised : true, x, y, sheetId);
                             }
                         }
+                        #pragma warning restore CS8600 // sr.Readline() could return null
                         ClearStatistics();
                     }
                     catch (Exception ex)
@@ -405,8 +413,8 @@ namespace Szakdoga
         {
             PieceCanvas.Children.Clear();
             
-            double wscale = PieceCanvas.ActualHeight / (double)settings.SheetHeight;
-            double hscale = PieceCanvas.ActualWidth / (double)settings.SheetWidth;
+            double wscale = PieceCanvas.ActualHeight / (double)(settings.SheetHeight ?? 2070.0);
+            double hscale = PieceCanvas.ActualWidth / (double)(settings.SheetWidth ?? 2800.0);
             foreach (var piece in manager.Pieces)
             {
                 if (piece.SheetId == sheetId)
