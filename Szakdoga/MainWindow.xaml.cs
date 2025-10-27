@@ -9,6 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Resources;
+using System.Globalization;
+using System.Threading;
 
 namespace Szakdoga
 {
@@ -80,7 +83,7 @@ namespace Szakdoga
         {
             if (sender is RadioButton rb)
             {
-                OptMode = rb.Content.ToString()!;
+                OptMode = rb.Tag.ToString()!;
             }
         }
         
@@ -403,9 +406,17 @@ namespace Szakdoga
                 settings.SheetManufacturer = settingsWindow.SheetManufacturer.Text;
                 settings.SheetPrice = Convert.ToDouble(settingsWindow.SheetPrice.Text);
                 settings.EdgeSealingPrice = Convert.ToDouble(settingsWindow.EdgeSealingPrice.Text);
+                var selectedItem = (ComboBoxItem)settingsWindow.Lang.SelectedItem;
+                if (selectedItem != null)
+                {
+                    string cultureCode = selectedItem.Tag.ToString();
+                    CultureInfo culture = new CultureInfo(cultureCode);
+                    Thread.CurrentThread.CurrentUICulture = culture;
+                    Thread.CurrentThread.CurrentCulture = culture;
+                }
             };
-            
-            settingsWindow.Show();
+
+            settingsWindow.ShowDialog();
 
         }
 

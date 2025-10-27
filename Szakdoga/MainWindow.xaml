@@ -4,14 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Szakdoga"
+        xmlns:loc="clr-namespace:Szakdoga"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="MainWindow" Height="1080" Width="1920" Background="#FF9C9C9C"
+        Title="Opter" Height="1080" Width="1920" Background="#FF9C9C9C"
         MinHeight="625" MinWidth="1200">
     <Window.Resources>
         <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
+        <ObjectDataProvider x:Key="Loc" 
+                            ObjectType="{x:Type loc:LocalizationManager}" 
+                            MethodName="get_Instance"/>
+
     </Window.Resources>
-    <Grid>
+
+
+
+    <Grid DataContext="{StaticResource Loc}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="450*"/>
@@ -37,68 +45,69 @@
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Margin="132,0,0,0"  TextWrapping="Wrap" Width="202" VerticalContentAlignment="Center" Name="NameTxt"/>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Margin="132,36,0,0" TextWrapping="Wrap" Width="202" VerticalContentAlignment="Center" Name="WidthTxt"/>
             <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Margin="132,74,0,0" TextWrapping="Wrap" Width="202" VerticalContentAlignment="Center" Name="HeighgtTxt" />
-            <Label Content="Name"   HorizontalAlignment="Left" Margin="288,4,0,0"  VerticalAlignment="Top" Height="26" Width="42"/>
-            <Label Content="Width"  HorizontalAlignment="Left" Margin="288,40,0,0" VerticalAlignment="Top" Height="26" Width="42"/>
-            <Label Content="Height" HorizontalAlignment="Left" Margin="286,77,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
+            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Margin="342,74,0,0" TextWrapping="Wrap" Width="129" VerticalContentAlignment="Center" Name="CountTxt" />
+            <Label Content="{Binding [NameLabel]}"   HorizontalAlignment="Left" Margin="288,4,0,0"  VerticalAlignment="Top" Height="26" Width="42" HorizontalContentAlignment="Right"/>
+            <Label Content="{Binding [WidthLabel]}"  HorizontalAlignment="Left" Margin="270,40,0,0" VerticalAlignment="Top" Height="26" Width="60" HorizontalContentAlignment="Right"/>
+            <Label Content="{Binding [HeightLabel]}" HorizontalAlignment="Left" Margin="257,77,0,0" VerticalAlignment="Top" Height="26" Width="75" HorizontalContentAlignment="Right"/>
+            <Label Content="{Binding [CountLabel]}" HorizontalAlignment="Left" Margin="405,77,0,0" VerticalAlignment="Top" Height="26" Width="66" HorizontalContentAlignment="Right"/>
 
-            <Button Content="Add" HorizontalAlignment="Left" Height="72" Margin="14,35,0,0" VerticalAlignment="Top" Width="108" Click="Add"/>
+            <Button Content="{Binding [AddButton]}" HorizontalAlignment="Left" Height="72" Margin="14,35,0,0" VerticalAlignment="Top" Width="108" Click="Add"/>
 
-            <RadioButton Content="Szálirány"    Margin="341,24,0,0" GroupName="CutDirection" Height="25" Width="74" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Szálirány}"    VerticalAlignment="Top"/>
-            <RadioButton Content="Keresztirány" Margin="341,52,0,0" GroupName="CutDirection" Height="25" Width="94" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Keresztirány}" VerticalAlignment="Top"/>
-            <RadioButton Content="Vegyes" Margin="341,80,0,0" GroupName="CutDirection" Height="25" Width="64" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Vegyes}" VerticalAlignment="Top"/>
+            <RadioButton Content="{Binding [RadioGrainDir]}"    Margin="342,0,0,0" GroupName="CutDirection" Height="25" Width="105" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Szálirány}"    VerticalAlignment="Top"/>
+            <RadioButton Content="{Binding [RadioCrossDir]}" Margin="342,22,0,0" GroupName="CutDirection" Height="25" Width="105" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Keresztirány}" VerticalAlignment="Top"/>
+            <RadioButton Content="{Binding [RadioVariableDir]}" Margin="342,45,0,0" GroupName="CutDirection" Height="25" Width="105" HorizontalAlignment="Left" VerticalContentAlignment="Center" IsChecked="{Binding Direction, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Vegyes}" VerticalAlignment="Top"/>
 
-            <Button Content=">"    Padding="1,-30,1,0" Margin="0,0,20,0" FontSize="72"  Height="55" Width="55" HorizontalAlignment="Right" VerticalAlignment="Top" Click="NextSheet"/>
-            <Button Content="&lt;" Padding="1,-30,1,0" Margin="0,0,81,0" FontSize="72"  Height="55" Width="55" HorizontalAlignment="Right" VerticalAlignment="Top" Click="PrevSheet" />
+            <Button Content="{Binding [NextSheetButton]}"    Padding="1,-30,1,0" Margin="0,0,20,0" FontSize="72"  Height="55" Width="55" HorizontalAlignment="Right" VerticalAlignment="Top" Click="NextSheet"/>
+            <Button Content="{Binding [PrevSheetButton]}" Padding="1,-30,1,0" Margin="0,0,81,0" FontSize="72"  Height="55" Width="55" HorizontalAlignment="Right" VerticalAlignment="Top" Click="PrevSheet" />
             <TextBox Name="SheetIdBox" HorizontalAlignment="Right" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="87" Height="55" FontSize="50" Padding="0,-11,0,0" Margin="0,0,140,0"/>
+
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="0">
             <ListBox Name="PiecesListView"  Height="864" Margin="22,20,0,0"  VerticalAlignment="Top" ItemsSource="{Binding PieceList}" SelectionChanged="PiecesListView_SelectionChanged" HorizontalAlignment="Left" Width="199"/>
-            <Button Content="Delete"        Height="44" Margin="0,70,126,0"  VerticalAlignment="Top" Click="Delete" HorizontalAlignment="Right" Width="109" Foreground="Red"/>
-            <Button Content="Clear all"     Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear"  HorizontalAlignment="Right" Width="109" Foreground="Red" BorderBrush="Red" FontFamily="Arial"/>
-            <Button Content="Update"        Height="44" Margin="0,20,126,0"  VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
-            <Button Content="Export"        Height="44" Margin="0,169,126,0" VerticalAlignment="Top" Click="Export" HorizontalAlignment="Right" Width="109"/>
+            <Button Content="{Binding [DeleteButton]}"        Height="44" Margin="0,70,126,0"  VerticalAlignment="Top" Click="Delete" HorizontalAlignment="Right" Width="109" Foreground="Red"/>
+            <Button Content="{Binding [ClearAllButton]}"     Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear"  HorizontalAlignment="Right" Width="109" Foreground="Red" BorderBrush="Red" FontFamily="Arial"/>
+            <Button Content="{Binding [UpdateButton]}"        Height="44" Margin="0,20,126,0"  VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
+            <Button Content="{Binding [ExportButton]}"        Height="44" Margin="0,169,126,0" VerticalAlignment="Top" Click="Export" HorizontalAlignment="Right" Width="109"/>
 
             <!--Settings-->
-            <Button Content="Sett" Height="44" Margin="0,20,6,0"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="OpenSettings"/>
-            <Button Content="Save" Height="44" Margin="0,70,6,0"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Save"/>
-            <Button Content="Load" Height="44" Margin="0,120,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Load"/>
-            <Button Content="Opt"  Height="44" Margin="0,169,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Optimize"/>
-            <RadioButton Content="Test"         HorizontalAlignment="Left" Height="15" Margin="339,218,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected" IsChecked="True"/>
-            <RadioButton Content="Guillotine"   HorizontalAlignment="Left" Height="15" Margin="339,233,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected"/>
-            <RadioButton Content="Heuristic"    HorizontalAlignment="Left" Height="15" Margin="339,248,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected"/>
+            <Button Content="{Binding [SettingsButton]}" Height="44" Margin="0,20,6,0"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="OpenSettings"/>
+            <Button Content="{Binding [SaveButton]}" Height="44" Margin="0,70,6,0"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Save"/>
+            <Button Content="{Binding [LoadButton]}" Height="44" Margin="0,120,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Load"/>
+            <Button Content="{Binding [OptimiseButton]}"  Height="44" Margin="0,169,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Optimize"/>
+            <RadioButton Content="{Binding [RadioTestOpt]}" Tag="Test" HorizontalAlignment="Left" Height="15" Margin="339,218,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected" IsChecked="True"/>
+            <RadioButton Content="{Binding [RadioGuillotineOpt]}" Tag="Guillotine" HorizontalAlignment="Left" Height="15" Margin="339,233,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected"/>
+            <RadioButton Content="{Binding [RadioHeuristicOpt]}" Tag="Heuristic" HorizontalAlignment="Left" Height="15" Margin="339,248,0,0" VerticalAlignment="Top" Width="72" GroupName="OptGroup" Checked="OptSelected"/>
 
             <!--Statistics-->
             <Border BorderBrush="Black" BorderThickness="1" Margin="229,272,6,0" Height="564" VerticalAlignment="Top"/>
-            <Label Content="Statistics" Margin="347,272,6,0" VerticalAlignment="Top" FontSize="24"/>
+            <Label Content="{Binding [StatisticsLabel]}" Margin="336,272,6,0" VerticalAlignment="Top" FontSize="24" VerticalContentAlignment="Center"/>
             <TextBox Name="NoOfSheets" HorizontalAlignment="Left" Height="35" Margin="343,316,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Number of&#xD;&#xA;sheets" HorizontalAlignment="Left" Height="40" Margin="230,311,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [NoOfSheetsLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,311,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="NoOfPices"  HorizontalAlignment="Left" Height="35" Margin="343,356,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Number of&#xA;peices" HorizontalAlignment="Left" Height="45" Margin="230,351,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [NoOfPiecesLabel]}" HorizontalAlignment="Left" Height="45" Margin="230,351,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="TotalAreaOfPieces" HorizontalAlignment="Left" Height="35" Margin="343,396,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Total area of&#xA;pieces" HorizontalAlignment="Left" Height="45" Margin="230,391,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [TotalAreaOfPiecesLabel]}" HorizontalAlignment="Left" Height="45" Margin="230,391,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="TotalWasteArea" HorizontalAlignment="Left" Height="35" Margin="343,436,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Total waste&#xA;area" HorizontalAlignment="Left" Height="40" Margin="230,431,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [TotalWasteAreaLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,431,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="MaterialUtilization" HorizontalAlignment="Left" Height="35" Margin="343,476,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Material&#xA;utilization" HorizontalAlignment="Left" Height="40" Margin="230,471,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [MaterialUtilizationLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,471,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="TotalCutLength" HorizontalAlignment="Left" Height="35" Margin="343,516,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Total cut&#xA;length" HorizontalAlignment="Left" Height="43" Margin="230,511,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [TotalCutLengthLabel]}" HorizontalAlignment="Left" Height="43" Margin="230,511,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="EdgeSealingNeeded" HorizontalAlignment="Left" Height="35" Margin="343,556,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Edge sealing&#xA;needed" HorizontalAlignment="Left" Height="40" Margin="230,551,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [EdgeSealingNeededLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,551,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="TotalSheetCost" HorizontalAlignment="Left" Height="35" Margin="343,596,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Total sheet&#xA;cost" HorizontalAlignment="Left" Height="40" Margin="230,591,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [TotalSheetCostLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,591,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="TotalEdgeSealingCost" HorizontalAlignment="Left" Height="35" Margin="343,636,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Total edge&#xA;sealing cost" HorizontalAlignment="Left" Height="45" Margin="230,631,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [TotalEdgeSealingCostLabel]}" HorizontalAlignment="Left" Height="45" Margin="230,631,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="TotalCost" HorizontalAlignment="Left" Height="35" Margin="343,676,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Total cost" HorizontalAlignment="Left" Height="40" Margin="230,671,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
+            <Label Content="{Binding [TotalCostLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,671,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="PiecesThisSheet" HorizontalAlignment="Left" Height="35" Margin="343,716,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Pieces this&#xA;sheet" HorizontalAlignment="Left" Height="40" Margin="230,711,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [PiecesThisSheetLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,711,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="MaterialUtilThisSheet" HorizontalAlignment="Left" Height="35" Margin="343,756,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Material utilization&#xA;this sheet" HorizontalAlignment="Left" Height="40" Margin="230,751,0,0" VerticalAlignment="Top" Width="113"/>
+            <Label Content="{Binding [MaterialUtilThisSheetLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,751,0,0" VerticalAlignment="Top" Width="113" VerticalContentAlignment="Center"/>
             <TextBox Name="WasteAreaThisShet" HorizontalAlignment="Left" Height="35" Margin="343,796,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
-            <Label Content="Waste area&#xA;this sheet" HorizontalAlignment="Left" Height="40" Margin="230,791,0,0" VerticalAlignment="Top" Width="101"/>
+            <Label Content="{Binding [WasteAreaThisSheetLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,791,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
         </Grid>
-
-
     </Grid>
 </Window>

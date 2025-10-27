@@ -2,7 +2,7 @@
 {
     public class Settings
     {
-        public int Language { get; set; } = 0; //0-Hungarian, 1-English
+        public string Language { get; set; } = "hu"; //hu-Hungarian, en-English
         public bool DarkMode { get; set; } = false; //true-dark, false-light
         public double? SheetHeight { get; set; } = 2070; //Deafult 2070
         public double? SheetWidth { get; set; } = 2800; //default 2800
