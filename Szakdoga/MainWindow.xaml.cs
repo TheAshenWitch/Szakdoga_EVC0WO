@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Resources;
 using System.Globalization;
 using System.Threading;
+using Szakdoga.Resources;
 
 namespace Szakdoga
 {
@@ -42,6 +43,7 @@ namespace Szakdoga
             viewModel = new MainViewModel(manager.Pieces);
 
             DataContext = viewModel;
+            PiecesListView.DataContext = viewModel;
             sheetId = 1;
             
             SizeChanged += MainWindow_SizeChanged;
@@ -53,6 +55,7 @@ namespace Szakdoga
             //StateChanged += MainWindow_Maximized;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            ClearInputs();
         }
         
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
@@ -225,8 +228,7 @@ namespace Szakdoga
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
-
-        
+      
         private void FillStatistics()
         {
             statistics.CalculateStatistics(manager.Pieces, settings);
@@ -304,7 +306,7 @@ namespace Szakdoga
             NameTxt.Text = string.Empty;
             HeighgtTxt.Text = string.Empty;
             WidthTxt.Text = string.Empty;
-            viewModel.Direction = 0; // Reset to default direction
+
 
             if (PiecesListView.SelectedItem is Piece selectedPiece)
             {
@@ -319,7 +321,7 @@ namespace Szakdoga
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text File|*.txt";
-            saveFileDialog.Title = "Save pieces list";
+            saveFileDialog.Title = Strings.SavePromptText;
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != "")
             {
@@ -336,11 +338,11 @@ namespace Szakdoga
                                 sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x,2)};{Math.Round((double)piece.y,2)};{piece.SheetId}");
                         }
                     }
-                    MessageBox.Show("Pieces saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error saving pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 fs.Close();
             }
@@ -350,7 +352,7 @@ namespace Szakdoga
         {
             OpenFileDialog saveFileDialog = new OpenFileDialog();
             saveFileDialog.Filter = "Text File|*.txt";
-            saveFileDialog.Title = "Save pieces list";
+            saveFileDialog.Title =  Strings.LoadPromptText;
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != "")
             {
@@ -377,7 +379,7 @@ namespace Szakdoga
                             {
                                 CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
                                 string name = parts[1];
-                                manager.AddPiece(oheight, owidth, cutDirection, name, fromLoad: true, optimised : true, x, y, sheetId);
+                                manager.AddPiece(oheight, owidth, cutDirection, name, 1, fromLoad: true, optimised : true, x, y, sheetId);
                             }
                         }
                         #pragma warning restore CS8600 // sr.Readline() could return null
@@ -385,7 +387,7 @@ namespace Szakdoga
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error loading pieces: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{Strings.LoadErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     fs.Close();
                 }
@@ -508,19 +510,20 @@ namespace Szakdoga
         {
             if(HeighgtTxt.Text == string.Empty || WidthTxt.Text == string.Empty)
             {
-                MessageBox.Show("Please enter both height and width.","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                MessageBox.Show(Strings.AddHeightWidthPrompt, Strings.Warning, MessageBoxButton.OK,MessageBoxImage.Warning);
                 return;
             }
             string name= NameTxt.Text.Trim();
             double height;
             double width;
+            int count;
             try
             {
                 width = Convert.ToDouble(WidthTxt.Text.Replace('.',','));
             }
             catch (FormatException)
             {
-                MessageBox.Show("Invalid width format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.InvalidNumberWidth, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
@@ -529,11 +532,22 @@ namespace Szakdoga
             }
             catch (FormatException)
             {
-                MessageBox.Show("Invalid height format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.InvalidNumberHeight, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                count = Convert.ToInt32(CountTxt.Text);
+                
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show(Strings.InvalidNumberCount, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             CutDirection direction = viewModel.Direction;
-            manager.AddPiece(height, width, direction, name);
+            manager.AddPiece(height, width, direction, name, count);
+            ClearInputs();
         }
 
          public void Update(object sender, RoutedEventArgs e)
@@ -542,7 +556,7 @@ namespace Szakdoga
             {
                 if (HeighgtTxt.Text == string.Empty || WidthTxt.Text == string.Empty)
                 {
-                    MessageBox.Show("Please enter both height and width.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Strings.AddHeightWidthPrompt, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 string name = NameTxt.Text.Trim();
@@ -554,7 +568,7 @@ namespace Szakdoga
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Invalid width format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.InvalidNumberWidth, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 try
@@ -563,13 +577,14 @@ namespace Szakdoga
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Invalid height format. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.InvalidNumberHeight, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 CutDirection direction = viewModel.Direction;
                 manager.UpdatePiece(selectedPiece.Id ?? 0, height, width, direction, name);
                 // Refresh the ListView to reflect the change
                 PiecesListView.Items.Refresh();
+                PiecesListView.SelectedItem = null;
             }
         }
 
@@ -583,13 +598,23 @@ namespace Szakdoga
 
         public void Clear(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to clear all pieces?", "Confirm Clear", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show(Strings.ConfirmClearText, Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 manager.ClearPieces();
                 PieceCanvas.Children.Clear();
                 ClearStatistics();
             }
         }
+
+        public void ClearInputs()
+        {
+            NameTxt.Text = string.Empty;
+            HeighgtTxt.Text = string.Empty;
+            WidthTxt.Text = string.Empty;
+            CountTxt.Text = "1";
+            viewModel.Direction = CutDirection.Szálirány; // Reset to default direction
+        }
+
 
     }  
 }

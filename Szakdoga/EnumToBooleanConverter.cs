@@ -10,23 +10,31 @@ namespace Szakdoga
 {
     public class EnumToBooleanConverter : IValueConverter
     {
+        // A 'parameter' most már maga az enum érték, nem egy string
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is string enumString && value != null)
+            // 1. Ellenőrizzük, hogy a kapott értékek egyáltalán érvényesek-e
+            if (value == null || parameter == null)
             {
-                var enumValue = Enum.Parse(value.GetType(), enumString);
-                return enumValue.Equals(value);
+                return false;
             }
-            return false;
+
+            // 2. Biztosítjuk, hogy ugyanazt a típust hasonlítjuk össze
+            // (Ez debuggoláshoz hasznos, ha a 'value' váratlanul nem enum)
+            if (value.GetType() != parameter.GetType())
+            {
+                // Ide elvileg sosem szabadna eljutnia
+                return false;
+            }
+
+            // 3. Ez a rész ugyanaz, mint a tiéd
+            return parameter.Equals(value);
         }
 
+        // A ConvertBack metódusod már tökéletes volt:
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is string enumString && (bool)value)
-            {
-                return Enum.Parse(targetType, enumString);
-            }
-            return Binding.DoNothing;
+            return (bool)value ? parameter : Binding.DoNothing;
         }
     }
 }

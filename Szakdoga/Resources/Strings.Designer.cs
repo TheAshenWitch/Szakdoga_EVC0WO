@@ -22,7 +22,7 @@ namespace Szakdoga.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Strings {
+    internal class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Szakdoga.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Szakdoga.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace Szakdoga.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,16 +63,25 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        public static string AddButton {
+        internal static string AddButton {
             get {
                 return ResourceManager.GetString("AddButton", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter both height and width..
+        /// </summary>
+        internal static string AddHeightWidthPrompt {
+            get {
+                return ResourceManager.GetString("AddHeightWidthPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
-        public static string ApplyButton {
+        internal static string ApplyButton {
             get {
                 return ResourceManager.GetString("ApplyButton", resourceCulture);
             }
@@ -81,16 +90,34 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Clear all.
         /// </summary>
-        public static string ClearAllButton {
+        internal static string ClearAllButton {
             get {
                 return ResourceManager.GetString("ClearAllButton", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to clear all pieces?.
+        /// </summary>
+        internal static string ConfirmClearText {
+            get {
+                return ResourceManager.GetString("ConfirmClearText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count.
         /// </summary>
-        public static string CountLabel {
+        internal static string CountLabel {
             get {
                 return ResourceManager.GetString("CountLabel", resourceCulture);
             }
@@ -99,9 +126,18 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        public static string DeleteButton {
+        internal static string DeleteButton {
             get {
                 return ResourceManager.GetString("DeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height and width must be greater than zero..
+        /// </summary>
+        internal static string DimensionErrorText {
+            get {
+                return ResourceManager.GetString("DimensionErrorText", resourceCulture);
             }
         }
         
@@ -109,16 +145,34 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Edge sealing
         ///needed.
         /// </summary>
-        public static string EdgeSealingNeededLabel {
+        internal static string EdgeSealingNeededLabel {
             get {
                 return ResourceManager.GetString("EdgeSealingNeededLabel", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No pieces to optimize..
+        /// </summary>
+        internal static string EmptyListError {
+            get {
+                return ResourceManager.GetString("EmptyListError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
-        public static string ExportButton {
+        internal static string ExportButton {
             get {
                 return ResourceManager.GetString("ExportButton", resourceCulture);
             }
@@ -127,18 +181,63 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Height.
         /// </summary>
-        public static string HeightLabel {
+        internal static string HeightLabel {
             get {
                 return ResourceManager.GetString("HeightLabel", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid count format. Please enter a valid number..
+        /// </summary>
+        internal static string InvalidNumberCount {
+            get {
+                return ResourceManager.GetString("InvalidNumberCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid height format. Please enter a valid number..
+        /// </summary>
+        internal static string InvalidNumberHeight {
+            get {
+                return ResourceManager.GetString("InvalidNumberHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid width format. Please enter a valid number..
+        /// </summary>
+        internal static string InvalidNumberWidth {
+            get {
+                return ResourceManager.GetString("InvalidNumberWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load.
         /// </summary>
-        public static string LoadButton {
+        internal static string LoadButton {
             get {
                 return ResourceManager.GetString("LoadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during loading.
+        /// </summary>
+        internal static string LoadErrorText {
+            get {
+                return ResourceManager.GetString("LoadErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load pieces list.
+        /// </summary>
+        internal static string LoadPromptText {
+            get {
+                return ResourceManager.GetString("LoadPromptText", resourceCulture);
             }
         }
         
@@ -146,7 +245,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Material
         ///utilization.
         /// </summary>
-        public static string MaterialUtilizationLabel {
+        internal static string MaterialUtilizationLabel {
             get {
                 return ResourceManager.GetString("MaterialUtilizationLabel", resourceCulture);
             }
@@ -156,7 +255,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Material utilization
         ///this sheet.
         /// </summary>
-        public static string MaterialUtilThisSheetLabel {
+        internal static string MaterialUtilThisSheetLabel {
             get {
                 return ResourceManager.GetString("MaterialUtilThisSheetLabel", resourceCulture);
             }
@@ -165,7 +264,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        public static string NameLabel {
+        internal static string NameLabel {
             get {
                 return ResourceManager.GetString("NameLabel", resourceCulture);
             }
@@ -174,7 +273,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &gt;.
         /// </summary>
-        public static string NextSheetButton {
+        internal static string NextSheetButton {
             get {
                 return ResourceManager.GetString("NextSheetButton", resourceCulture);
             }
@@ -184,7 +283,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Number of
         ///pieces.
         /// </summary>
-        public static string NoOfPiecesLabel {
+        internal static string NoOfPiecesLabel {
             get {
                 return ResourceManager.GetString("NoOfPiecesLabel", resourceCulture);
             }
@@ -194,7 +293,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Number of
         ///sheets.
         /// </summary>
-        public static string NoOfSheetsLabel {
+        internal static string NoOfSheetsLabel {
             get {
                 return ResourceManager.GetString("NoOfSheetsLabel", resourceCulture);
             }
@@ -203,7 +302,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Optimise.
         /// </summary>
-        public static string OptimiseButton {
+        internal static string OptimiseButton {
             get {
                 return ResourceManager.GetString("OptimiseButton", resourceCulture);
             }
@@ -213,7 +312,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Pieces this
         ///sheet.
         /// </summary>
-        public static string PiecesThisSheetLabel {
+        internal static string PiecesThisSheetLabel {
             get {
                 return ResourceManager.GetString("PiecesThisSheetLabel", resourceCulture);
             }
@@ -222,7 +321,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &lt;.
         /// </summary>
-        public static string PrevSheetButton {
+        internal static string PrevSheetButton {
             get {
                 return ResourceManager.GetString("PrevSheetButton", resourceCulture);
             }
@@ -231,7 +330,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cross direction.
         /// </summary>
-        public static string RadioCrossDir {
+        internal static string RadioCrossDir {
             get {
                 return ResourceManager.GetString("RadioCrossDir", resourceCulture);
             }
@@ -240,7 +339,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Grain direction.
         /// </summary>
-        public static string RadioGrainDir {
+        internal static string RadioGrainDir {
             get {
                 return ResourceManager.GetString("RadioGrainDir", resourceCulture);
             }
@@ -249,7 +348,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Guillotine.
         /// </summary>
-        public static string RadioGuillotineOpt {
+        internal static string RadioGuillotineOpt {
             get {
                 return ResourceManager.GetString("RadioGuillotineOpt", resourceCulture);
             }
@@ -258,7 +357,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Heusristic.
         /// </summary>
-        public static string RadioHeuristicOpt {
+        internal static string RadioHeuristicOpt {
             get {
                 return ResourceManager.GetString("RadioHeuristicOpt", resourceCulture);
             }
@@ -267,7 +366,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Test.
         /// </summary>
-        public static string RadioTestOpt {
+        internal static string RadioTestOpt {
             get {
                 return ResourceManager.GetString("RadioTestOpt", resourceCulture);
             }
@@ -276,25 +375,61 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Variable direction.
         /// </summary>
-        public static string RadioVariableDir {
+        internal static string RadioVariableDir {
             get {
                 return ResourceManager.GetString("RadioVariableDir", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A piece with the same dimensions and cut direction already exists. Continue?.
+        /// </summary>
+        internal static string SamePiecePromt {
+            get {
+                return ResourceManager.GetString("SamePiecePromt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        public static string SaveButton {
+        internal static string SaveButton {
             get {
                 return ResourceManager.GetString("SaveButton", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error saving pieces.
+        /// </summary>
+        internal static string SaveErrorText {
+            get {
+                return ResourceManager.GetString("SaveErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save pieces list.
+        /// </summary>
+        internal static string SavePromptText {
+            get {
+                return ResourceManager.GetString("SavePromptText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pieces saved successfully..
+        /// </summary>
+        internal static string SaveSuccessText {
+            get {
+                return ResourceManager.GetString("SaveSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blade thickness.
         /// </summary>
-        public static string SettingsBladeThicknessLabel {
+        internal static string SettingsBladeThicknessLabel {
             get {
                 return ResourceManager.GetString("SettingsBladeThicknessLabel", resourceCulture);
             }
@@ -303,7 +438,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        public static string SettingsButton {
+        internal static string SettingsButton {
             get {
                 return ResourceManager.GetString("SettingsButton", resourceCulture);
             }
@@ -312,7 +447,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Edge sealing cost.
         /// </summary>
-        public static string SettingsEdgeSealingCostLabel {
+        internal static string SettingsEdgeSealingCostLabel {
             get {
                 return ResourceManager.GetString("SettingsEdgeSealingCostLabel", resourceCulture);
             }
@@ -321,7 +456,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Height.
         /// </summary>
-        public static string SettingsHeightLabel {
+        internal static string SettingsHeightLabel {
             get {
                 return ResourceManager.GetString("SettingsHeightLabel", resourceCulture);
             }
@@ -330,7 +465,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        public static string SettingsLanguageLabel {
+        internal static string SettingsLanguageLabel {
             get {
                 return ResourceManager.GetString("SettingsLanguageLabel", resourceCulture);
             }
@@ -339,7 +474,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sheet color.
         /// </summary>
-        public static string SettingsSheetColor {
+        internal static string SettingsSheetColor {
             get {
                 return ResourceManager.GetString("SettingsSheetColor", resourceCulture);
             }
@@ -348,7 +483,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sheet cost.
         /// </summary>
-        public static string SettingsSheetCostLabel {
+        internal static string SettingsSheetCostLabel {
             get {
                 return ResourceManager.GetString("SettingsSheetCostLabel", resourceCulture);
             }
@@ -357,7 +492,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sheet manufacturer.
         /// </summary>
-        public static string SettingsSheetManufacturerLabel {
+        internal static string SettingsSheetManufacturerLabel {
             get {
                 return ResourceManager.GetString("SettingsSheetManufacturerLabel", resourceCulture);
             }
@@ -366,7 +501,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sheet padding.
         /// </summary>
-        public static string SettingsSheetPaddingLabel {
+        internal static string SettingsSheetPaddingLabel {
             get {
                 return ResourceManager.GetString("SettingsSheetPaddingLabel", resourceCulture);
             }
@@ -375,7 +510,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Width.
         /// </summary>
-        public static string SettingsWidthLabel {
+        internal static string SettingsWidthLabel {
             get {
                 return ResourceManager.GetString("SettingsWidthLabel", resourceCulture);
             }
@@ -384,16 +519,25 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
-        public static string StatisticsLabel {
+        internal static string StatisticsLabel {
             get {
                 return ResourceManager.GetString("StatisticsLabel", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CutOptimizer.
         /// </summary>
-        public static string Title {
+        internal static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
@@ -403,7 +547,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Total area of
         ///pieces.
         /// </summary>
-        public static string TotalAreaOfPiecesLabel {
+        internal static string TotalAreaOfPiecesLabel {
             get {
                 return ResourceManager.GetString("TotalAreaOfPiecesLabel", resourceCulture);
             }
@@ -412,7 +556,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Total cost.
         /// </summary>
-        public static string TotalCostLabel {
+        internal static string TotalCostLabel {
             get {
                 return ResourceManager.GetString("TotalCostLabel", resourceCulture);
             }
@@ -422,7 +566,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Total cut
         ///length.
         /// </summary>
-        public static string TotalCutLengthLabel {
+        internal static string TotalCutLengthLabel {
             get {
                 return ResourceManager.GetString("TotalCutLengthLabel", resourceCulture);
             }
@@ -432,7 +576,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Edge sealing
         ///cost.
         /// </summary>
-        public static string TotalEdgeSealingCostLabel {
+        internal static string TotalEdgeSealingCostLabel {
             get {
                 return ResourceManager.GetString("TotalEdgeSealingCostLabel", resourceCulture);
             }
@@ -442,7 +586,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Total sheet
         ///cost.
         /// </summary>
-        public static string TotalSheetCostLabel {
+        internal static string TotalSheetCostLabel {
             get {
                 return ResourceManager.GetString("TotalSheetCostLabel", resourceCulture);
             }
@@ -452,7 +596,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Total waste
         ///area.
         /// </summary>
-        public static string TotalWasteAreaLabel {
+        internal static string TotalWasteAreaLabel {
             get {
                 return ResourceManager.GetString("TotalWasteAreaLabel", resourceCulture);
             }
@@ -461,9 +605,18 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
-        public static string UpdateButton {
+        internal static string UpdateButton {
             get {
                 return ResourceManager.GetString("UpdateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         
@@ -471,7 +624,7 @@ namespace Szakdoga.Resources {
         ///   Looks up a localized string similar to Waste area
         ///this sheet.
         /// </summary>
-        public static string WasteAreaThisSheetLabel {
+        internal static string WasteAreaThisSheetLabel {
             get {
                 return ResourceManager.GetString("WasteAreaThisSheetLabel", resourceCulture);
             }
@@ -480,7 +633,7 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Width.
         /// </summary>
-        public static string WidthLabel {
+        internal static string WidthLabel {
             get {
                 return ResourceManager.GetString("WidthLabel", resourceCulture);
             }

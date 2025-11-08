@@ -262,4 +262,55 @@ ezen a lapon</value>
   <data name="ApplyButton" xml:space="preserve">
     <value>Alkalmaz</value>
   </data>
+  <data name="SavePromptText" xml:space="preserve">
+    <value>Darablista mentése</value>
+  </data>
+  <data name="SaveSuccessText" xml:space="preserve">
+    <value>Darablista mentése sikeres.</value>
+  </data>
+  <data name="SaveErrorText" xml:space="preserve">
+    <value>Hiba a darablista mentése közben</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>SIkeres</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="LoadPromptText" xml:space="preserve">
+    <value>Darablista betöltése</value>
+  </data>
+  <data name="LoadErrorText" xml:space="preserve">
+    <value>Hiba a betöltés során</value>
+  </data>
+  <data name="AddHeightWidthPrompt" xml:space="preserve">
+    <value>Kérem szélességet és magasságot is adjon meg.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Figyelmeztetés</value>
+  </data>
+  <data name="InvalidNumberWidth" xml:space="preserve">
+    <value>Hibás szélesség formátum, kérem számot adjon meg.</value>
+  </data>
+  <data name="InvalidNumberHeight" xml:space="preserve">
+    <value>Hibás magasság formátum, kérem számot adjon meg.</value>
+  </data>
+  <data name="InvalidNumberCount" xml:space="preserve">
+    <value>Hibás darabszám formátum, kérem számot adjon meg.</value>
+  </data>
+  <data name="ConfirmClearText" xml:space="preserve">
+    <value>Biztosan törölni szeretné a listát?</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="SamePiecePromt" xml:space="preserve">
+    <value>Egy darab megegyező névvel és méretekkel már létezik. Szeretné folytatni?</value>
+  </data>
+  <data name="DimensionErrorText" xml:space="preserve">
+    <value>A magasságnak és a szélességnek nagyobbnak kell lennie, mint nulla.</value>
+  </data>
+  <data name="EmptyListError" xml:space="preserve">
+    <value>Nincsenek optimalizálandó darabok.</value>
+  </data>
 </root>

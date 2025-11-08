@@ -37,7 +37,7 @@ namespace Szakdoga
             SheetPrice.Text = settings.SheetPrice.ToString();
             EdgeSealingPrice.Text = settings.EdgeSealingPrice.ToString();
             Lang.SelectedItem = settings.Language;
-            // Alapértelmezett nyelv kiválasztása
+            // Default language selection
             if (LocalizationManager.Instance.Culture.Name.StartsWith("hu"))
                 Lang.SelectedIndex = 0;
             else
