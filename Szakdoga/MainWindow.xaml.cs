@@ -18,9 +18,13 @@ namespace Szakdoga
 {
     public partial class MainWindow : Window
     {
+        //db con string := DB_CONNECTION_STRING="Server=MSI\\LOCALDB;Database=RakLapDb;Trusted_Connection=True;TrustServerCertificate=True"
+        //pc?              DB_CONNECTION_STRING="Server=MSI\\LOCALDB;Database=RakLapDb;Trusted_Connection=True;TrustServerCertificate=True"
+
+
         #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         #pragma warning disable CA2211 // Non-constant fields should not be visible
-        
+
         public static Settings settings;
         public static Statistics statistics;
 
