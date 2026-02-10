@@ -3,23 +3,24 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Resources;
-using System.Globalization;
-using System.Threading;
+using Szakdoga.Models;
 using Szakdoga.Resources;
+using Szakdoga.Services;
+using static Szakdoga.App; //
 
-namespace Szakdoga
+namespace Szakdoga.UI
 {
     public partial class MainWindow : Window
     {
         //db con string := DB_CONNECTION_STRING="Server=MSI\\LOCALDB;Database=RakLapDb;Trusted_Connection=True;TrustServerCertificate=True"
-        //pc?              DB_CONNECTION_STRING="Server=MSI\\LOCALDB;Database=RakLapDb;Trusted_Connection=True;TrustServerCertificate=True"
+        //pc?              DB_CONNECTION_STRING="Server=MÁRK-PC\\LOCALDB;Database=szakdoga;Trusted_Connection=True;TrustServerCertificate=True"
 
 
         #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -42,7 +43,8 @@ namespace Szakdoga
         {
             InitializeComponent();
             manager = new Manager();
-            settings = new Settings();
+
+            settings = DB.GetSettings();
             statistics = new Statistics();
             viewModel = new MainViewModel(manager.Pieces);
 

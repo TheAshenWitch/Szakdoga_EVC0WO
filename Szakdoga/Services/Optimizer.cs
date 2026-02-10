@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Szakdoga
+namespace Szakdoga.Services
 {
     internal class Optimizer
     {

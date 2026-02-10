@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows;
 using Szakdoga.Models;
 using Szakdoga.Services;
-
+using Szakdoga.UI;
 namespace Szakdoga
 {
     public partial class App : Application

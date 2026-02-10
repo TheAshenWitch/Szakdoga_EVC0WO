@@ -2,7 +2,7 @@
 using System.Windows;
 using Szakdoga.Resources;
 
-namespace Szakdoga
+namespace Szakdoga.Services
 {
     class Manager {
         public ObservableCollection<Piece> Pieces { get; set; }

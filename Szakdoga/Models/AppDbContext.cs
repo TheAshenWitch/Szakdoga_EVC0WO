@@ -16,6 +16,7 @@ namespace Szakdoga.Models
         }
 
         public DbSet<Sheet> Sheets { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         // 2. Itt mondjuk meg, hogy SQLite-ot használunk és mi legyen a fájl neve
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
