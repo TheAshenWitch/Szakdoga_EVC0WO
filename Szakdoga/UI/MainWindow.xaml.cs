@@ -44,7 +44,7 @@ namespace Szakdoga.UI
             InitializeComponent();
             manager = new Manager();
 
-            settings = DB.GetSettings();
+            settings = new Settings();
             statistics = new Statistics();
             viewModel = new MainViewModel(manager.Pieces);
 
@@ -397,6 +397,13 @@ namespace Szakdoga.UI
                     }
                     fs.Close();
                 }
+            }
+            bool hasOptimizedPieces = manager.Pieces.Any(p => p.x != null && p.y != null && p.SheetId != null);
+            if (hasOptimizedPieces)
+            {
+                PlacePieces();
+                SheetIdBox.Text = "1";
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, 1);
             }
         }
 

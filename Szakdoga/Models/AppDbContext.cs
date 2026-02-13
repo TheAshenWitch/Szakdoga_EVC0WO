@@ -14,9 +14,12 @@ namespace Szakdoga.Models
         {
             // Üres maradhat
         }
-
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderPiece> OrderPieces { get; set; }
         public DbSet<Sheet> Sheets { get; set; }
-        public DbSet<Settings> Settings { get; set; }
+        public DbSet<InventoryItem> InventoryItems { get; set; }
+   
 
         // 2. Itt mondjuk meg, hogy SQLite-ot használunk és mi legyen a fájl neve
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
