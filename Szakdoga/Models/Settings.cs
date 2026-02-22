@@ -13,5 +13,23 @@
         public double? SheetPrice { get; set; } = 10000.0; //default 0
         public double? EdgeSealingPrice { get; set; } = 150.0; //default 0
         public string? Currency { get; set; } = "Huf";
+
+        public Settings(string language, bool darkMode, double? sheetHeight, double? sheetWidth, double bladeThickness, double sheetPadding, string? sheetColor, string? sheetManufacturer, double? sheetPrice, double? edgeSealingPrice, string? currency)
+        {
+            Language = language;
+            DarkMode = darkMode;
+            SheetHeight = sheetHeight;
+            SheetWidth = sheetWidth;
+            BladeThickness = bladeThickness;
+            SheetPadding = sheetPadding;
+            SheetColor = sheetColor;
+            SheetManufacturer = sheetManufacturer;
+            SheetPrice = sheetPrice;
+            EdgeSealingPrice = edgeSealingPrice;
+            Currency = currency;
+        }
+        public Settings()
+        {
+        }
     }
 }

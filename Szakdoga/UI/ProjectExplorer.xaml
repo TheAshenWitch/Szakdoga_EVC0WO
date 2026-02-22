@@ -15,14 +15,13 @@
 
     </Window.Resources>
     <Grid>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,46,455,44">
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,46,495,44">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="80" />
                         </Grid.ColumnDefinitions>
                         <!-- 1. oszlop – Cím -->
@@ -37,14 +36,6 @@
                         <TextBlock Grid.Column="1"
                                Text="{Binding Megrendelo}"
                                FontWeight="SemiBold"
-                               FontSize="13"
-                               VerticalAlignment="Top"
-                               Margin="5,0" />
-
-                        <!-- 3. oszlop – Leírás (több soros) -->
-                        <TextBlock Grid.Column="2"
-                               Text="{Binding Leiras}"
-                               TextWrapping="Wrap"
                                FontSize="13"
                                VerticalAlignment="Top"
                                Margin="5,0" />

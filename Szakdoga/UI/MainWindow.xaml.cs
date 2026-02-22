@@ -43,8 +43,33 @@ namespace Szakdoga.UI
         {
             InitializeComponent();
             manager = new Manager();
+            
+            try
+            {
+                settings = new Settings(
+                        Properties.Settings.Default.Language,
+                        Properties.Settings.Default.DarkMode,
+                        Properties.Settings.Default.SheetHeight,
+                        Properties.Settings.Default.SheetWidth,
+                        Properties.Settings.Default.BladeThickness,
+                        Properties.Settings.Default.SheetPadding,
+                        Properties.Settings.Default.SheetColor,
+                        Properties.Settings.Default.Language,
+                        Properties.Settings.Default.SheetPrice,
+                        Properties.Settings.Default.EdgeSealingPrice,
+                        Properties.Settings.Default.Currency
+                    );
+            }catch (Exception)
+            {
+                settings = new Settings();
+            }
 
-            settings = new Settings();
+            CultureInfo culture = new CultureInfo(settings.Language);
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+
+            LocalizationManager.Instance.Culture = culture;
+
             statistics = new Statistics();
             viewModel = new MainViewModel(manager.Pieces);
 
@@ -177,11 +202,7 @@ namespace Szakdoga.UI
                         int totalItems = sheetPieces.Count;
 
                         // Oszlopszám meghatározása
-                        int columns = 1;
-                        if (totalItems > 150)
-                            columns = 3;
-                        else if (totalItems > 75)
-                            columns = 2;
+                        int columns = (int)Math.Ceiling((double)totalItems/60);           
 
                         int rowsPerColumn = (int)Math.Ceiling((double)totalItems / columns);
 
@@ -189,7 +210,7 @@ namespace Szakdoga.UI
                         double lineSpacing = font.Size * 1.2;
 
                         double listOffsetX = offsetX + scaledWidth + 10; // kezdő X koordináta
-                        double listOffsetY = offsetY;
+                        double listOffsetY = offsetY + 10;
 
                         for (int j = 0; j < totalItems; j++)
                         {
@@ -424,11 +445,27 @@ namespace Szakdoga.UI
                 var selectedItem = (ComboBoxItem)settingsWindow.Lang.SelectedItem;
                 if (selectedItem != null)
                 {
-                    string cultureCode = selectedItem.Tag.ToString();
+                    string cultureCode = selectedItem.Tag.ToString()!;
                     CultureInfo culture = new CultureInfo(cultureCode);
                     Thread.CurrentThread.CurrentUICulture = culture;
                     Thread.CurrentThread.CurrentCulture = culture;
+                    settings.Language = cultureCode;
+
+                    LocalizationManager.Instance.Culture = culture;
                 }
+
+                Properties.Settings.Default.Language = settings.Language;
+                Properties.Settings.Default.DarkMode = settings.DarkMode;
+                Properties.Settings.Default.SheetHeight = settings.SheetHeight ?? 2070.0;
+                Properties.Settings.Default.SheetWidth = settings.SheetWidth ?? 2800.0;
+                Properties.Settings.Default.BladeThickness = settings.BladeThickness;
+                Properties.Settings.Default.SheetPadding = settings.SheetPadding;
+                Properties.Settings.Default.SheetColor = settings.SheetColor;
+                Properties.Settings.Default.SheetManufacturer = settings.SheetManufacturer;
+                Properties.Settings.Default.SheetPrice = settings.SheetPrice ?? 10000.0;
+                Properties.Settings.Default.EdgeSealingPrice = settings.EdgeSealingPrice ?? 150.0;
+                Properties.Settings.Default.Currency = settings.Currency;
+                Properties.Settings.Default.Save();
             };
 
             settingsWindow.ShowDialog();

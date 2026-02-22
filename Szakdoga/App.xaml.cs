@@ -4,6 +4,7 @@ using System.Windows;
 using Szakdoga.Models;
 using Szakdoga.Services;
 using Szakdoga.UI;
+using System.Globalization;
 namespace Szakdoga
 {
     public partial class App : Application

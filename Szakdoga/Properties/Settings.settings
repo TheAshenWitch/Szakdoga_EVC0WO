@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Szakdoga.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">en</Value>
+    </Setting>
+    <Setting Name="DarkMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SheetHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2070</Value>
+    </Setting>
+    <Setting Name="SheetWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2800</Value>
+    </Setting>
+    <Setting Name="BladeThickness" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="SheetPadding" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="SheetColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="SheetManufacturer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Unknown</Value>
+    </Setting>
+    <Setting Name="SheetPrice" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="EdgeSealingPrice" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">150</Value>
+    </Setting>
+    <Setting Name="Currency" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Huf</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

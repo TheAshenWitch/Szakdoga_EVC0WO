@@ -20,6 +20,9 @@ namespace Szakdoga.Models
         public CutDirection CutDirection { get; set; }
 
         public bool IsAllocated { get; set; }  // kiosztva van-e
-    }
+        public double? X { get; set; }  // kiosztás X koordinátája
+        public double? Y { get; set; }  // kiosztás Y koordinátája
+        public int? SheetId { get; set; }  // melyik lemezre van kiosztva
+}
 
 }

@@ -23,5 +23,6 @@ namespace Szakdoga
         {
             InitializeComponent();
         }
+
     }
 }
