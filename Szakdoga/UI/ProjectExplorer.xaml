@@ -55,7 +55,7 @@
         </ListBox>
         <Button Content="Új&#x0a;megrendelés" Margin="500,12,570,508" Click="AddNewOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="Új&#xA;megrendelő" Margin="500,97,570,423" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
-        <Button Content="Megrendelés&#xA;módisítása" Margin="500,182,570,338" Click="UpdateOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="Megrendelés&#xA;módosítása" Margin="500,182,570,338" Click="UpdateOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="Megrendelés&#xA;törlése" Margin="500,267,570,253" Click="DeleteOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="Main screen" Margin="1040,20,10,480" Click="MainScreen" Width="150" Height="100"/>
 

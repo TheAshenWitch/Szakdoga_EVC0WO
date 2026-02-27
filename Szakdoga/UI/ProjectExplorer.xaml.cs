@@ -55,6 +55,19 @@ namespace Szakdoga
 
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
+            OrderInputWindow orderInputWindow = new("Update Order", null,null,null);
+            if (orderInputWindow.ShowDialog() == true)
+            {
+                Order selectedOrder = (Order)OrderListView.SelectedItem;
+                if (selectedOrder != null)
+                {
+                    selectedOrder.Title = orderInputWindow.OrderTitle;
+                    selectedOrder.Customer.Name = orderInputWindow.CustomerName;
+                    //selectedOrder.Sheet = orderInputWindow.Sheet;
+                    Db.UpdateOrder(selectedOrder);
+                    Db.SaveAllChanges();
+                }
+            }
             Order order = new Order{ Title = "New Order", CreatedAt = DateTime.Now, CustomerId = 1 };
             Db.AddOrder(order);
             Orders.Add(order);
@@ -63,17 +76,52 @@ namespace Szakdoga
 
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {
-            
+            CustomerInputWindow customerInputWindow = new CustomerInputWindow();
+            if (customerInputWindow.ShowDialog() == true)
+            {
+                Customer newCustomer = new Customer
+                {
+                    Name = customerInputWindow.CustomerName,
+                    Email = customerInputWindow.Email,
+                    Phone = customerInputWindow.Phone
+                };
+                Db.AddCustomer(newCustomer);
+                Db.SaveAllChanges();
+            }
         }
 
         private void UpdateOrder(object sender, RoutedEventArgs e)
         {
-
+            if (OrderListView.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an order to update.");
+                return;
+            }
+            Order order = OrderListView.SelectedItem as Order;
+            OrderInputWindow orderInputWindow = new("Update Order",order.Customer.Name, order.Title,  order.Sheet.Name);
+            if (orderInputWindow.ShowDialog() == true)
+            {
+                Order selectedOrder = (Order)OrderListView.SelectedItem;
+                if (selectedOrder != null)
+                {
+                    selectedOrder.Title = orderInputWindow.OrderTitle;
+                    selectedOrder.Customer.Name = orderInputWindow.CustomerName;
+                    //selectedOrder.Sheet = orderInputWindow.Sheet;
+                    Db.UpdateOrder(selectedOrder);
+                    Db.SaveAllChanges();
+                }
+            }
         }
 
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
-
+            Order selectedOrder = (Order)OrderListView.SelectedItem;
+            if (selectedOrder != null)
+            {
+                Db.DeleteOrder(selectedOrder);
+                Orders.Remove(selectedOrder);
+                Db.SaveAllChanges();
+            }
         }
     }
 }

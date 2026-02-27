@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using Szakdoga.Models;
 
 public class DatabaseService : IDisposable
@@ -42,7 +43,19 @@ public class DatabaseService : IDisposable
             .AsNoTracking()
             .FirstOrDefault(s => s.Id == id);
     }
-
+    public Sheet? GetSheetByName(string name)
+    {
+        return _db.Sheets
+            .AsNoTracking()
+            .FirstOrDefault(s => s.Name == name);
+    }
+    public List<Sheet> GetSheetsByName(string text)
+    {
+        return _db.Sheets
+            .AsNoTracking()
+            .Where(s => s.Name.Contains(text))
+            .ToList();
+    }
     public void UpdateSheet(Sheet sheet)
     {
         _db.Sheets.Update(sheet);
@@ -88,6 +101,27 @@ public class DatabaseService : IDisposable
             .FirstOrDefault(c => c.Id == id);
     }
 
+    public Customer? GetCustomerByName(string name)
+    {
+        return _db.Customers
+            .AsNoTracking()
+            .Include(c => c.Orders)
+                .ThenInclude(o => o.Sheet)
+            .Include(c => c.Orders)
+                .ThenInclude(o => o.Pieces)
+            .FirstOrDefault(c => c.Name == name);
+    }
+    public List<Customer> GetCustomersByName(string text)
+    {
+        return _db.Customers
+            .AsNoTracking()
+            .Include(c => c.Orders)
+                .ThenInclude(o => o.Sheet)
+            .Include(c => c.Orders)
+                .ThenInclude(o => o.Pieces)
+            .Where(c => c.Name.Contains(text))
+            .ToList();
+    }
     public void UpdateCustomer(Customer customer)
     {
         _db.Customers.Update(customer);
