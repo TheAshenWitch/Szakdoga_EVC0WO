@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Szakdoga"
         xmlns:loc="clr-namespace:Szakdoga"
         mc:Ignorable="d"
-        Title="ProjectExplorer" Height="450" Width="800">
+        ResizeMode="NoResize"
+        Title="ProjectExplorer" Height="600" Width="1200">
     <Window.Resources>
         <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
         <ObjectDataProvider x:Key="Loc" 
@@ -14,19 +15,19 @@
                         MethodName="get_Instance"/>
 
     </Window.Resources>
-    <Grid>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,46,495,44">
+    <Grid Width="1200" Height="600" >
+        <ListBox Name="OrderListView" ItemsSource="{Binding Orders}" Margin="10,10,710,85" Width="480" Height="500">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="180" />
                             <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="80" />
                         </Grid.ColumnDefinitions>
                         <!-- 1. oszlop – Cím -->
                         <TextBlock Grid.Column="0"
-                               Text="{Binding Cim}"
+                               Text="{Binding Title}"
                                FontWeight="Bold"
                                FontSize="14"
                                VerticalAlignment="Top"
@@ -34,7 +35,7 @@
 
                         <!-- 2. oszlop – Megrendelő -->
                         <TextBlock Grid.Column="1"
-                               Text="{Binding Megrendelo}"
+                               Text="{Binding Customer.Name}"
                                FontWeight="SemiBold"
                                FontSize="13"
                                VerticalAlignment="Top"
@@ -42,7 +43,7 @@
 
                         <!-- 4. oszlop – Dátum -->
                         <TextBlock Grid.Column="3"
-                               Text="{Binding Datum, StringFormat={}{0:yyyy.MM.dd}}"
+                               Text="{Binding CreatedAt, StringFormat={}{0:yyyy.MM.dd}}"
                                Foreground="Gray"
                                FontSize="12"
                                VerticalAlignment="Top"
@@ -52,6 +53,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Content="Új&#x0a;megrendelés" Margin="500,12,570,508" Click="AddNewOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="Új&#xA;megrendelő" Margin="500,97,570,423" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="Megrendelés&#xA;módisítása" Margin="500,182,570,338" Click="UpdateOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="Megrendelés&#xA;törlése" Margin="500,267,570,253" Click="DeleteOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="Main screen" Margin="1040,20,10,480" Click="MainScreen" Width="150" Height="100"/>
 
     </Grid>
 </Window>

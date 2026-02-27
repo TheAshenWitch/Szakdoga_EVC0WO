@@ -10,8 +10,8 @@ namespace Szakdoga.Models
     {
         public int Id { get; set; }
 
-        public int OrderId { get; set; }
-        public Order Order { get; set; }
+        public int? OrderId { get; set; }
+        public Order? Order { get; set; }
 
         public string Name { get; set; }
         public double Width { get; set; }
@@ -23,6 +23,7 @@ namespace Szakdoga.Models
         public double? X { get; set; }  // kiosztás X koordinátája
         public double? Y { get; set; }  // kiosztás Y koordinátája
         public int? SheetId { get; set; }  // melyik lemezre van kiosztva
-}
+        public Sheet? Sheet { get; set; }
+    }
 
 }

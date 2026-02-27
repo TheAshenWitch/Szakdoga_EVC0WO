@@ -54,7 +54,7 @@ namespace Szakdoga.UI
                         Properties.Settings.Default.BladeThickness,
                         Properties.Settings.Default.SheetPadding,
                         Properties.Settings.Default.SheetColor,
-                        Properties.Settings.Default.Language,
+                        Properties.Settings.Default.SheetManufacturer,
                         Properties.Settings.Default.SheetPrice,
                         Properties.Settings.Default.EdgeSealingPrice,
                         Properties.Settings.Default.Currency

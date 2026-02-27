@@ -13,7 +13,10 @@ namespace Szakdoga.Models
         public int? CustomerId { get; set; }   // NULL ha saját projekt
         public Customer? Customer { get; set; }
 
+        public string Title { get; set; }
+
         public DateTime CreatedAt { get; set; }
+        public Sheet? Sheet { get; set; }
 
         public ICollection<OrderPiece> Pieces { get; set; }
     }

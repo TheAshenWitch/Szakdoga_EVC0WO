@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Szakdoga.Models;
 
@@ -11,9 +12,11 @@ using Szakdoga.Models;
 namespace Szakdoga.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260225153156_db_v4")]
+    partial class db_v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,8 +142,6 @@ namespace Szakdoga.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("SheetId");
-
                     b.ToTable("OrderPieces");
                 });
 
@@ -208,13 +209,7 @@ namespace Szakdoga.Migrations
                         .WithMany("Pieces")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("Szakdoga.Models.Sheet", "Sheet")
-                        .WithMany()
-                        .HasForeignKey("SheetId");
-
                     b.Navigation("Order");
-
-                    b.Navigation("Sheet");
                 });
 
             modelBuilder.Entity("Szakdoga.Models.Customer", b =>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Szakdoga.Models;
 
@@ -11,9 +12,11 @@ using Szakdoga.Models;
 namespace Szakdoga.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260223085631_db_v3")]
+    partial class db_v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,12 +86,8 @@ namespace Szakdoga.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SheetId")
+                    b.Property<int>("SheetId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -120,7 +119,7 @@ namespace Szakdoga.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SheetId")
@@ -138,8 +137,6 @@ namespace Szakdoga.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("SheetId");
 
                     b.ToTable("OrderPieces");
                 });
@@ -195,7 +192,9 @@ namespace Szakdoga.Migrations
 
                     b.HasOne("Szakdoga.Models.Sheet", "Sheet")
                         .WithMany()
-                        .HasForeignKey("SheetId");
+                        .HasForeignKey("SheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 
@@ -206,15 +205,11 @@ namespace Szakdoga.Migrations
                 {
                     b.HasOne("Szakdoga.Models.Order", "Order")
                         .WithMany("Pieces")
-                        .HasForeignKey("OrderId");
-
-                    b.HasOne("Szakdoga.Models.Sheet", "Sheet")
-                        .WithMany()
-                        .HasForeignKey("SheetId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Order");
-
-                    b.Navigation("Sheet");
                 });
 
             modelBuilder.Entity("Szakdoga.Models.Customer", b =>
