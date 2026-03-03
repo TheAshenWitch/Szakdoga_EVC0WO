@@ -97,8 +97,8 @@ namespace Szakdoga
                 MessageBox.Show("Please select an order to update.");
                 return;
             }
-            Order order = OrderListView.SelectedItem as Order;
-            OrderInputWindow orderInputWindow = new("Update Order",order.Customer.Name, order.Title,  order.Sheet.Name);
+            Order order = (Order)OrderListView.SelectedItem as Order;
+            OrderInputWindow orderInputWindow = new("Update Order", order.Customer.Name, order.Title,  order.Sheet.Name);
             if (orderInputWindow.ShowDialog() == true)
             {
                 Order selectedOrder = (Order)OrderListView.SelectedItem;
@@ -122,6 +122,28 @@ namespace Szakdoga
                 Orders.Remove(selectedOrder);
                 Db.SaveAllChanges();
             }
+        }
+        private void OpenOrder(object sender, MouseButtonEventArgs e)
+        {
+            if (OrderListView.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an order to view details.");
+                return;
+            }
+            
+            Order selectedOrder = (Order)OrderListView.SelectedItem as Order;
+            List<Piece> pieces = new List<Piece>();
+
+            Piece piece = new Piece();//??????????
+            pieces = piece.OrderPiecesToPieces(Db.GetOrderPiecesByOrderId(selectedOrder.Id));
+            MainWindow mainWindow = new MainWindow(selectedOrder.Id,pieces);
+
+            mainWindow.Show();
+
+            
+
+
+            this.Close();
         }
     }
 }

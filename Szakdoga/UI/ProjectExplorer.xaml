@@ -16,7 +16,7 @@
 
     </Window.Resources>
     <Grid Width="1200" Height="600" >
-        <ListBox Name="OrderListView" ItemsSource="{Binding Orders}" Margin="10,10,710,85" Width="480" Height="500">
+        <ListBox Name="OrderListView" ItemsSource="{Binding Orders}" Margin="10,10,710,85" Width="480" Height="500" MouseDoubleClick="OpenOrder">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -27,28 +27,27 @@
                         </Grid.ColumnDefinitions>
                         <!-- 1. oszlop – Cím -->
                         <TextBlock Grid.Column="0"
-                               Text="{Binding Title}"
-                               FontWeight="Bold"
-                               FontSize="14"
-                               VerticalAlignment="Top"
-                               Margin="5,0" />
-
+                                   Text="{Binding Title}"
+                                   FontWeight="Bold"
+                                   FontSize="14"
+                                   VerticalAlignment="Top"
+                                   Margin="5,0" />
+                        
                         <!-- 2. oszlop – Megrendelő -->
-                        <TextBlock Grid.Column="1"
-                               Text="{Binding Customer.Name}"
-                               FontWeight="SemiBold"
-                               FontSize="13"
-                               VerticalAlignment="Top"
-                               Margin="5,0" />
+                            <TextBlock Grid.Column="1"
+                                   Text="{Binding Customer.Name}"
+                                   FontWeight="SemiBold"
+                                   FontSize="13"
+                                   VerticalAlignment="Top"
+                                   Margin="5,0" />
 
-                        <!-- 4. oszlop – Dátum -->
+                            <!-- 4. oszlop – Dátum -->
                         <TextBlock Grid.Column="3"
-                               Text="{Binding CreatedAt, StringFormat={}{0:yyyy.MM.dd}}"
-                               Foreground="Gray"
-                               FontSize="12"
-                               VerticalAlignment="Top"
-                               Margin="10,0,0,0" />
-
+                                   Text="{Binding CreatedAt, StringFormat={}{0:yyyy.MM.dd}}"
+                                   Foreground="Gray"
+                                   FontSize="12"
+                                   VerticalAlignment="Top"
+                                   Margin="10,0,0,0" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

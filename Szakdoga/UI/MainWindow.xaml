@@ -7,6 +7,7 @@
         xmlns:loc="clr-namespace:Szakdoga"
         mc:Ignorable="d"
         WindowState="Maximized"
+        Loaded="WindowLoaded"
         Title="Opter" Height="1080" Width="1920" Background="#FF9C9C9C"
         MinHeight="625" MinWidth="1200">
     <Window.Resources>

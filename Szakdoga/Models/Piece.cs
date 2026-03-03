@@ -1,4 +1,6 @@
-﻿namespace Szakdoga
+﻿using Szakdoga.Models;
+
+namespace Szakdoga
 {
     public enum CutDirection
     {
@@ -49,6 +51,76 @@
             this.y = y;
             CutDirection = cutDirection;
             VirtualCutDirection = virtualCutDirection;
+        }
+        public Piece OrderPieceToPiece(OrderPiece oPiece)
+        {
+            Piece piece = new Piece();
+            piece.Id = oPiece.Id;
+            piece.Width = oPiece.Width;
+            piece.Height = oPiece.Height;
+            piece.CutDirection = oPiece.CutDirection;
+            if (oPiece.Name != null)
+            {
+                piece.Name = oPiece.Name;
+            }
+            if (oPiece.SheetId != null)
+            {
+                piece.SheetId = oPiece.SheetId;
+            }
+            if(oPiece.X  != null)
+            {
+                piece.x = oPiece.X;
+            }
+            if (oPiece.Y != null)
+            {
+                piece.y = oPiece.Y;
+            }
+            return piece;
+        }
+        public List<Piece> OrderPiecesToPieces(List<OrderPiece> oPieces)
+        {
+            List<Piece> pieces = new List<Piece>();
+            foreach (var oPiece in oPieces)
+            {
+                pieces.Add(OrderPieceToPiece(oPiece));
+            }
+            return pieces;
+        }
+        public OrderPiece PieceToOrderPiece(Piece piece, int orderId)
+        {
+            OrderPiece oPiece = new OrderPiece();
+            oPiece.OrderId = orderId;
+            oPiece.Width = piece.Width;
+            oPiece.Height = piece.Height;
+            oPiece.CutDirection = piece.CutDirection;
+            if (piece.Name != null)
+            {
+                oPiece.Name = piece.Name;
+            }
+            if (piece.SheetId != null)
+            {
+                oPiece.SheetId = piece.SheetId;
+            }
+            if (piece.x != null)
+            {
+                oPiece.X = piece.x;
+                oPiece.IsAllocated = true;
+            }
+            if (piece.y != null)
+            {
+                oPiece.Y = piece.y;
+                oPiece.IsAllocated = true;
+            }
+            return oPiece;
+        }
+        public List<OrderPiece> PiecesToOrderPieces(List<Piece> pieces, int orderId)
+        {
+            List<OrderPiece> oPieces = new List<OrderPiece>();
+            foreach (var piece in pieces)
+            {
+                oPieces.Add(PieceToOrderPiece(piece, orderId));
+            }
+            return oPieces;
         }
     }
 }

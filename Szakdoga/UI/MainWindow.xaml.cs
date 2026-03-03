@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,16 +35,73 @@ namespace Szakdoga.UI
 
         MainViewModel viewModel;
         Manager manager;
+        DatabaseService DB;
 
         int sheetId;
+        int orderId;
         double _pcw;
         double _pch;
         string OptMode;
+
         public MainWindow()
         {
             InitializeComponent();
             manager = new Manager();
-            
+            DB = new DatabaseService();
+
+            try
+            {
+                settings = new Settings(
+                        Properties.Settings.Default.Language,
+                        Properties.Settings.Default.DarkMode,
+                        Properties.Settings.Default.SheetHeight,
+                        Properties.Settings.Default.SheetWidth,
+                        Properties.Settings.Default.BladeThickness,
+                        Properties.Settings.Default.SheetPadding,
+                        Properties.Settings.Default.SheetColor,
+                        Properties.Settings.Default.SheetManufacturer,
+                        Properties.Settings.Default.SheetPrice,
+                        Properties.Settings.Default.EdgeSealingPrice,
+                        Properties.Settings.Default.Currency
+                    );
+            }
+            catch (Exception)
+            {
+                settings = new Settings();
+            }
+
+            CultureInfo culture = new CultureInfo(settings.Language);
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+
+            LocalizationManager.Instance.Culture = culture;
+
+            statistics = new Statistics();
+            viewModel = new MainViewModel(manager.Pieces);
+
+            DataContext = viewModel;
+            PiecesListView.DataContext = viewModel;
+            sheetId = 1;
+
+            SizeChanged += MainWindow_SizeChanged;
+            SheetIdBox.Text = sheetId.ToString();
+
+            _pch = PieceCanvas.Height;
+            _pcw = PieceCanvas.Width;
+            OptMode = "Test";
+            //StateChanged += MainWindow_Maximized;
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            ClearInputs();
+        }
+        public MainWindow(int OrderId,List<Piece>? pieces)
+        {
+            InitializeComponent();
+            manager = new Manager();
+            DB = new DatabaseService();
+
+            orderId = OrderId;
+
             try
             {
                 settings = new Settings(
@@ -84,11 +142,33 @@ namespace Szakdoga.UI
             _pcw = PieceCanvas.Width;
             OptMode = "Test";
             //StateChanged += MainWindow_Maximized;
-
+           
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ClearInputs();
+
+            if (pieces != null)
+            {
+                foreach (var piece in pieces)
+                {
+                    if (piece.x != null && piece.y != null && piece.SheetId != null)
+                        manager.AddPiece(piece.Height, piece.Width, piece.CutDirection, piece.Name, 1, true, true, (double)piece.x, (double)piece.y, (double)piece.SheetId);
+                    else
+                        manager.AddPiece(piece.Height, piece.Width, piece.CutDirection, piece.Name, fromLoad:true);
+                }
+               
+            }
         }
-        
+        public void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            bool hasOptimizedPieces = manager.Pieces.Any(p => p.x != null && p.y != null && p.SheetId != null);
+            if (hasOptimizedPieces)
+            {
+                PlacePieces();
+                SheetIdBox.Text = "1";
+                FillStatistics();
+                FillStatisticsThisSheet();
+            }
+        }
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
         {
             private CutDirection _direction;
@@ -252,8 +332,14 @@ namespace Szakdoga.UI
                 }
             }
 
-            GC.Collect();
+            GCSettings.LargeObjectHeapCompactionMode =
+    GCLargeObjectHeapCompactionMode.CompactOnce;
+
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            GC.Collect();
         }
       
         private void FillStatistics()
@@ -346,33 +432,36 @@ namespace Szakdoga.UI
 
         private void Save(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text File|*.txt";
-            saveFileDialog.Title = Strings.SavePromptText;
-            saveFileDialog.ShowDialog();
-            if (saveFileDialog.FileName != "")
-            {
-                FileStream fs = (FileStream)saveFileDialog.OpenFile();
-                try
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        foreach (var piece in manager.Pieces)
-                        {
-                            if (piece.x == null || piece.y == null || piece.SheetId == null)
-                                sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
-                            else
-                                sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x,2)};{Math.Round((double)piece.y,2)};{piece.SheetId}");
-                        }
-                    }
-                    MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                fs.Close();
-            }
+            Piece tempPiece = new Piece();
+            DB.AddOrderPieces(tempPiece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
+            
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //saveFileDialog.Filter = "Text File|*.txt";
+            //saveFileDialog.Title = Strings.SavePromptText;
+            //saveFileDialog.ShowDialog();
+            //if (saveFileDialog.FileName != "")
+            //{
+            //    FileStream fs = (FileStream)saveFileDialog.OpenFile();
+            //    try
+            //    {
+            //        using (StreamWriter sw = new StreamWriter(fs))
+            //        {
+            //            foreach (var piece in manager.Pieces)
+            //            {
+            //                if (piece.x == null || piece.y == null || piece.SheetId == null)
+            //                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
+            //                else
+            //                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x,2)};{Math.Round((double)piece.y,2)};{piece.SheetId}");
+            //            }
+            //        }
+            //        MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //    fs.Close();
+            //}
         }
 
         private void Load(object sender, RoutedEventArgs e)
@@ -424,7 +513,8 @@ namespace Szakdoga.UI
             {
                 PlacePieces();
                 SheetIdBox.Text = "1";
-                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, 1);
+                FillStatistics();
+                FillStatisticsThisSheet();
             }
         }
 
@@ -664,7 +754,5 @@ namespace Szakdoga.UI
             CountTxt.Text = "1";
             viewModel.Direction = CutDirection.Szálirány; // Reset to default direction
         }
-
-
     }  
 }

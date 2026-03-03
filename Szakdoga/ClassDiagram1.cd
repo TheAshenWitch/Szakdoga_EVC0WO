@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Szakdoga.Models.AppDbContext">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAQAAAAEAAAAAAAAABAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\AppDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Models.Customer">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Models.InventoryItem">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAggAAEAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\InventoryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Models.Order">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAEEAACAAAAAAAAAAABAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Models.OrderPiece">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAGCAAAAFAAAAAEAAAAAAEQAAAACAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Models\OrderPiece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Models.Sheet">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABQAgAAAAAAAAAEQAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Sheet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Piece">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAFAAAAAAEAAACAEQAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Models\Piece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Settings">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAASAQAAAAgABgAAAAACAAAAAQAAAIAAAAgAAA=</HashCode>
+      <FileName>Models\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Statistics">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAAAAQAgAAAEAAAhAAAAAAAAAIEICQACgAAAAAABACA=</HashCode>
+      <FileName>Models\Statistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DatabaseService">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAggIgASREAQAgBACoMgAQACoEBAAAIEAEAAAEAIg=</HashCode>
+      <FileName>Services\DatabaseService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Szakdoga.Services.Manager">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAAAAABAAABAAAAAAAEAAIQgAAAAAIAAAAAA=</HashCode>
+      <FileName>Services\Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.Services.Optimizer">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Szakdoga.Services.Optimizer.Rect">
+        <TypeIdentifier>
+          <NewMemberFileName>Services\Optimizer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Class Name="Szakdoga.Services.Optimizer.MaxRectsBinPack">
+        <TypeIdentifier>
+          <NewMemberFileName>Services\Optimizer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAEwAIAAAAAAQAAAAAACCAAEAAAAAECAACAABAAA=</HashCode>
+      <FileName>Services\Optimizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.CustomerInputWindow">
+    <Position X="8.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAAAAQACAQAAAAAAAAAAAAQAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>UI\CustomerInputWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Window" Collapsed="true">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Szakdoga.UI.MainWindow">
+    <Position X="10.5" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Szakdoga.UI.MainWindow.MainViewModel">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IAYQgIEEAQAAEEAIAAgQBBAMABHIAQACAAAAAABAAAA=</HashCode>
+      <FileName>UI\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Szakdoga.UI.OrderInputWindow">
+    <Position X="12.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAgAIAAECAAAECAAAIAAQAQAAAAACAAAAAAAABAAA=</HashCode>
+      <FileName>UI\OrderInputWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.ProgressBarWindow">
+    <Position X="14" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\ProgressBarWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Szakdoga.ProjectExplorer">
+    <Position X="15.75" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Szakdoga.ProjectExplorer.ProjectExplorerViewModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\ProjectExplorer.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQEAAAAAEAAAAAAAEAAQAAAQAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>UI\ProjectExplorer.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Szakdoga.SettingsWindow">
+    <Position X="17.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\SettingsWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="Szakdoga.CutDirection">
+    <Position X="4" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Piece.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

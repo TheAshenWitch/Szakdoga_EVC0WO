@@ -33,26 +33,26 @@ public class DatabaseService : IDisposable
     public List<Sheet> GetAllSheets()
     {
         return _db.Sheets
-            .AsNoTracking()
+            
             .ToList();
     }
 
     public Sheet? GetSheetById(int id)
     {
         return _db.Sheets
-            .AsNoTracking()
+            
             .FirstOrDefault(s => s.Id == id);
     }
     public Sheet? GetSheetByName(string name)
     {
         return _db.Sheets
-            .AsNoTracking()
+            
             .FirstOrDefault(s => s.Name == name);
     }
     public List<Sheet> GetSheetsByName(string text)
     {
         return _db.Sheets
-            .AsNoTracking()
+            
             .Where(s => s.Name.Contains(text))
             .ToList();
     }
@@ -82,7 +82,7 @@ public class DatabaseService : IDisposable
     public List<Customer> GetAllCustomers()
     {
         return _db.Customers
-            .AsNoTracking()
+            
             .Include(c => c.Orders)
                 .ThenInclude(o => o.Sheet)
             .Include(c => c.Orders)
@@ -93,7 +93,7 @@ public class DatabaseService : IDisposable
     public Customer? GetCustomerById(int id)
     {
         return _db.Customers
-            .AsNoTracking()
+            
             .Include(c => c.Orders)
                 .ThenInclude(o => o.Sheet)
             .Include(c => c.Orders)
@@ -104,7 +104,7 @@ public class DatabaseService : IDisposable
     public Customer? GetCustomerByName(string name)
     {
         return _db.Customers
-            .AsNoTracking()
+            
             .Include(c => c.Orders)
                 .ThenInclude(o => o.Sheet)
             .Include(c => c.Orders)
@@ -114,7 +114,7 @@ public class DatabaseService : IDisposable
     public List<Customer> GetCustomersByName(string text)
     {
         return _db.Customers
-            .AsNoTracking()
+            
             .Include(c => c.Orders)
                 .ThenInclude(o => o.Sheet)
             .Include(c => c.Orders)
@@ -148,7 +148,7 @@ public class DatabaseService : IDisposable
     public List<Order> GetAllOrders()
     {
         return _db.Orders
-            .AsNoTracking()
+            
             .Include(o => o.Customer)
             .Include(o => o.Sheet)
             .Include(o => o.Pieces)
@@ -159,7 +159,7 @@ public class DatabaseService : IDisposable
     public Order? GetOrderById(int id)
     {
         return _db.Orders
-            .AsNoTracking()
+            
             .Include(o => o.Customer)
             .Include(o => o.Sheet)
             .Include(o => o.Pieces)
@@ -199,17 +199,27 @@ public class DatabaseService : IDisposable
     public List<OrderPiece> GetAllOrderPieces()
     {
         return _db.OrderPieces
-            .AsNoTracking()
+            
             .Include(op => op.Order)
                 .ThenInclude(o => o.Customer)
             .Include(op => op.Sheet)
+            .ToList();
+    }
+    public List<OrderPiece> GetOrderPiecesByOrderId(int orderId)
+    {
+        return _db.OrderPieces
+            
+            .Include(op => op.Order)
+                .ThenInclude(o => o.Customer)
+            .Include(op => op.Sheet)
+            .Where(op => op.OrderId == orderId)
             .ToList();
     }
 
     public OrderPiece? GetOrderPieceById(int id)
     {
         return _db.OrderPieces
-            .AsNoTracking()
+            
             .Include(op => op.Order)
                 .ThenInclude(o => o.Customer)
             .Include(op => op.Sheet)
@@ -248,7 +258,7 @@ public class DatabaseService : IDisposable
     public List<InventoryItem> GetAllInventoryItems()
     {
         return _db.InventoryItems
-            .AsNoTracking()
+            
             .Include(ii => ii.Sheet)
             .ToList();
     }
@@ -256,7 +266,7 @@ public class DatabaseService : IDisposable
     public InventoryItem? GetInventoryItemById(int id)
     {
         return _db.InventoryItems
-            .AsNoTracking()
+            
             .Include(ii => ii.Sheet)
             .FirstOrDefault(ii => ii.Id == id);
     }
