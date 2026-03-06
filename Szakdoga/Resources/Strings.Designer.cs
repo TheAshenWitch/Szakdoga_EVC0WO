@@ -79,6 +79,26 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new
+        ///customer.
+        /// </summary>
+        internal static string AddNewCustomerLabel {
+            get {
+                return ResourceManager.GetString("AddNewCustomerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New
+        ///Order.
+        /// </summary>
+        internal static string AddNewOrderLabel {
+            get {
+                return ResourceManager.GetString("AddNewOrderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         internal static string ApplyButton {
@@ -129,6 +149,16 @@ namespace Szakdoga.Resources {
         internal static string DeleteButton {
             get {
                 return ResourceManager.GetString("DeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete
+        ///order.
+        /// </summary>
+        internal static string DeleteOrderLabel {
+            get {
+                return ResourceManager.GetString("DeleteOrderLabel", resourceCulture);
             }
         }
         
@@ -258,6 +288,16 @@ namespace Szakdoga.Resources {
         internal static string MaterialUtilThisSheetLabel {
             get {
                 return ResourceManager.GetString("MaterialUtilThisSheetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify
+        ///order.
+        /// </summary>
+        internal static string ModifyOderLabel {
+            get {
+                return ResourceManager.GetString("ModifyOderLabel", resourceCulture);
             }
         }
         

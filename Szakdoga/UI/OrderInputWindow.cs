@@ -27,7 +27,7 @@ namespace Szakdoga.UI
         private DispatcherTimer sheetSearchTimer;
         private DispatcherTimer nameSearchTimer;
         private string searchText;
-
+        private bool isSelecting = false;
         public OrderInputWindow(string title, string? customerName, string? orderTitle, string? sheet)
         {
             sheetSearchTimer = new DispatcherTimer();
@@ -40,8 +40,8 @@ namespace Szakdoga.UI
 
             using var DB = new DatabaseService();
 
-            customers = DB.GetAllCustomers().Distinct().ToList();
-            sheets = DB.GetAllSheets().Distinct().ToList();
+            customers = DB.GetAllCustomers();
+            sheets = DB.GetAllSheets();
 
             Title = title;
             Width = 350;
@@ -71,6 +71,7 @@ namespace Szakdoga.UI
             string customerNameText = customerName ?? "";
 
             customerNameBox = CreateSearchComboBox(customerNameText);
+            customerNameBox.ItemsSource = customers.Select(c => c.Name).Distinct().ToList();
 
             Grid.SetRow(customerNameLabel, 0);
             Grid.SetColumn(customerNameLabel, 0);
@@ -80,7 +81,6 @@ namespace Szakdoga.UI
 
             grid.Children.Add(customerNameLabel);
             grid.Children.Add(customerNameBox);
-
 
 
             // ===== Order Title =====
@@ -115,6 +115,7 @@ namespace Szakdoga.UI
             string sheetNameText = sheet ?? "";
 
             sheetBox = CreateSearchComboBox(sheetNameText);
+            sheetBox.ItemsSource = sheets.Select(s => s.Name).Distinct().ToList();
 
             Grid.SetRow(sheetNameLabel, 2);
             Grid.SetColumn(sheetNameLabel, 0);
@@ -165,7 +166,10 @@ namespace Szakdoga.UI
                 IsTextSearchEnabled = false,
                 Text = text
             };
-
+            cb.SelectionChanged += (s, e) =>
+            {
+                isSelecting = true;
+            };
             cb.AddHandler(TextBox.TextChangedEvent,
                 new TextChangedEventHandler(ComboTextChanged));
 
@@ -176,6 +180,12 @@ namespace Szakdoga.UI
 
         private void ComboTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (isSelecting)
+            {
+                isSelecting = false;
+                return;
+            }
+
             var tb = e.OriginalSource as TextBox;
 
             if (tb == null)
@@ -202,7 +212,7 @@ namespace Szakdoga.UI
         {
             sheetSearchTimer.Stop();
 
-            var sheetNames = sheets.Select(s => s.Name).ToList();
+            var sheetNames = sheets.Select(s => s.Name).Where(s => s.ToLower().Contains(sheetBox.Text.ToLower())).Distinct().ToList();
 
             sheetBox.ItemsSource = sheetNames;
 
@@ -214,11 +224,7 @@ namespace Szakdoga.UI
 
             using var db = new DatabaseService();
 
-            var customers = db.GetCustomerByName(searchText) != null
-                ? new List<Customer> { db.GetCustomerByName(searchText) }
-                : db.GetCustomersByName(searchText);
-
-            var customerNames = customers.Select(c => c.Name).ToList();
+            var customerNames = customers.Select(c => c.Name).Where(s => s.ToLower().Contains(customerNameBox.Text.ToLower())).Distinct().ToList();
 
             customerNameBox.ItemsSource = customerNames;
 

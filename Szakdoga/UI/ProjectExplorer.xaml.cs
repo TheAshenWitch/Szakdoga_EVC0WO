@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,10 +29,39 @@ namespace Szakdoga
         ProjectExplorerViewModel viewModel;
         DatabaseService Db;
         ObservableCollection<Order> Orders;
+        Settings settings;
         public ProjectExplorer()
         {
             InitializeComponent();
             Db = new DatabaseService();
+
+            try
+            {
+                settings = new Settings(
+                        Properties.Settings.Default.Language,
+                        Properties.Settings.Default.DarkMode,
+                        Properties.Settings.Default.SheetHeight,
+                        Properties.Settings.Default.SheetWidth,
+                        Properties.Settings.Default.BladeThickness,
+                        Properties.Settings.Default.SheetPadding,
+                        Properties.Settings.Default.SheetColor,
+                        Properties.Settings.Default.SheetManufacturer,
+                        Properties.Settings.Default.SheetPrice,
+                        Properties.Settings.Default.EdgeSealingPrice,
+                        Properties.Settings.Default.Currency
+                    );
+            }
+            catch (Exception)
+            {
+                settings = new Settings();
+            }
+
+            CultureInfo culture = new CultureInfo(settings.Language);
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+
+            LocalizationManager.Instance.Culture = culture;
+
             Orders = new ObservableCollection<Order>(Db.GetAllOrders());
 
             viewModel = new ProjectExplorerViewModel(Orders);

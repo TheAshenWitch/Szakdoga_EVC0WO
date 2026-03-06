@@ -313,4 +313,20 @@ ezen a lapon</value>
   <data name="EmptyListError" xml:space="preserve">
     <value>Nincsenek optimalizálandó darabok.</value>
   </data>
+  <data name="AddNewOrderLabel" xml:space="preserve">
+    <value>Új
+megrendelés</value>
+  </data>
+  <data name="AddNewCustomerLabel" xml:space="preserve">
+    <value>Új
+megrendelő</value>
+  </data>
+  <data name="ModifyOderLabel" xml:space="preserve">
+    <value>Megrendelés
+módosítása</value>
+  </data>
+  <data name="DeleteOrderLabel" xml:space="preserve">
+    <value>Megrendelés
+törlése</value>
+  </data>
 </root>

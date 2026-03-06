@@ -318,4 +318,20 @@ this sheet</value>
   <data name="EmptyListError" xml:space="preserve">
     <value>No pieces to optimize.</value>
   </data>
+  <data name="AddNewOrderLabel" xml:space="preserve">
+    <value>Add new
+order</value>
+  </data>
+  <data name="AddNewCustomerLabel" xml:space="preserve">
+    <value>Add new
+customer</value>
+  </data>
+  <data name="ModifyOderLabel" xml:space="preserve">
+    <value>Modify
+order</value>
+  </data>
+  <data name="DeleteOrderLabel" xml:space="preserve">
+    <value>Delete
+order</value>
+  </data>
 </root>
