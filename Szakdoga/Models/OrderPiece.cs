@@ -22,7 +22,8 @@ namespace Szakdoga.Models
         public bool IsAllocated { get; set; }  // kiosztva van-e
         public double? X { get; set; }  // kiosztás X koordinátája
         public double? Y { get; set; }  // kiosztás Y koordinátája
-        public int? SheetId { get; set; }  // melyik lemezre van kiosztva
+        public int? AllocatedSheetId { get; set; }  // melyik lemezre van kiosztva
+        public int? SheetId { get; set; }
         public Sheet? Sheet { get; set; }
     }
 

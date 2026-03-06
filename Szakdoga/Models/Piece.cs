@@ -63,9 +63,9 @@ namespace Szakdoga
             {
                 piece.Name = oPiece.Name;
             }
-            if (oPiece.SheetId != null)
+            if (oPiece.AllocatedSheetId != null)
             {
-                piece.SheetId = oPiece.SheetId;
+                piece.SheetId = oPiece.AllocatedSheetId;
             }
             if(oPiece.X  != null)
             {
@@ -99,7 +99,7 @@ namespace Szakdoga
             }
             if (piece.SheetId != null)
             {
-                oPiece.SheetId = piece.SheetId;
+                oPiece.AllocatedSheetId = piece.SheetId;
             }
             if (piece.x != null)
             {

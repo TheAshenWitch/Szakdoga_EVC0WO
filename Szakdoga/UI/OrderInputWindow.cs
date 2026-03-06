@@ -16,19 +16,32 @@ namespace Szakdoga.UI
         ComboBox customerNameBox;
         TextBox titleBox;
         ComboBox sheetBox;
-
+        List<Customer> customers;
+        List<Sheet> sheets;
         public string CustomerName => customerNameBox.Text;
         public string OrderTitle => titleBox.Text;
         public string Sheet => sheetBox.Text;
 
-        private DispatcherTimer searchTimer;
+        string orderTitleHint = "Order title";
+
+        private DispatcherTimer sheetSearchTimer;
+        private DispatcherTimer nameSearchTimer;
         private string searchText;
 
         public OrderInputWindow(string title, string? customerName, string? orderTitle, string? sheet)
         {
-            searchTimer = new DispatcherTimer();
-            searchTimer.Interval = TimeSpan.FromMilliseconds(500);
-            searchTimer.Tick += SearchTimer_Tick;
+            sheetSearchTimer = new DispatcherTimer();
+            sheetSearchTimer.Interval = TimeSpan.FromMilliseconds(300);
+            sheetSearchTimer.Tick += sheetSearchTimer_Tick;
+
+            nameSearchTimer = new DispatcherTimer();
+            nameSearchTimer.Interval = TimeSpan.FromMilliseconds(300);
+            nameSearchTimer.Tick += nameSearchTimer_Tick;
+
+            using var DB = new DatabaseService();
+
+            customers = DB.GetAllCustomers().Distinct().ToList();
+            sheets = DB.GetAllSheets().Distinct().ToList();
 
             Title = title;
             Width = 350;
@@ -78,7 +91,7 @@ namespace Szakdoga.UI
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            string orderTitleText = orderTitle ?? "Add meg az ügyfél nevét...";
+            string orderTitleText = orderTitle ?? orderTitleHint;
             titleBox = CreateHintTextBox(orderTitleText, orderTitle.IsNullOrEmpty());
 
             Grid.SetRow(orderTitleLabel, 1);
@@ -125,6 +138,10 @@ namespace Szakdoga.UI
 
             saveButton.Click += (s, e) =>
             {
+                if(titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text))
+                {
+                    orderTitle = null;
+                }
                 DialogResult = true;
                 Close();
             };
@@ -164,17 +181,36 @@ namespace Szakdoga.UI
             if (tb == null)
                 return;
 
+            if(tb.Text == searchText)
+                return;
+
             searchText = tb.Text;
 
-            searchTimer.Stop();
-            searchTimer.Start();
+            if(e.Source == customerNameBox)
+            {
+                nameSearchTimer.Stop();
+                nameSearchTimer.Start();
+            }
+            else if(e.Source == sheetBox)
+            {
+                sheetSearchTimer.Stop();
+                sheetSearchTimer.Start();
+            }
         }
 
-
-
-        private void SearchTimer_Tick(object sender, EventArgs e)
+        private void sheetSearchTimer_Tick(object sender, EventArgs e)
         {
-            searchTimer.Stop();
+            sheetSearchTimer.Stop();
+
+            var sheetNames = sheets.Select(s => s.Name).ToList();
+
+            sheetBox.ItemsSource = sheetNames;
+
+            sheetBox.IsDropDownOpen = true;
+        }
+        private void nameSearchTimer_Tick(object sender, EventArgs e)
+        {
+            nameSearchTimer.Stop();
 
             using var db = new DatabaseService();
 
@@ -182,18 +218,11 @@ namespace Szakdoga.UI
                 ? new List<Customer> { db.GetCustomerByName(searchText) }
                 : db.GetCustomersByName(searchText);
 
-            var sheets = db.GetSheetByName(searchText) != null
-                ? new List<Sheet> { db.GetSheetByName(searchText) }
-                : db.GetSheetsByName(searchText);
-
             var customerNames = customers.Select(c => c.Name).ToList();
-            var sheetNames = sheets.Select(s => s.Name).ToList();
 
             customerNameBox.ItemsSource = customerNames;
-            sheetBox.ItemsSource = sheetNames;
 
             customerNameBox.IsDropDownOpen = true;
-            sheetBox.IsDropDownOpen = true;
         }
 
 

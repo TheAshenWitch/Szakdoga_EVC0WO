@@ -333,7 +333,7 @@ namespace Szakdoga.UI
             }
 
             GCSettings.LargeObjectHeapCompactionMode =
-    GCLargeObjectHeapCompactionMode.CompactOnce;
+                GCLargeObjectHeapCompactionMode.CompactOnce;
 
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             GC.WaitForPendingFinalizers();
