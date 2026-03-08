@@ -329,4 +329,24 @@ módosítása</value>
     <value>Megrendelés
 törlése</value>
   </data>
+  <data name="AddNewSheetLabel" xml:space="preserve">
+    <value>Új
+bútorlap</value>
+  </data>
+  <data name="ModifyCustomerLabel" xml:space="preserve">
+    <value>Megrendelő
+módosítása</value>
+  </data>
+  <data name="ModifySheetLabel" xml:space="preserve">
+    <value>Bútorlap
+módosítása</value>
+  </data>
+  <data name="DeleteCustomerLabel" xml:space="preserve">
+    <value>Megrendelő
+törlése</value>
+  </data>
+  <data name="DeleteSheetLabel" xml:space="preserve">
+    <value>Bútorlap
+törlése</value>
+  </data>
 </root>

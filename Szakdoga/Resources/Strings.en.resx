@@ -334,4 +334,24 @@ order</value>
     <value>Delete
 order</value>
   </data>
+  <data name="AddNewSheetLabel" xml:space="preserve">
+    <value>Add new
+sheet</value>
+  </data>
+  <data name="ModifyCustomerLabel" xml:space="preserve">
+    <value>Modify
+customer</value>
+  </data>
+  <data name="ModifySheetLabel" xml:space="preserve">
+    <value>Modify
+sheet</value>
+  </data>
+  <data name="DeleteCustomerLabel" xml:space="preserve">
+    <value>Delete
+customer</value>
+  </data>
+  <data name="DeleteSheetLabel" xml:space="preserve">
+    <value>Delete
+sheet</value>
+  </data>
 </root>

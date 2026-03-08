@@ -74,7 +74,6 @@ namespace Szakdoga
             
             public event PropertyChangedEventHandler? PropertyChanged;
         }
-
         private void MainScreen(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
@@ -82,7 +81,6 @@ namespace Szakdoga
             
             this.Close();
         }
-
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
             string? customerName = null;
@@ -107,7 +105,6 @@ namespace Szakdoga
             Orders.Add(order);
             Db.SaveAllChanges();
         }
-
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {
             CustomerInputWindow customerInputWindow = new CustomerInputWindow();
@@ -123,7 +120,25 @@ namespace Szakdoga
                 Db.SaveAllChanges();
             }
         }
-
+        private void AddNewSheet(object sender, RoutedEventArgs e)
+        {
+            //SheetInputWindow sheetInputWindow = new SheetInputWindow();
+            //if (sheetInputWindow.ShowDialog() == true)
+            //{
+            //    Sheet newSheet = new Sheet
+            //    {
+            //        Name = sheetInputWindow.SheetName,
+            //        Height = sheetInputWindow.Height,
+            //        Width = sheetInputWindow.Width,
+            //        Thickness = sheetInputWindow.Thickness,
+            //        Color = sheetInputWindow.Color,
+            //        Manufacturer = sheetInputWindow.Manufacturer,
+            //        Price = sheetInputWindow.Price
+            //    };
+            //    Db.AddSheet(newSheet);
+            //    Db.SaveAllChanges();
+            //}
+        }
         private void UpdateOrder(object sender, RoutedEventArgs e)
         {
             string? customerName = null;
@@ -160,7 +175,37 @@ namespace Szakdoga
                 Db.SaveAllChanges();
             }
         }
-
+        private void UpdateCustomer(object sender, RoutedEventArgs e)
+        {
+            //if (OrderListView.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Please select an order to update its customer.");
+            //    return;
+            //}
+            //Order order = (Order)OrderListView.SelectedItem as Order;
+            //if(order.Customer == null)
+            //{
+            //    MessageBox.Show("Selected order has no customer to update.");
+            //    return;
+            //}
+            //CustomerInputWindow customerInputWindow = new CustomerInputWindow(order.Customer.Name, order.Customer.Email, order.Customer.Phone);
+            //if (customerInputWindow.ShowDialog() == true)
+            //{
+            //    Customer selectedCustomer = order.Customer;
+            //    if (selectedCustomer != null)
+            //    {
+            //        selectedCustomer.Name = customerInputWindow.CustomerName;
+            //        selectedCustomer.Email = customerInputWindow.Email;
+            //        selectedCustomer.Phone = customerInputWindow.Phone;
+            //        Db.UpdateCustomer(selectedCustomer);
+            //        Db.SaveAllChanges();
+            //    }
+            //}
+        }
+        private void UpdateSheet(object sender, RoutedEventArgs e)
+        {
+            
+        }
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
             Order selectedOrder = (Order)OrderListView.SelectedItem;
@@ -170,6 +215,27 @@ namespace Szakdoga
                 Orders.Remove(selectedOrder);
                 Db.SaveAllChanges();
             }
+        }
+        private void DeleteCustomer(object sender, RoutedEventArgs e)
+        {
+            //if (OrderListView.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Please select an order to delete its customer.");
+            //    return;
+            //}
+            //Order order = (Order)OrderListView.SelectedItem as Order;
+            //if(order.Customer == null)
+            //{
+            //    MessageBox.Show("Selected order has no customer to delete.");
+            //    return;
+            //}
+            //Db.DeleteCustomer(order.Customer);
+            //order.Customer = null;
+            //Db.SaveAllChanges();
+        }
+        private void DeleteSheet(object sender, RoutedEventArgs e)
+        {
+
         }
         private void OpenOrder(object sender, MouseButtonEventArgs e)
         {

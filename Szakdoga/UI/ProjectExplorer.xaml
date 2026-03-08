@@ -67,14 +67,14 @@
         </ListBox>
         <Button Content="{Binding [AddNewOrderLabel]}" Margin="500,12,570,508" Click="AddNewOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="{Binding [AddNewCustomerLabel]}" Margin="500,97,570,423" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
-        <Button Content="{Binding [AddNewSheetLabel]}" Margin="500,182,570,338" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="{Binding [AddNewSheetLabel]}" Margin="500,182,570,338" Click="AddNewSheet" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="{Binding [ModifyOderLabel]}" Margin="635,12,435,508" Click="UpdateOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
-        <Button Content="{Binding [ModifyCustomerLabel]}" Margin="635,97,435,423" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
-        <Button Content="{Binding [ModifySheetLabel]}" Margin="635,182,435,338" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="{Binding [ModifyCustomerLabel]}" Margin="635,97,435,423" Click="UpdateCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="{Binding [ModifySheetLabel]}" Margin="635,182,435,338" Click="UpdateSheet" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="{Binding [DeleteOrderLabel]}" Margin="770,12,300,508" Click="DeleteOrder" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="{Binding [DeleteCustomerLabel]}" Margin="770,97,300,423" Click="DeleteCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
+        <Button Content="{Binding [DeleteSheetLabel]}" Margin="770,182,300,338" Click="DeleteSheet" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
         <Button Content="Main screen" Margin="0,20,30,0" Click="MainScreen" Width="150" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top"/>
-        <Button Content="{Binding [DeleteCustomerLabel]}" Margin="770,97,300,423" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
-        <Button Content="{Binding [DeleteSheetLabel]}" Margin="770,182,300,338" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" FontSize="20"/>
 
     </Grid>
 </Window>

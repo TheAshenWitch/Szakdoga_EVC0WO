@@ -99,6 +99,16 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new
+        ///sheet.
+        /// </summary>
+        internal static string AddNewSheetLabel {
+            get {
+                return ResourceManager.GetString("AddNewSheetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         internal static string ApplyButton {
@@ -154,11 +164,31 @@ namespace Szakdoga.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Delete
+        ///customer.
+        /// </summary>
+        internal static string DeleteCustomerLabel {
+            get {
+                return ResourceManager.GetString("DeleteCustomerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete
         ///order.
         /// </summary>
         internal static string DeleteOrderLabel {
             get {
                 return ResourceManager.GetString("DeleteOrderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete
+        ///sheet.
+        /// </summary>
+        internal static string DeleteSheetLabel {
+            get {
+                return ResourceManager.GetString("DeleteSheetLabel", resourceCulture);
             }
         }
         
@@ -293,11 +323,31 @@ namespace Szakdoga.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Modify
+        ///Customer.
+        /// </summary>
+        internal static string ModifyCustomerLabel {
+            get {
+                return ResourceManager.GetString("ModifyCustomerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify
         ///order.
         /// </summary>
         internal static string ModifyOderLabel {
             get {
                 return ResourceManager.GetString("ModifyOderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify
+        ///sheet.
+        /// </summary>
+        internal static string ModifySheetLabel {
+            get {
+                return ResourceManager.GetString("ModifySheetLabel", resourceCulture);
             }
         }
         
