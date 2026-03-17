@@ -81,16 +81,16 @@ namespace Szakdoga.Services
                             RowHeight = Math.Max(RowHeight, piece.Width);
                             PiecesRemaining.Remove(piece);
                         }
-                        //// Try to place piece in next row if space available
-                        //else if (CanFitInNextRow(CurrentY, RowHeight, piece.Width, SheetY, BladeThickness, SheetPadding))
-                        //{
-                        //    placed = TryFitInGapOrNextRow(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref RowHeight, SheetX, SheetY, SheetPadding, BladeThickness, _SheetId);
-                        //}
-                        //// Try to fill remaining space or start new sheet
-                        //else
-                        //{
-                        //    placed = TryFitInLastGapOrNewSheet(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref RowHeight, ref _SheetId, SheetX, SheetY, SheetPadding, BladeThickness);
-                        //}
+                        // Try to place piece in next row if space available
+                        else if (CanFitInNextRow(CurrentY, RowHeight, piece.Width, SheetY, BladeThickness, SheetPadding))
+                        {
+                            placed = TryFitInGapOrNextRow(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref RowHeight, SheetX, SheetY, SheetPadding, BladeThickness, _SheetId);
+                        }
+                        // Try to fill remaining space or start new sheet
+                        else
+                        {
+                            placed = TryFitInLastGapOrNewSheet(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref RowHeight, ref _SheetId, SheetX, SheetY, SheetPadding, BladeThickness);
+                        }
                     }
                 } while (placed);
             }
