@@ -229,7 +229,7 @@ namespace Szakdoga.UI
 
             int maxSheet = (int)manager.Pieces.Max(m => m.SheetId)!;
             sheetId = 1;
-            double scalePercent = 0.7;     // 80% méret
+            double scalePercent = 0.7;     // 70% méret
             double offsetXPercent = 0.01;  // 1% balról
             double offsetYPercent = 0.01;  // 1% felülről
             ProgressBarWindow progbar = new ProgressBarWindow(1, maxSheet);
@@ -242,8 +242,8 @@ namespace Szakdoga.UI
                     double canvasHeight = PieceCanvas.ActualHeight;
 
                     RenderTargetBitmap? rtb = new RenderTargetBitmap(
-                        (int)canvasWidth,
-                        (int)canvasHeight,
+                        (int)canvasWidth + 10,
+                        (int)canvasHeight + 10,
                         96, 96,
                         PixelFormats.Pbgra32);
 
@@ -282,7 +282,7 @@ namespace Szakdoga.UI
                         int totalItems = sheetPieces.Count;
 
                         // Oszlopszám meghatározása
-                        int columns = (int)Math.Ceiling((double)totalItems/60);           
+                        int columns = (int)Math.Ceiling((double)totalItems/80);           
 
                         int rowsPerColumn = (int)Math.Ceiling((double)totalItems / columns);
 
@@ -566,6 +566,8 @@ namespace Szakdoga.UI
         {
             PieceCanvas.Children.Clear();
             
+            string virtualPieceName = "";
+
             double wscale = PieceCanvas.ActualHeight / (double)(settings.SheetHeight ?? 2070.0);
             double hscale = PieceCanvas.ActualWidth / (double)(settings.SheetWidth ?? 2800.0);
             foreach (var piece in manager.Pieces)
@@ -581,10 +583,66 @@ namespace Szakdoga.UI
                         StrokeThickness = 1,
                         ToolTip = $"ID: {piece.Id}\nName: {piece.Name}\nHeight: {piece.Height}\nWidth: {piece.Width}\nDirection: {piece.CutDirection}"
                     };
+
+                    int fontSize = 14;
+                    virtualPieceName = piece.Name + $"\n{piece.Height}x{piece.Width}";
+                    if (piece.Name.Length > 10)
+                    {
+                        if(piece.Width >= 150 && piece.Height <= 350)
+                        {
+                            virtualPieceName = 
+                                piece.Name.Substring(0, (int)Math.Floor((double)piece.Name.Length / 2)) +
+                                "\n" + piece.Name.Substring(piece.Name.Length / 2, (int)Math.Ceiling((double)piece.Name.Length / 2)) + 
+                                $"\n{piece.Height}x{piece.Width}";
+                        }
+                        else
+                        {
+                            if (piece.Height <= 250)
+                                fontSize = 12;
+                            if (piece.Height <= 200)
+                                fontSize = 10;
+                            if (piece.Height <= 150)
+                                fontSize = 8;
+                            if (piece.Height <= 100)
+                                fontSize = 6;
+                        }
+                    }
+                    if (piece.Name.Length > 20)
+                    {
+                        if(piece.Width >= 150 && piece.Height <= 350)
+                        {
+                            virtualPieceName = piece.Name.Substring(0, (int)Math.Floor((double)piece.Name.Length / 2)) + 
+                                "\n" + piece.Name.Substring(piece.Name.Length / 2, (int)Math.Ceiling((double)piece.Name.Length / 2)) + 
+                                $"\n{piece.Height}x{piece.Width}";
+                        }
+                        else
+                        {
+                            if (piece.Height <= 250)
+                                fontSize = 8;
+                            if (piece.Height <= 200)
+                                fontSize = 7;
+                            if (piece.Height <= 150)
+                                fontSize = 6;
+                            if (piece.Height <= 100)
+                                fontSize = 5;
+                        }
+                    }
+
+                    Label label = new Label
+                    {
+                        Content = virtualPieceName,
+                        FontSize = fontSize,
+                        Foreground = System.Windows.Media.Brushes.Black,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+
                     Canvas.SetLeft(rect, (double)(piece.x * hscale)!);
                     Canvas.SetTop(rect, (double)(piece.y * wscale)!);
-                    
+                    Canvas.SetLeft(label, (double)(piece.x * hscale)!);
+                    Canvas.SetTop(label, (double)(piece.y * wscale)!);
                     PieceCanvas.Children.Add(rect);
+                    PieceCanvas.Children.Add(label);
                 }
             }
         }

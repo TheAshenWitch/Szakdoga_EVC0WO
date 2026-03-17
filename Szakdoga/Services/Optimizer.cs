@@ -63,7 +63,7 @@ namespace Szakdoga.Services
             int _SheetId = 1;
             double CurrentX = SheetPadding;      // Current X position in the current row
             double CurrentY = SheetPadding;      // Current Y position (which row we're on)
-            double TempY = SheetPadding;         // Height of the current row (max piece width in row)
+            double RowHeight = 0;                // Height of the current row (max piece width in row)
 
             foreach (var piece in Pieces)
             {
@@ -74,23 +74,23 @@ namespace Szakdoga.Services
                     if (piece.x == null && piece.y == null && piece.SheetId == null)
                     {
                         // Try to place piece in current position
-                        if (CanFitInCurrentPosition(piece, CurrentX, CurrentY, TempY, SheetX, SheetY, BladeThickness))
+                        if (CanFitInCurrentPosition(piece, CurrentX, CurrentY, RowHeight, SheetX, SheetY, BladeThickness))
                         {
                             PlacePieceAtCurrentPosition(piece, CurrentX, CurrentY, _SheetId);
                             CurrentX += piece.Height + BladeThickness;
-                            TempY = Math.Max(TempY, piece.Width);
+                            RowHeight = Math.Max(RowHeight, piece.Width);
                             PiecesRemaining.Remove(piece);
                         }
-                        // Try to place piece in next row if space available
-                        else if (CanFitInNextRow(CurrentY, TempY, piece.Width, SheetY, BladeThickness, SheetPadding))
-                        {
-                            placed = TryFitInGapOrNextRow(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref TempY, SheetX, SheetY, SheetPadding, BladeThickness, _SheetId);
-                        }
-                        // Try to fill remaining space or start new sheet
-                        else
-                        {
-                            placed = TryFitInLastGapOrNewSheet(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref TempY, ref _SheetId, SheetX, SheetY, SheetPadding, BladeThickness);
-                        }
+                        //// Try to place piece in next row if space available
+                        //else if (CanFitInNextRow(CurrentY, RowHeight, piece.Width, SheetY, BladeThickness, SheetPadding))
+                        //{
+                        //    placed = TryFitInGapOrNextRow(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref RowHeight, SheetX, SheetY, SheetPadding, BladeThickness, _SheetId);
+                        //}
+                        //// Try to fill remaining space or start new sheet
+                        //else
+                        //{
+                        //    placed = TryFitInLastGapOrNewSheet(piece, Pieces, PiecesRemaining, ref CurrentX, ref CurrentY, ref RowHeight, ref _SheetId, SheetX, SheetY, SheetPadding, BladeThickness);
+                        //}
                     }
                 } while (placed);
             }
@@ -103,10 +103,11 @@ namespace Szakdoga.Services
         /// Checks if a piece can fit in the current position without exceeding sheet boundaries.
         /// </summary>
         /// <returns>True if piece fits horizontally and vertically at current position</returns>
-        private bool CanFitInCurrentPosition(Piece piece, double CurrentX, double CurrentY, double TempY, double SheetX, double SheetY, double BladeThickness)
+        private bool CanFitInCurrentPosition(Piece piece, double CurrentX, double CurrentY, double RowHeight, double SheetX, double SheetY, double BladeThickness)
         {
+            // Check if piece fits within sheet boundaries (accounting for padding on right/bottom)
             return CurrentX + piece.Height + BladeThickness <= SheetX && 
-                   piece.Width + CurrentY + BladeThickness <= SheetY;
+                   CurrentY + Math.Max(RowHeight, piece.Width) + BladeThickness <= SheetY;
         }
 
         /// <summary>
@@ -125,9 +126,9 @@ namespace Szakdoga.Services
         /// Accounts for padding and blade thickness.
         /// </summary>
         /// <returns>True if a new row would fit on the current sheet</returns>
-        private bool CanFitInNextRow(double CurrentY, double TempY, double PieceWidth, double SheetY, double BladeThickness, double SheetPadding)
+        private bool CanFitInNextRow(double CurrentY, double RowHeight, double PieceWidth, double SheetY, double BladeThickness, double SheetPadding)
         {
-            return CurrentY + TempY + BladeThickness + PieceWidth <= SheetY - SheetPadding;
+            return CurrentY + RowHeight + BladeThickness + PieceWidth + BladeThickness <= SheetY - SheetPadding;
         }
 
         /// <summary>
@@ -135,17 +136,17 @@ namespace Szakdoga.Services
         /// or moves to the next row if no suitable piece is found.
         /// </summary>
         /// <returns>True if another placement was made (triggers retry); False if piece was placed in new row</returns>
-        private bool TryFitInGapOrNextRow(Piece piece, List<Piece> Pieces, List<Piece> PiecesRemaining, ref double CurrentX, ref double CurrentY, ref double TempY, double SheetX, double SheetY, double SheetPadding, double BladeThickness, int _SheetId)
+        private bool TryFitInGapOrNextRow(Piece piece, List<Piece> Pieces, List<Piece> PiecesRemaining, ref double CurrentX, ref double CurrentY, ref double RowHeight, double SheetX, double SheetY, double SheetPadding, double BladeThickness, int _SheetId)
         {
             // Try to find a smaller piece that fits in the remaining gap
-            Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX), TempY, (int)piece.Id!);
+            Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX), RowHeight, (int)piece.Id!);
             if (StillFittingPiece != null)
             {
                 // Found a piece that fits in the gap - place it and continue
                 Piece FittedPiece = Pieces.First(p => p.Id == StillFittingPiece.Id);
                 PlacePieceAtCurrentPosition(FittedPiece, CurrentX, CurrentY, _SheetId);
                 CurrentX += FittedPiece.Height + BladeThickness;
-                TempY = Math.Max(TempY, FittedPiece.Width);
+                RowHeight = Math.Max(RowHeight, FittedPiece.Width);
                 PiecesRemaining.Remove(StillFittingPiece);
                 return true;
             }
@@ -153,10 +154,11 @@ namespace Szakdoga.Services
             {
                 // No piece fits in gap - move to new row
                 CurrentX = SheetPadding;
-                CurrentY += TempY + BladeThickness;
+                CurrentY += RowHeight + BladeThickness;
+                RowHeight = 0;  // Reset row height for new row
                 PlacePieceAtCurrentPosition(piece, CurrentX, CurrentY, _SheetId);
                 CurrentX += piece.Height + BladeThickness;
-                TempY = piece.Width;
+                RowHeight = piece.Width;
                 PiecesRemaining.Remove(piece);
                 return false;
             }
@@ -168,34 +170,35 @@ namespace Szakdoga.Services
         /// finally allocates a new sheet if necessary.
         /// </summary>
         /// <returns>True if another placement was made; False if new sheet was started</returns>
-        private bool TryFitInLastGapOrNewSheet(Piece piece, List<Piece> Pieces, List<Piece> PiecesRemaining, ref double CurrentX, ref double CurrentY, ref double TempY, ref int _SheetId, double SheetX, double SheetY, double SheetPadding, double BladeThickness)
+        private bool TryFitInLastGapOrNewSheet(Piece piece, List<Piece> Pieces, List<Piece> PiecesRemaining, ref double CurrentX, ref double CurrentY, ref double RowHeight, ref int _SheetId, double SheetX, double SheetY, double SheetPadding, double BladeThickness)
         {
             // Try to fit a single smaller piece in remaining gap
-            Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX), TempY, (int)piece.Id!);
+            Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX), RowHeight, (int)piece.Id!);
             if (StillFittingPiece != null)
             {
                 Piece FittedPiece = Pieces.First(p => p.Id == StillFittingPiece.Id);
                 PlacePieceAtCurrentPosition(FittedPiece, CurrentX, CurrentY, _SheetId);
                 CurrentX += FittedPiece.Height + BladeThickness;
-                TempY = Math.Max(TempY, FittedPiece.Width);
+                RowHeight = Math.Max(RowHeight, FittedPiece.Width);
                 PiecesRemaining.Remove(StillFittingPiece);
                 return true;
             }
             else
             {
                 // Try to fit multiple pieces in the last available row
-                List<Piece> fittedRow = TryFitMorePieces(PiecesRemaining, _SheetId, SheetX - 2 * SheetPadding, (SheetY - (CurrentY + TempY + SheetPadding)), BladeThickness);
+                List<Piece> fittedRow = TryFitMorePieces(PiecesRemaining, _SheetId, SheetX - 2 * SheetPadding, (SheetY - (CurrentY + RowHeight + BladeThickness + SheetPadding)), BladeThickness);
                 if (fittedRow.Count > 0)
                 {
                     // Multiple pieces fit - place them and continue on current sheet
                     CurrentX = SheetPadding;
-                    CurrentY += TempY + BladeThickness;
+                    CurrentY += RowHeight + BladeThickness;
+                    RowHeight = 0;  // Reset row height for new row
                     foreach (var item in fittedRow)
                     {
                         Piece pieceToPlace = Pieces.First(p => p.Id == item.Id);
                         PlacePieceAtCurrentPosition(pieceToPlace, CurrentX, CurrentY, _SheetId);
                         CurrentX += pieceToPlace.Height + BladeThickness;
-                        TempY = Math.Max(TempY, pieceToPlace.Width);
+                        RowHeight = Math.Max(RowHeight, pieceToPlace.Width);
                         PiecesRemaining.Remove(pieceToPlace);
                     }
                     return true;
@@ -203,10 +206,13 @@ namespace Szakdoga.Services
                 else
                 {
                     // No more space on current sheet - start a new sheet
-                    PlacePieceAtCurrentPosition(piece, SheetPadding, SheetPadding, ++_SheetId);
-                    CurrentX = SheetPadding + piece.Height + BladeThickness;
+                    _SheetId++;
+                    CurrentX = SheetPadding;
                     CurrentY = SheetPadding;
-                    TempY = CurrentY;
+                    RowHeight = 0;  // Reset for new sheet
+                    PlacePieceAtCurrentPosition(piece, CurrentX, CurrentY, _SheetId);
+                    CurrentX += piece.Height + BladeThickness;
+                    RowHeight = piece.Width;
                     PiecesRemaining.Remove(piece);
                     return false;
                 }
@@ -232,10 +238,12 @@ namespace Szakdoga.Services
         /// <returns>Tuple of (unplaced count, overlap count)</returns>
         public static (int unplaced, int overlap) ValidatePlacements(IEnumerable<Piece> pieces, double sheetWidth, double sheetHeight)
         {
-            var problems = new List<string>();
-            var placed = pieces.Where(p => p.SheetId != null).ToList();
-            var unplaced = pieces.Where(p => p.SheetId == null).ToList();
+            var problemsList = new List<string>();
+            var placed = pieces.Where(p => p.SheetId != null && p.x != null && p.y != null).ToList();
+            var unplaced = pieces.Where(p => p.SheetId == null || p.x == null || p.y == null).ToList();
             
+            int overlapCount = 0;
+
             // Check for overlaps within each sheet
             foreach (var g in placed.GroupBy(p => p.SheetId))
             {
@@ -243,17 +251,32 @@ namespace Szakdoga.Services
                 for (int i = 0; i < list.Count; ++i)
                     for (int j = i + 1; j < list.Count; ++j)
                     {
-                        var a = list[i]; var b = list[j];
-                        // Calculate piece boundaries
-                        double ax0 = a.x ?? 0, ay0 = a.y ?? 0, ax1 = ax0 + a.Height, ay1 = ay0 + a.Width;
-                        double bx0 = b.x ?? 0, by0 = b.y ?? 0, bx1 = bx0 + b.Height, by1 = by0 + b.Width;
+                        var a = list[i];
+                        var b = list[j];
+
+                        // Both pieces MUST have coordinates at this point (filtered above)
+                        double ax0 = a.x ?? 0;
+                        double ay0 = a.y ?? 0;
+                        double ax1 = ax0 + a.Height;
+                        double ay1 = ay0 + a.Width;
+
+                        double bx0 = b.x ?? 0;
+                        double by0 = b.y ?? 0;
+                        double bx1 = bx0 + b.Height;
+                        double by1 = by0 + b.Width;
+
                         // Check for overlap using AABB (Axis-Aligned Bounding Box) collision
+                        // Two rectangles overlap if they intersect on both axes
                         bool overlap = ax0 < bx1 && ax1 > bx0 && ay0 < by1 && ay1 > by0;
                         if (overlap)
-                            problems.Add($"Overlap on sheet {g.Key}: {a.Id} <-> {b.Id}");
+                        {
+                            problemsList.Add($"Overlap on sheet {g.Key}: Piece {a.Id} ({a.Name}) <-> Piece {b.Id} ({b.Name})");
+                            overlapCount++;
+                        }
                     }
             }
-            return (unplaced.Count, problems.Count);
+
+            return (unplaced.Count, overlapCount);
         }
 
         /// <summary>
