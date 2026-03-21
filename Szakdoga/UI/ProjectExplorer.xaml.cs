@@ -84,15 +84,21 @@ namespace Szakdoga
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
             string? customerName = null;
+            string? customerPhone = null;
             string? orderTitle = null;
             string? sheetName = null;
+            double? sheetWidth = null, sheetHeight = null;
 
             OrderInputWindow orderInputWindow = new("Add New Order", null,null,null);
             if (orderInputWindow.ShowDialog() == true)
             {
-                customerName = orderInputWindow.CustomerName;
+                // - nél splittelni majd trimmelni kell
+                customerName = orderInputWindow.CustomerName.Split(" ")[0];
+                customerPhone = orderInputWindow.CustomerName.Split(" ").Length > 2 ? orderInputWindow.CustomerName.Split(" ")[1] : null;
                 orderTitle = orderInputWindow.OrderTitle;
-                sheetName = orderInputWindow.Sheet;
+                sheetName = orderInputWindow.Sheet.Split(" ")[0];
+                sheetWidth = double.TryParse(orderInputWindow.Sheet.Split(" ").Length > 2 ? orderInputWindow.Sheet.Split(" ")[2].Split("x")[0] : null, out double width) ? width : null;
+                sheetHeight = double.TryParse(orderInputWindow.Sheet.Split(" ").Length > 2 ? orderInputWindow.Sheet.Split(" ")[2].Split("x")[1] : null, out double height) ? height : null;
             }
             Order order = new Order();
             if(customerName != null)
@@ -102,8 +108,8 @@ namespace Szakdoga
                 order.Sheet = Db.GetSheetByName(sheetName);
             order.CreatedAt = DateTime.Now;
             Db.AddOrder(order);
-            Orders.Add(order);
             Db.SaveAllChanges();
+            Orders.Add(order);
         }
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {
@@ -122,22 +128,21 @@ namespace Szakdoga
         }
         private void AddNewSheet(object sender, RoutedEventArgs e)
         {
-            //SheetInputWindow sheetInputWindow = new SheetInputWindow();
-            //if (sheetInputWindow.ShowDialog() == true)
-            //{
-            //    Sheet newSheet = new Sheet
-            //    {
-            //        Name = sheetInputWindow.SheetName,
-            //        Height = sheetInputWindow.Height,
-            //        Width = sheetInputWindow.Width,
-            //        Thickness = sheetInputWindow.Thickness,
-            //        Color = sheetInputWindow.Color,
-            //        Manufacturer = sheetInputWindow.Manufacturer,
-            //        Price = sheetInputWindow.Price
-            //    };
-            //    Db.AddSheet(newSheet);
-            //    Db.SaveAllChanges();
-            //}
+            SheetInputWindow sheetInputWindow = new SheetInputWindow();
+            if (sheetInputWindow.ShowDialog() == true)
+            {
+                Sheet newSheet = new Sheet
+                {
+                    Name = sheetInputWindow.SheetName,
+                    Description = sheetInputWindow.Description,
+                    Height = sheetInputWindow.height,
+                    Width = sheetInputWindow.width,
+                    Color = sheetInputWindow.Color,
+                    Price = sheetInputWindow.Price
+                };
+                Db.AddSheet(newSheet);
+                Db.SaveAllChanges();
+            }
         }
         private void UpdateOrder(object sender, RoutedEventArgs e)
         {

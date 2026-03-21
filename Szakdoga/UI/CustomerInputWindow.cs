@@ -44,7 +44,8 @@ namespace Szakdoga
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            nameBox = CreateHintTextBox("Add meg a nevet...");
+            var nameHint = "Add meg a nevet...";
+            nameBox = CreateHintTextBox(nameHint);
 
             Grid.SetRow(nameLabel, 0);
             Grid.SetColumn(nameLabel, 0);
@@ -64,7 +65,8 @@ namespace Szakdoga
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            emailBox = CreateHintTextBox("Add meg az email címet...");
+            var emailHint = "Add meg az email címet...";
+            emailBox = CreateHintTextBox(emailHint);
 
             Grid.SetRow(emailLabel, 1);
             Grid.SetColumn(emailLabel, 0);
@@ -84,7 +86,8 @@ namespace Szakdoga
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            phoneBox = CreateHintTextBox("Add meg a telefonszámot...");
+            var phoneHint = "Add meg a telefonszámot...";
+            phoneBox = CreateHintTextBox(phoneHint);
 
             Grid.SetRow(phoneLabel, 2);
             Grid.SetColumn(phoneLabel, 0);
@@ -107,6 +110,20 @@ namespace Szakdoga
 
             saveButton.Click += (s, e) =>
             {
+                if (string.IsNullOrWhiteSpace(nameBox.Text) || nameBox.Text == nameHint)
+                {
+                    MessageBox.Show("Az ügyfél neve kötelező!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(emailBox.Text) || emailBox.Text == emailHint)
+                {
+                    emailBox.Text = "";
+                }
+                if (string.IsNullOrWhiteSpace(phoneBox.Text) || phoneBox.Text == phoneHint)
+                {
+                    phoneBox.Text = "";
+                }
+
                 DialogResult = true;
                 Close();
             };

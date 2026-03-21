@@ -71,7 +71,7 @@ namespace Szakdoga.UI
             string customerNameText = customerName ?? "";
 
             customerNameBox = CreateSearchComboBox(customerNameText);
-            customerNameBox.ItemsSource = customers.Select(c => c.Name).Distinct().ToList();
+            customerNameBox.ItemsSource = customers.Select(c => c.Name + " - " + c.Phone).Distinct().ToList();
 
             Grid.SetRow(customerNameLabel, 0);
             Grid.SetColumn(customerNameLabel, 0);
@@ -115,7 +115,7 @@ namespace Szakdoga.UI
             string sheetNameText = sheet ?? "";
 
             sheetBox = CreateSearchComboBox(sheetNameText);
-            sheetBox.ItemsSource = sheets.Select(s => s.Name).Distinct().ToList();
+            sheetBox.ItemsSource = sheets.Select(s => s.Name + " - " + s.Width + "x" + s.Height).Distinct().ToList();
 
             Grid.SetRow(sheetNameLabel, 2);
             Grid.SetColumn(sheetNameLabel, 0);
