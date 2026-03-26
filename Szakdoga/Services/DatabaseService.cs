@@ -82,11 +82,10 @@ public class DatabaseService : IDisposable
     public List<Customer> GetAllCustomers()
     {
         return _db.Customers
-            
-            .Include(c => c.Orders)
-                .ThenInclude(o => o.Sheet)
-            .Include(c => c.Orders)
-                .ThenInclude(o => o.Pieces)
+            //.Include(c => c.Orders)
+            //    .ThenInclude(o => o.Sheet)
+            //.Include(c => c.Orders)
+            //    .ThenInclude(o => o.Pieces)
             .ToList();
     }
 

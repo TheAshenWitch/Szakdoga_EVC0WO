@@ -338,8 +338,6 @@ namespace Szakdoga.UI
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             GC.WaitForPendingFinalizers();
             GC.Collect();
-
-            GC.Collect();
         }
       
         private void FillStatistics()
