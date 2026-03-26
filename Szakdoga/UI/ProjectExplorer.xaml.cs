@@ -84,29 +84,20 @@ namespace Szakdoga
         }
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
-            string? customerName = null;
-            string? customerPhone = null;
-            string? orderTitle = null;
-            string? sheetName = null;
-            double? sheetWidth = null, sheetHeight = null;
-
             OrderInputWindow orderInputWindow = new(Strings.AddNewOrderLabel, null,null,null);
             if (orderInputWindow.ShowDialog() == true)
-            {
-                // - nél splittelni majd trimmelni kell
-                customerName = orderInputWindow.CustomerName.Split(" ")[0];
-                customerPhone = orderInputWindow.CustomerName.Split(" ").Length > 2 ? orderInputWindow.CustomerName.Split(" ")[1] : null;
-                orderTitle = orderInputWindow.OrderTitle;
-                sheetName = orderInputWindow.Sheet.Split(" ")[0];
-                sheetWidth = double.TryParse(orderInputWindow.Sheet.Split(" ").Length > 2 ? orderInputWindow.Sheet.Split(" ")[2].Split("x")[0] : null, out double width) ? width : null;
-                sheetHeight = double.TryParse(orderInputWindow.Sheet.Split(" ").Length > 2 ? orderInputWindow.Sheet.Split(" ")[2].Split("x")[1] : null, out double height) ? height : null;
+            {                
                 Order order = new Order();
-                if(customerName != null)
-                    order.Customer = Db.GetCustomerByName(customerName);
-                order.Title = orderTitle ?? Strings.EmptyOrderTitle;
-                if(sheetName != null)
-                    order.Sheet = Db.GetSheetByName(sheetName);
+                if(orderInputWindow.retCustomer != null)
+                    order.Customer = orderInputWindow.retCustomer;
+
+                order.Title = orderInputWindow.OrderTitle ?? Strings.EmptyOrderTitle;
+
+                if(orderInputWindow.retSheet != null)
+                    order.Sheet = orderInputWindow.retSheet;
+
                 order.CreatedAt = DateTime.Now;
+
                 Db.AddOrder(order);
                 Db.SaveAllChanges();
                 Orders.Add(order);
@@ -147,36 +138,26 @@ namespace Szakdoga
         }
         private void UpdateOrder(object sender, RoutedEventArgs e)
         {
-            string? customerName = null;
-            string? orderTitle = null;
-            string? sheetName = null;
             if (OrderListView.SelectedItem == null)
             {
                 MessageBox.Show(Strings.NoOrderSelectedError);
                 return;
             }
             Order order = (Order)OrderListView.SelectedItem as Order;
-            if(order.Customer == null)
-                order.Customer = new Customer { Name = "" };
-            if(order.Sheet == null)
-                order.Sheet = new Sheet { Name = "" };
 
-            OrderInputWindow orderInputWindow = new(Strings.UpdateOrderTitle, order.Customer.Name, order.Title,  order.Sheet.Name);
+            //teljes objektum helyett csak idt adj át
+
+            OrderInputWindow orderInputWindow = new(Strings.UpdateOrderTitle, order.Customer, order.Title ?? "",  order.Sheet);
             if (orderInputWindow.ShowDialog() == true)
             {
                 Order selectedOrder = (Order)OrderListView.SelectedItem;
                 if (selectedOrder != null)
                 {
-                    orderTitle= orderInputWindow.OrderTitle;
-                    customerName = orderInputWindow.CustomerName;
-                    sheetName = orderInputWindow.Sheet;
+                    selectedOrder.Title = orderInputWindow.OrderTitle;
+                    selectedOrder.Customer = orderInputWindow.retCustomer;
+                    selectedOrder.Sheet = orderInputWindow.retSheet;
                 }
-                if (customerName != null)
-                    selectedOrder.Customer = Db.GetCustomerByName(customerName);
-                if (orderTitle != null)
-                    selectedOrder.Title = orderTitle;
-                if (sheetName != null)
-                    selectedOrder.Sheet = Db.GetSheetByName(sheetName);
+                
 
                 Db.UpdateOrder(selectedOrder);
                 Db.SaveAllChanges();

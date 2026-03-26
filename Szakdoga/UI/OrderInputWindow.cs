@@ -14,32 +14,27 @@ namespace Szakdoga.UI
     {
         DatabaseService _db = new DatabaseService();
 
+
         ComboBox customerNameBox;
         TextBox titleBox;
         ComboBox sheetBox;
         List<Customer> customers;
         List<Sheet> sheets;
+       
+
+        public Customer? retCustomer;
+        public Sheet? retSheet;
         public string CustomerName => customerNameBox.Text;
         public string OrderTitle => titleBox.Text;
         public string Sheet => sheetBox.Text;
 
         string orderTitleHint = Strings.OIOrderTitleHint;
 
-        private DispatcherTimer sheetSearchTimer;
-        private DispatcherTimer nameSearchTimer;
         private string searchText;
         private bool isSelecting = false;
-        public OrderInputWindow(string title, string? customerName, string? orderTitle, string? sheet)
+        public OrderInputWindow(string title, Customer? customer, string? orderTitle, Sheet? sheet)
         {
-            sheetSearchTimer = new DispatcherTimer();
-            sheetSearchTimer.Interval = TimeSpan.FromMilliseconds(300);
-            sheetSearchTimer.Tick += sheetSearchTimer_Tick;
-
-            nameSearchTimer = new DispatcherTimer();
-            nameSearchTimer.Interval = TimeSpan.FromMilliseconds(300);
-            nameSearchTimer.Tick += nameSearchTimer_Tick;
-
-            using var DB = new DatabaseService();
+           using var DB = new DatabaseService();
 
             customers = DB.GetAllCustomers();
             sheets = DB.GetAllSheets();
@@ -69,10 +64,37 @@ namespace Szakdoga.UI
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            string customerNameText = customerName ?? "";
+            string customerNameText;
+            if(customer != null)
+                customerNameText = customer.Name;
+            else
+                customerNameText = "";
 
             customerNameBox = CreateSearchComboBox(customerNameText);
-            customerNameBox.ItemsSource = customers.Select(c => c.Name + " - " + c.Phone).Distinct().ToList();
+
+            var customerView = System.Windows.Data.CollectionViewSource.GetDefaultView(customers);
+
+            customerView.Filter = obj =>
+            {
+                if (string.IsNullOrWhiteSpace(customerNameBox.Text))
+                    return true;
+
+                var c = obj as Customer;
+
+                return c.Name.Contains(customerNameBox.Text, StringComparison.OrdinalIgnoreCase)
+                    || (c.Phone != null && c.Phone.Contains(customerNameBox.Text));
+            };
+
+            customerNameBox.ItemsSource = customerView;
+
+
+            customerNameBox.AddHandler(TextBox.TextChangedEvent,
+            new TextChangedEventHandler((s, e) =>
+            {
+                customerView.Refresh();
+                customerNameBox.IsDropDownOpen = true;
+            }));
+
 
             Grid.SetRow(customerNameLabel, 0);
             Grid.SetColumn(customerNameLabel, 0);
@@ -113,10 +135,35 @@ namespace Szakdoga.UI
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            string sheetNameText = sheet ?? "";
+            string sheetNameText;
+            if (sheet != null)
+                sheetNameText = sheet.Name;
+            else
+                sheetNameText = "";
 
             sheetBox = CreateSearchComboBox(sheetNameText);
-            sheetBox.ItemsSource = sheets.Select(s => s.Name + " - " + s.Width + "x" + s.Height).Distinct().ToList();
+            var sheetView = System.Windows.Data.CollectionViewSource.GetDefaultView(sheets);
+
+            sheetView.Filter = obj =>
+            {
+                if (string.IsNullOrWhiteSpace(sheetBox.Text))
+                    return true;
+
+                var s = obj as Sheet;
+
+                return s.Name.Contains(sheetBox.Text, StringComparison.OrdinalIgnoreCase);
+            };
+
+            sheetBox.ItemsSource = sheetView;
+
+            // frissítés gépeléskor
+            sheetBox.AddHandler(TextBox.TextChangedEvent,
+                new TextChangedEventHandler((s, e) =>
+                {
+                    sheetView.Refresh();
+                    sheetBox.IsDropDownOpen = true;
+                }));
+
 
             Grid.SetRow(sheetNameLabel, 2);
             Grid.SetColumn(sheetNameLabel, 0);
@@ -140,7 +187,11 @@ namespace Szakdoga.UI
 
             saveButton.Click += (s, e) =>
             {
-                if(titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text))
+
+                retCustomer = customerNameBox.SelectedItem as Customer;
+                retSheet = sheetBox.SelectedItem as Sheet;
+
+                if (titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text))
                 {
                     orderTitle = null;
                 }
@@ -156,83 +207,22 @@ namespace Szakdoga.UI
             Content = grid;
         }
 
-
-
         private ComboBox CreateSearchComboBox(string text)
         {
             var cb = new ComboBox
             {
                 Height = 25,
                 IsEditable = true,
-                IsTextSearchEnabled = false,
-                Text = text
+                IsTextSearchEnabled = true, 
+                Text = text,
+                StaysOpenOnEdit = true
             };
-            cb.SelectionChanged += (s, e) =>
-            {
-                isSelecting = true;
-            };
-            cb.AddHandler(TextBox.TextChangedEvent,
-                new TextChangedEventHandler(ComboTextChanged));
+
+            // melyik mező alapján keressen
+            cb.SetValue(TextSearch.TextPathProperty, "Name");
 
             return cb;
         }
-
-
-
-        private void ComboTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isSelecting)
-            {
-                isSelecting = false;
-                return;
-            }
-
-            var tb = e.OriginalSource as TextBox;
-
-            if (tb == null)
-                return;
-
-            if(tb.Text == searchText)
-                return;
-
-            searchText = tb.Text;
-
-            if(e.Source == customerNameBox)
-            {
-                nameSearchTimer.Stop();
-                nameSearchTimer.Start();
-            }
-            else if(e.Source == sheetBox)
-            {
-                sheetSearchTimer.Stop();
-                sheetSearchTimer.Start();
-            }
-        }
-
-        private void sheetSearchTimer_Tick(object sender, EventArgs e)
-        {
-            sheetSearchTimer.Stop();
-
-            var sheetNames = sheets.Select(s => s.Name).Where(s => s.ToLower().Contains(sheetBox.Text.ToLower())).Distinct().ToList();
-
-            sheetBox.ItemsSource = sheetNames;
-
-            sheetBox.IsDropDownOpen = true;
-        }
-        private void nameSearchTimer_Tick(object sender, EventArgs e)
-        {
-            nameSearchTimer.Stop();
-
-            using var db = new DatabaseService();
-
-            var customerNames = customers.Select(c => c.Name).Where(s => s.ToLower().Contains(customerNameBox.Text.ToLower())).Distinct().ToList();
-
-            customerNameBox.ItemsSource = customerNames;
-
-            customerNameBox.IsDropDownOpen = true;
-        }
-
-
 
         private TextBox CreateHintTextBox(string text, bool isHint)
         {

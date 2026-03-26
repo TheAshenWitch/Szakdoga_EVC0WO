@@ -15,5 +15,10 @@ namespace Szakdoga.Models
         public string? Phone { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+
+        public override string ToString()
+        {
+            return Phone != null ? $"{Name} - {Phone}" : Name;
+        }
     }
 }
