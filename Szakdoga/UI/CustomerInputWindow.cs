@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Szakdoga.Resources;
 
 namespace Szakdoga
 {
@@ -16,7 +17,7 @@ namespace Szakdoga
 
         public CustomerInputWindow()
         {
-            Title = "Új ügyfél";
+            Title = Strings.CITitle;
             Width = 350;
             Height = 220;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -39,12 +40,12 @@ namespace Szakdoga
 
             var nameLabel = new TextBlock
             {
-                Text = "Név:",
+                Text = Strings.CINameLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var nameHint = "Add meg a nevet...";
+            var nameHint = Strings.CINameHint;
             nameBox = CreateHintTextBox(nameHint);
 
             Grid.SetRow(nameLabel, 0);
@@ -60,12 +61,12 @@ namespace Szakdoga
 
             var emailLabel = new TextBlock
             {
-                Text = "Email:",
+                Text = Strings.CIEmailLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var emailHint = "Add meg az email címet...";
+            var emailHint = Strings.CIEmailHint;
             emailBox = CreateHintTextBox(emailHint);
 
             Grid.SetRow(emailLabel, 1);
@@ -81,12 +82,12 @@ namespace Szakdoga
 
             var phoneLabel = new TextBlock
             {
-                Text = "Telefonszám:",
+                Text = Strings.CIPhoneLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var phoneHint = "Add meg a telefonszámot...";
+            var phoneHint = Strings.CIPhoneHint;
             phoneBox = CreateHintTextBox(phoneHint);
 
             Grid.SetRow(phoneLabel, 2);
@@ -102,7 +103,7 @@ namespace Szakdoga
 
             var saveButton = new Button
             {
-                Content = "Mentés",
+                Content = Strings.SaveButton,
                 Width = 90,
                 Height = 30,
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -112,7 +113,7 @@ namespace Szakdoga
             {
                 if (string.IsNullOrWhiteSpace(nameBox.Text) || nameBox.Text == nameHint)
                 {
-                    MessageBox.Show("Az ügyfél neve kötelező!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.CINameIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(emailBox.Text) || emailBox.Text == emailHint)

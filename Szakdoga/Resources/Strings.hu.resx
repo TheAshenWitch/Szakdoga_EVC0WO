@@ -160,7 +160,7 @@
     <value>Heurisztikus</value>
   </data>
   <data name="RadioTestOpt" xml:space="preserve">
-    <value>Test</value>
+    <value>Gyors (ajánlott)</value>
   </data>
   <data name="RadioVariableDir" xml:space="preserve">
     <value>Variálható irány</value>
@@ -348,5 +348,104 @@ törlése</value>
   <data name="DeleteSheetLabel" xml:space="preserve">
     <value>Bútorlap
 törlése</value>
+  </data>
+  <data name="AddNewOrderTitle" xml:space="preserve">
+    <value>Új megrendelés létrehozása</value>
+  </data>
+  <data name="EmptyOrderTitle" xml:space="preserve">
+    <value>Új megrendelés</value>
+  </data>
+  <data name="NoOrderSelectedError" xml:space="preserve">
+    <value>Kérem válasszon egy megrendelést a módosításhoz.</value>
+  </data>
+  <data name="UpdateOrderTitle" xml:space="preserve">
+    <value>Megrendelés módosítása</value>
+  </data>
+  <data name="OpenOrderError" xml:space="preserve">
+    <value>Kérem válasszon egy megrendelést a módosításhoz</value>
+  </data>
+  <data name="OICustomerNameLabel" xml:space="preserve">
+    <value>Ügyfél neve:</value>
+  </data>
+  <data name="OIOrderTitleLabel" xml:space="preserve">
+    <value>Megrendelés neve:</value>
+  </data>
+  <data name="OISheetNameLabel" xml:space="preserve">
+    <value>Bútorlap neve:</value>
+  </data>
+  <data name="OIOrderTitleHint" xml:space="preserve">
+    <value>Megrendelés címe</value>
+  </data>
+  <data name="SITitle" xml:space="preserve">
+    <value>Új bútorlap hozzáadaása</value>
+  </data>
+  <data name="SINameLabel" xml:space="preserve">
+    <value>Név:</value>
+  </data>
+  <data name="SINameHint" xml:space="preserve">
+    <value>Név...</value>
+  </data>
+  <data name="SIDescriptionLabel" xml:space="preserve">
+    <value>Leírás:</value>
+  </data>
+  <data name="SIDescriptionHint" xml:space="preserve">
+    <value>Leírás...</value>
+  </data>
+  <data name="SIColorLabel" xml:space="preserve">
+    <value>Szín:</value>
+  </data>
+  <data name="SIColorHint" xml:space="preserve">
+    <value>Szín...</value>
+  </data>
+  <data name="SIWidthLabel" xml:space="preserve">
+    <value>Szélesség:</value>
+  </data>
+  <data name="SIWidthHint" xml:space="preserve">
+    <value>Szélesség... (1234.0)</value>
+  </data>
+  <data name="SIHeightLabel" xml:space="preserve">
+    <value>Magasság:</value>
+  </data>
+  <data name="SIHeightHint" xml:space="preserve">
+    <value>Magasság... (1234.0)</value>
+  </data>
+  <data name="SIPriceLabel" xml:space="preserve">
+    <value>Ár:</value>
+  </data>
+  <data name="SIPriceHint" xml:space="preserve">
+    <value>Ár... (1234.0)</value>
+  </data>
+  <data name="SINameIsEmpty" xml:space="preserve">
+    <value>A név megadása KÖTELEZŐ!</value>
+  </data>
+  <data name="SIWidthIsEmpty" xml:space="preserve">
+    <value>A szélesség megadása KÖTELEZŐ!</value>
+  </data>
+  <data name="SIHeightIsEmpty" xml:space="preserve">
+    <value>A magasság megadása KÖTELEZŐ!</value>
+  </data>
+  <data name="CITitle" xml:space="preserve">
+    <value>Új ügyfél hozzáadása</value>
+  </data>
+  <data name="CINameLabel" xml:space="preserve">
+    <value>Név:</value>
+  </data>
+  <data name="CINameHint" xml:space="preserve">
+    <value>Név...</value>
+  </data>
+  <data name="CIEmailLabel" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="CIEmailHint" xml:space="preserve">
+    <value>valami@valami.hu</value>
+  </data>
+  <data name="CIPhoneLabel" xml:space="preserve">
+    <value>Telefonszám:</value>
+  </data>
+  <data name="CIPhoneHint" xml:space="preserve">
+    <value>+36301234567</value>
+  </data>
+  <data name="CINameIsEmpty" xml:space="preserve">
+    <value>A név megadása KÖTELEZŐ!</value>
   </data>
 </root>

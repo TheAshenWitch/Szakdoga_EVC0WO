@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using Szakdoga.Models;
 using System.Linq;
+using Szakdoga.Resources;
 
 namespace Szakdoga.UI
 {
@@ -22,7 +23,7 @@ namespace Szakdoga.UI
         public string OrderTitle => titleBox.Text;
         public string Sheet => sheetBox.Text;
 
-        string orderTitleHint = "Order title";
+        string orderTitleHint = Strings.OIOrderTitleHint;
 
         private DispatcherTimer sheetSearchTimer;
         private DispatcherTimer nameSearchTimer;
@@ -63,7 +64,7 @@ namespace Szakdoga.UI
             // ===== Ügyfél neve =====
             var customerNameLabel = new TextBlock
             {
-                Text = "Ügyfél neve:",
+                Text = Strings.OICustomerNameLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
@@ -86,7 +87,7 @@ namespace Szakdoga.UI
             // ===== Order Title =====
             var orderTitleLabel = new TextBlock
             {
-                Text = "Order title:",
+                Text = Strings.OIOrderTitleLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
@@ -107,7 +108,7 @@ namespace Szakdoga.UI
             // ===== Sheet neve =====
             var sheetNameLabel = new TextBlock
             {
-                Text = "Sheet neve:",
+                Text = Strings.OISheetNameLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
@@ -131,7 +132,7 @@ namespace Szakdoga.UI
             // ===== Mentés gomb =====
             var saveButton = new Button
             {
-                Content = "Mentés",
+                Content = Strings.SaveButton,
                 Width = 90,
                 Height = 30,
                 HorizontalAlignment = HorizontalAlignment.Right

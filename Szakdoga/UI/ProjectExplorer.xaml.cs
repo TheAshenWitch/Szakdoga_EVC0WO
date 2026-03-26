@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Szakdoga.Models;
+using Szakdoga.Resources;
 using Szakdoga.Services;
 using Szakdoga.UI;
 namespace Szakdoga
@@ -89,7 +90,7 @@ namespace Szakdoga
             string? sheetName = null;
             double? sheetWidth = null, sheetHeight = null;
 
-            OrderInputWindow orderInputWindow = new("Add New Order", null,null,null);
+            OrderInputWindow orderInputWindow = new(Strings.AddNewOrderLabel, null,null,null);
             if (orderInputWindow.ShowDialog() == true)
             {
                 // - nél splittelni majd trimmelni kell
@@ -99,17 +100,17 @@ namespace Szakdoga
                 sheetName = orderInputWindow.Sheet.Split(" ")[0];
                 sheetWidth = double.TryParse(orderInputWindow.Sheet.Split(" ").Length > 2 ? orderInputWindow.Sheet.Split(" ")[2].Split("x")[0] : null, out double width) ? width : null;
                 sheetHeight = double.TryParse(orderInputWindow.Sheet.Split(" ").Length > 2 ? orderInputWindow.Sheet.Split(" ")[2].Split("x")[1] : null, out double height) ? height : null;
+                Order order = new Order();
+                if(customerName != null)
+                    order.Customer = Db.GetCustomerByName(customerName);
+                order.Title = orderTitle ?? Strings.EmptyOrderTitle;
+                if(sheetName != null)
+                    order.Sheet = Db.GetSheetByName(sheetName);
+                order.CreatedAt = DateTime.Now;
+                Db.AddOrder(order);
+                Db.SaveAllChanges();
+                Orders.Add(order);
             }
-            Order order = new Order();
-            if(customerName != null)
-                order.Customer = Db.GetCustomerByName(customerName);
-            order.Title = orderTitle ?? "new order";
-            if(sheetName != null)
-                order.Sheet = Db.GetSheetByName(sheetName);
-            order.CreatedAt = DateTime.Now;
-            Db.AddOrder(order);
-            Db.SaveAllChanges();
-            Orders.Add(order);
         }
         private void AddNewCustomer(object sender, RoutedEventArgs e)
         {
@@ -151,7 +152,7 @@ namespace Szakdoga
             string? sheetName = null;
             if (OrderListView.SelectedItem == null)
             {
-                MessageBox.Show("Please select an order to update.");
+                MessageBox.Show(Strings.NoOrderSelectedError);
                 return;
             }
             Order order = (Order)OrderListView.SelectedItem as Order;
@@ -159,7 +160,8 @@ namespace Szakdoga
                 order.Customer = new Customer { Name = "" };
             if(order.Sheet == null)
                 order.Sheet = new Sheet { Name = "" };
-            OrderInputWindow orderInputWindow = new("Update Order", order.Customer.Name, order.Title,  order.Sheet.Name);
+
+            OrderInputWindow orderInputWindow = new(Strings.UpdateOrderTitle, order.Customer.Name, order.Title,  order.Sheet.Name);
             if (orderInputWindow.ShowDialog() == true)
             {
                 Order selectedOrder = (Order)OrderListView.SelectedItem;
@@ -246,7 +248,7 @@ namespace Szakdoga
         {
             if (OrderListView.SelectedItem == null)
             {
-                MessageBox.Show("Please select an order to view details.");
+                MessageBox.Show(Strings.OpenOrderError);
                 return;
             }
             

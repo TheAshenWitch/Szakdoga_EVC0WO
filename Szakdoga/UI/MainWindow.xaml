@@ -9,7 +9,7 @@
         WindowState="Maximized"
         Loaded="WindowLoaded"
         Title="Opter" Height="1080" Width="1920" Background="#FF9C9C9C"
-        MinHeight="625" MinWidth="1200">
+        MinHeight="1040" MinWidth="1200">
     <Window.Resources>
         <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
         <ObjectDataProvider x:Key="Loc" 
@@ -76,9 +76,8 @@
             <Button Content="{Binding [SaveButton]}" Height="44" Margin="0,70,6,0"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Save"/>
             <Button Content="{Binding [LoadButton]}" Height="44" Margin="0,120,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Load"/>
             <Button Content="{Binding [OptimiseButton]}"  Height="44" Margin="0,169,6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" Click="Optimize"/>
-            <RadioButton Content="{Binding [RadioTestOpt]}" Tag="Test" HorizontalAlignment="Left" Height="15" Margin="339,218,0,0" VerticalAlignment="Top" Width="111" GroupName="OptGroup" Checked="OptSelected" IsChecked="True"/>
-            <RadioButton Content="{Binding [RadioGuillotineOpt]}" Tag="Guillotine" HorizontalAlignment="Left" Height="15" Margin="339,233,0,0" VerticalAlignment="Top" Width="111" GroupName="OptGroup" Checked="OptSelected"/>
-            <RadioButton Content="{Binding [RadioHeuristicOpt]}" Tag="Heuristic" HorizontalAlignment="Left" Height="15" Margin="339,248,0,0" VerticalAlignment="Top" Width="111" GroupName="OptGroup" Checked="OptSelected"/>
+            <RadioButton Content="{Binding [RadioTestOpt]}" FontSize="20" Tag="Test" HorizontalAlignment="Left" Height="29" Margin="230,213,0,0" VerticalAlignment="Top" Width="220" GroupName="OptGroup" Checked="OptSelected" IsChecked="True" VerticalContentAlignment="Center"/>
+            <RadioButton Content="{Binding [RadioGuillotineOpt]}" FontSize="20" Tag="Guillotine" HorizontalAlignment="Left" Height="29" Margin="230,243,0,0" VerticalAlignment="Top" Width="220" GroupName="OptGroup" Checked="OptSelected" VerticalContentAlignment="Center"/>
 
             <!--Statistics-->
             <Border BorderBrush="Black" BorderThickness="1" Margin="229,272,6,0" Height="564" VerticalAlignment="Top"/>

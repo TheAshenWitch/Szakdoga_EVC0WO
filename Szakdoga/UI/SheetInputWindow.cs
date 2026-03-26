@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Szakdoga.Resources;
 
 namespace Szakdoga
 {
@@ -17,13 +18,13 @@ namespace Szakdoga
         public string SheetName => nameBox.Text;
         public string Description => descriptionBox.Text;
         public string Color => colorBox.Text;
-        public double width => Convert.ToDouble(widthBox.Text ?? "0.0");
-        public double height => Convert.ToDouble(heightBox.Text ?? "0.0");
-        public double Price => Convert.ToDouble(priceBox.Text ?? "0.0");
+        public double width => Convert.ToDouble(widthBox.Text);
+        public double height => Convert.ToDouble(heightBox.Text);
+        public double Price => Convert.ToDouble(priceBox.Text);
 
         public SheetInputWindow()
         {
-            Title = "Új lap";
+            Title = Strings.SITitle;
             Width = 350;
             Height = 270;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -45,16 +46,16 @@ namespace Szakdoga
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-            // ===== Name =====
 
+            // ===== Name =====
             var nameLabel = new TextBlock
             {
-                Text = "Név:",
+                Text = Strings.SINameLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var nameHint = "Add meg a nevet...";
+            var nameHint = Strings.SINameHint;
             nameBox = CreateHintTextBox(nameHint);
 
             Grid.SetRow(nameLabel, 0);
@@ -66,16 +67,16 @@ namespace Szakdoga
             grid.Children.Add(nameLabel);
             grid.Children.Add(nameBox);
 
-            // ===== Description =====
 
+            // ===== Description =====
             var descriptionLabel = new TextBlock
             {
-                Text = "Description:",
+                Text = Strings.SIDescriptionLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var descriptionHint = "Add meg a leírást...";
+            var descriptionHint = Strings.SIDescriptionHint;
             descriptionBox = CreateHintTextBox(descriptionHint);
 
             Grid.SetRow(descriptionLabel, 1);
@@ -87,16 +88,16 @@ namespace Szakdoga
             grid.Children.Add(descriptionLabel);
             grid.Children.Add(descriptionBox);
 
-            // ===== Color =====
 
+            // ===== Color =====
             var colorLabel = new TextBlock
             {
-                Text = "Szín:",
+                Text = Strings.SIColorLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var colorHint = "Add meg a színt...";
+            var colorHint = Strings.SIColorHint;
             colorBox = CreateHintTextBox(colorHint);
 
             Grid.SetRow(colorLabel, 2);
@@ -108,16 +109,16 @@ namespace Szakdoga
             grid.Children.Add(colorLabel);
             grid.Children.Add(colorBox);
 
-            // ===== Width =====
 
+            // ===== Width =====
             var widthLabel = new TextBlock
             {
-                Text = "Szélesség:",
+                Text = Strings.SIWidthLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var widthHint = "Add meg a szélességet...";
+            var widthHint = Strings.SIWidthHint;
             widthBox = CreateHintTextBox(widthHint);
 
             Grid.SetRow(widthLabel, 3);
@@ -129,16 +130,16 @@ namespace Szakdoga
             grid.Children.Add(widthLabel);
             grid.Children.Add(widthBox);
 
-            // ===== Height =====
 
+            // ===== Height =====
             var heightLabel = new TextBlock
             {
-                Text = "Magasság:",
+                Text = Strings.SIHeightLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var heightHint = "Add meg a magasságot...";
+            var heightHint = Strings.SIHeightHint;
             heightBox = CreateHintTextBox(heightHint);
 
             Grid.SetRow(heightLabel, 4);
@@ -150,16 +151,16 @@ namespace Szakdoga
             grid.Children.Add(heightLabel);
             grid.Children.Add(heightBox);
 
-            // ===== Price =====
 
+            // ===== Price ====
             var priceLabel = new TextBlock
             {
-                Text = "Ár:",
+                Text = Strings.SIPriceLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            var priceHint = "Add meg az árt...";
+            var priceHint = Strings.SIPriceHint;
             priceBox = CreateHintTextBox(priceHint);
 
             Grid.SetRow(priceLabel, 5);
@@ -170,11 +171,12 @@ namespace Szakdoga
 
             grid.Children.Add(priceLabel);
             grid.Children.Add(priceBox);
-            // ===== Mentés gomb =====
 
+
+            // ===== Mentés gomb =====
             var saveButton = new Button
             {
-                Content = "Mentés",
+                Content = Strings.SaveButton,
                 Width = 90,
                 Height = 30,
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -184,17 +186,17 @@ namespace Szakdoga
             {
                 if (string.IsNullOrEmpty(nameBox.Text) || nameBox.Text == nameHint)
                 {
-                    MessageBox.Show("A név megadása kötelező!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.SINameIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (string.IsNullOrEmpty(widthBox.Text) || widthBox.Text == widthHint)
                 {
-                    MessageBox.Show("A szélesség megadása kötelező!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.SIWidthIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (string.IsNullOrEmpty(heightBox.Text) || heightBox.Text == heightHint)
                 {
-                    MessageBox.Show("A magasság megadása kötelező!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Strings.SIHeightIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (descriptionBox.Text == descriptionHint)
@@ -204,7 +206,7 @@ namespace Szakdoga
                     colorBox.Text = "";
                 
                 if (string.IsNullOrEmpty(priceBox.Text) || priceBox.Text == priceHint)
-                    priceBox.Text = "0.0";
+                    priceBox.Text = "0";
 
                 DialogResult = true;
                 Close();

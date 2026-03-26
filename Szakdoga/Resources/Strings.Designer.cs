@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -99,6 +99,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new order.
+        /// </summary>
+        internal static string AddNewOrderTitle {
+            get {
+                return ResourceManager.GetString("AddNewOrderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new
         ///sheet.
         /// </summary>
@@ -114,6 +123,78 @@ namespace Szakdoga.Resources {
         internal static string ApplyButton {
             get {
                 return ResourceManager.GetString("ApplyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email....
+        /// </summary>
+        internal static string CIEmailHint {
+            get {
+                return ResourceManager.GetString("CIEmailHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email:.
+        /// </summary>
+        internal static string CIEmailLabel {
+            get {
+                return ResourceManager.GetString("CIEmailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name....
+        /// </summary>
+        internal static string CINameHint {
+            get {
+                return ResourceManager.GetString("CINameHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You MUST input a name!.
+        /// </summary>
+        internal static string CINameIsEmpty {
+            get {
+                return ResourceManager.GetString("CINameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        internal static string CINameLabel {
+            get {
+                return ResourceManager.GetString("CINameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +36301234567.
+        /// </summary>
+        internal static string CIPhoneHint {
+            get {
+                return ResourceManager.GetString("CIPhoneHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number:.
+        /// </summary>
+        internal static string CIPhoneLabel {
+            get {
+                return ResourceManager.GetString("CIPhoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new customer.
+        /// </summary>
+        internal static string CITitle {
+            get {
+                return ResourceManager.GetString("CITitle", resourceCulture);
             }
         }
         
@@ -217,6 +298,15 @@ namespace Szakdoga.Resources {
         internal static string EmptyListError {
             get {
                 return ResourceManager.GetString("EmptyListError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New order.
+        /// </summary>
+        internal static string EmptyOrderTitle {
+            get {
+                return ResourceManager.GetString("EmptyOrderTitle", resourceCulture);
             }
         }
         
@@ -390,7 +480,61 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimise.
+        ///   Looks up a localized string similar to Pelase select an order to update.
+        /// </summary>
+        internal static string NoOrderSelectedError {
+            get {
+                return ResourceManager.GetString("NoOrderSelectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer name:.
+        /// </summary>
+        internal static string OICustomerNameLabel {
+            get {
+                return ResourceManager.GetString("OICustomerNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order title.
+        /// </summary>
+        internal static string OIOrderTitleHint {
+            get {
+                return ResourceManager.GetString("OIOrderTitleHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order title.
+        /// </summary>
+        internal static string OIOrderTitleLabel {
+            get {
+                return ResourceManager.GetString("OIOrderTitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet name:.
+        /// </summary>
+        internal static string OISheetNameLabel {
+            get {
+                return ResourceManager.GetString("OISheetNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select an order to view details..
+        /// </summary>
+        internal static string OpenOrderError {
+            get {
+                return ResourceManager.GetString("OpenOrderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimize.
         /// </summary>
         internal static string OptimiseButton {
             get {
@@ -454,7 +598,7 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test.
+        ///   Looks up a localized string similar to Quick.
         /// </summary>
         internal static string RadioTestOpt {
             get {
@@ -607,6 +751,150 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color....
+        /// </summary>
+        internal static string SIColorHint {
+            get {
+                return ResourceManager.GetString("SIColorHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color:.
+        /// </summary>
+        internal static string SIColorLabel {
+            get {
+                return ResourceManager.GetString("SIColorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description....
+        /// </summary>
+        internal static string SIDescriptionHint {
+            get {
+                return ResourceManager.GetString("SIDescriptionHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description:.
+        /// </summary>
+        internal static string SIDescriptionLabel {
+            get {
+                return ResourceManager.GetString("SIDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height... (1234.0).
+        /// </summary>
+        internal static string SIHeightHint {
+            get {
+                return ResourceManager.GetString("SIHeightHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You MUST input a height!.
+        /// </summary>
+        internal static string SIHeightIsEmpty {
+            get {
+                return ResourceManager.GetString("SIHeightIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height:.
+        /// </summary>
+        internal static string SIHeightLabel {
+            get {
+                return ResourceManager.GetString("SIHeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name....
+        /// </summary>
+        internal static string SINameHint {
+            get {
+                return ResourceManager.GetString("SINameHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You MUST input a name!.
+        /// </summary>
+        internal static string SINameIsEmpty {
+            get {
+                return ResourceManager.GetString("SINameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        internal static string SINameLabel {
+            get {
+                return ResourceManager.GetString("SINameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pice... (1234.0).
+        /// </summary>
+        internal static string SIPriceHint {
+            get {
+                return ResourceManager.GetString("SIPriceHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price:.
+        /// </summary>
+        internal static string SIPriceLabel {
+            get {
+                return ResourceManager.GetString("SIPriceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New sheet.
+        /// </summary>
+        internal static string SITitle {
+            get {
+                return ResourceManager.GetString("SITitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width... (1234.0).
+        /// </summary>
+        internal static string SIWidthHint {
+            get {
+                return ResourceManager.GetString("SIWidthHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You MUST input a width!.
+        /// </summary>
+        internal static string SIWidthIsEmpty {
+            get {
+                return ResourceManager.GetString("SIWidthIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width:.
+        /// </summary>
+        internal static string SIWidthLabel {
+            get {
+                return ResourceManager.GetString("SIWidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
         internal static string StatisticsLabel {
@@ -698,6 +986,15 @@ namespace Szakdoga.Resources {
         internal static string UpdateButton {
             get {
                 return ResourceManager.GetString("UpdateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update order.
+        /// </summary>
+        internal static string UpdateOrderTitle {
+            get {
+                return ResourceManager.GetString("UpdateOrderTitle", resourceCulture);
             }
         }
         

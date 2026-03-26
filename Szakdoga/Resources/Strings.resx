@@ -142,7 +142,7 @@
     <value>&gt;</value>
   </data>
   <data name="OptimiseButton" xml:space="preserve">
-    <value>Optimise</value>
+    <value>Optimize</value>
   </data>
   <data name="PrevSheetButton" xml:space="preserve">
     <value>&lt;</value>
@@ -160,7 +160,7 @@
     <value>Heusristic</value>
   </data>
   <data name="RadioTestOpt" xml:space="preserve">
-    <value>Test</value>
+    <value>Quick</value>
   </data>
   <data name="RadioVariableDir" xml:space="preserve">
     <value>Variable direction</value>
@@ -353,5 +353,104 @@ customer</value>
   <data name="DeleteSheetLabel" xml:space="preserve">
     <value>Delete
 sheet</value>
+  </data>
+  <data name="AddNewOrderTitle" xml:space="preserve">
+    <value>Add new order</value>
+  </data>
+  <data name="EmptyOrderTitle" xml:space="preserve">
+    <value>New order</value>
+  </data>
+  <data name="NoOrderSelectedError" xml:space="preserve">
+    <value>Pelase select an order to update</value>
+  </data>
+  <data name="UpdateOrderTitle" xml:space="preserve">
+    <value>Update order</value>
+  </data>
+  <data name="OpenOrderError" xml:space="preserve">
+    <value>Please select an order to view details.</value>
+  </data>
+  <data name="OICustomerNameLabel" xml:space="preserve">
+    <value>Customer name:</value>
+  </data>
+  <data name="OIOrderTitleLabel" xml:space="preserve">
+    <value>Order title</value>
+  </data>
+  <data name="OISheetNameLabel" xml:space="preserve">
+    <value>Sheet name:</value>
+  </data>
+  <data name="OIOrderTitleHint" xml:space="preserve">
+    <value>Order title</value>
+  </data>
+  <data name="SITitle" xml:space="preserve">
+    <value>New sheet</value>
+  </data>
+  <data name="SINameLabel" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="SINameHint" xml:space="preserve">
+    <value>Name...</value>
+  </data>
+  <data name="SIDescriptionLabel" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="SIDescriptionHint" xml:space="preserve">
+    <value>Description...</value>
+  </data>
+  <data name="SIColorLabel" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="SIColorHint" xml:space="preserve">
+    <value>Color...</value>
+  </data>
+  <data name="SIWidthLabel" xml:space="preserve">
+    <value>Width:</value>
+  </data>
+  <data name="SIWidthHint" xml:space="preserve">
+    <value>Width... (1234.0)</value>
+  </data>
+  <data name="SIHeightLabel" xml:space="preserve">
+    <value>Height:</value>
+  </data>
+  <data name="SIHeightHint" xml:space="preserve">
+    <value>Height... (1234.0)</value>
+  </data>
+  <data name="SIPriceLabel" xml:space="preserve">
+    <value>Price:</value>
+  </data>
+  <data name="SIPriceHint" xml:space="preserve">
+    <value>Pice... (1234.0)</value>
+  </data>
+  <data name="SINameIsEmpty" xml:space="preserve">
+    <value>You MUST input a name!</value>
+  </data>
+  <data name="SIWidthIsEmpty" xml:space="preserve">
+    <value>You MUST input a width!</value>
+  </data>
+  <data name="SIHeightIsEmpty" xml:space="preserve">
+    <value>You MUST input a height!</value>
+  </data>
+  <data name="CITitle" xml:space="preserve">
+    <value>Add new customer</value>
+  </data>
+  <data name="CINameLabel" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="CINameHint" xml:space="preserve">
+    <value>Name...</value>
+  </data>
+  <data name="CIEmailLabel" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="CIEmailHint" xml:space="preserve">
+    <value>Email...</value>
+  </data>
+  <data name="CIPhoneLabel" xml:space="preserve">
+    <value>Phone number:</value>
+  </data>
+  <data name="CIPhoneHint" xml:space="preserve">
+    <value>+36301234567</value>
+  </data>
+  <data name="CINameIsEmpty" xml:space="preserve">
+    <value>You MUST input a name!</value>
   </data>
 </root>
