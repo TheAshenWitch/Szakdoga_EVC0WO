@@ -152,7 +152,6 @@ public class DatabaseService : IDisposable
             .Include(o => o.Customer)
             .Include(o => o.Sheet)
             .Include(o => o.Pieces)
-                .ThenInclude(p => p.Sheet)
             .ToList();
     }
 
@@ -163,7 +162,6 @@ public class DatabaseService : IDisposable
             .Include(o => o.Customer)
             .Include(o => o.Sheet)
             .Include(o => o.Pieces)
-                .ThenInclude(p => p.Sheet)
             .FirstOrDefault(o => o.Id == id);
     }
 
@@ -202,7 +200,6 @@ public class DatabaseService : IDisposable
             
             .Include(op => op.Order)
                 .ThenInclude(o => o.Customer)
-            .Include(op => op.Sheet)
             .ToList();
     }
     public List<OrderPiece> GetOrderPiecesByOrderId(int orderId)
@@ -211,7 +208,6 @@ public class DatabaseService : IDisposable
             
             .Include(op => op.Order)
                 .ThenInclude(o => o.Customer)
-            .Include(op => op.Sheet)
             .Where(op => op.OrderId == orderId)
             .ToList();
     }
@@ -222,7 +218,6 @@ public class DatabaseService : IDisposable
             
             .Include(op => op.Order)
                 .ThenInclude(o => o.Customer)
-            .Include(op => op.Sheet)
             .FirstOrDefault(op => op.Id == id);
     }
 

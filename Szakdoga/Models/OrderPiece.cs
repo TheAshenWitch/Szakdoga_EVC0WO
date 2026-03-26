@@ -23,8 +23,8 @@ namespace Szakdoga.Models
         public double? X { get; set; }  // kiosztás X koordinátája
         public double? Y { get; set; }  // kiosztás Y koordinátája
         public int? AllocatedSheetId { get; set; }  // melyik lemezre van kiosztva
-        public int? SheetId { get; set; }
-        public Sheet? Sheet { get; set; }
+        //public int? SheetId { get; set; }
+        //public Sheet? Sheet { get; set; }
     }
 
 }
