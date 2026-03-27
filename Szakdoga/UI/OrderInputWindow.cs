@@ -14,28 +14,25 @@ namespace Szakdoga.UI
     {
         DatabaseService _db = new DatabaseService();
 
+        Customer? retCustomer;
+        Sheet? retSheet;
 
         ComboBox customerNameBox;
         TextBox titleBox;
         ComboBox sheetBox;
         List<Customer> customers;
         List<Sheet> sheets;
-       
 
-        public Customer? retCustomer;
-        public Sheet? retSheet;
-        public string CustomerName => customerNameBox.Text;
+        public int? retCustomerId;
+        public int? retSheetId;
         public string OrderTitle => titleBox.Text;
-        public string Sheet => sheetBox.Text;
 
         string orderTitleHint = Strings.OIOrderTitleHint;
 
         private string searchText;
         private bool isSelecting = false;
-        public OrderInputWindow(string title, Customer? customer, string? orderTitle, Sheet? sheet)
+        public OrderInputWindow(DatabaseService DB, string title, Customer? customer, string? orderTitle, Sheet? sheet)
         {
-           using var DB = new DatabaseService();
-
             customers = DB.GetAllCustomers();
             sheets = DB.GetAllSheets();
 
@@ -187,9 +184,11 @@ namespace Szakdoga.UI
 
             saveButton.Click += (s, e) =>
             {
-
                 retCustomer = customerNameBox.SelectedItem as Customer;
                 retSheet = sheetBox.SelectedItem as Sheet;
+
+                retCustomerId = retCustomer?.Id;
+                retSheetId = retSheet?.Id;
 
                 if (titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text))
                 {

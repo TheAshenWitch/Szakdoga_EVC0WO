@@ -52,7 +52,8 @@ namespace Szakdoga
             CutDirection = cutDirection;
             VirtualCutDirection = virtualCutDirection;
         }
-        public Piece OrderPieceToPiece(OrderPiece oPiece)
+       
+        public static Piece OrderPieceToPiece(OrderPiece oPiece)
         {
             Piece piece = new Piece();
             piece.Id = oPiece.Id;
@@ -77,7 +78,7 @@ namespace Szakdoga
             }
             return piece;
         }
-        public List<Piece> OrderPiecesToPieces(List<OrderPiece> oPieces)
+        public static List<Piece> OrderPiecesToPieces(List<OrderPiece> oPieces)
         {
             List<Piece> pieces = new List<Piece>();
             foreach (var oPiece in oPieces)
@@ -86,7 +87,7 @@ namespace Szakdoga
             }
             return pieces;
         }
-        public OrderPiece PieceToOrderPiece(Piece piece, int orderId)
+        public static OrderPiece PieceToOrderPiece(Piece piece, int orderId)
         {
             OrderPiece oPiece = new OrderPiece();
             oPiece.OrderId = orderId;
@@ -113,7 +114,7 @@ namespace Szakdoga
             }
             return oPiece;
         }
-        public List<OrderPiece> PiecesToOrderPieces(List<Piece> pieces, int orderId)
+        public static List<OrderPiece> PiecesToOrderPieces(List<Piece> pieces, int orderId)
         {
             List<OrderPiece> oPieces = new List<OrderPiece>();
             foreach (var piece in pieces)

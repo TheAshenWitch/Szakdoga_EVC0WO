@@ -430,8 +430,7 @@ namespace Szakdoga.UI
 
         private void Save(object sender, RoutedEventArgs e)
         {
-            Piece tempPiece = new Piece();
-            DB.AddOrderPieces(tempPiece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
+            DB.AddOrderPieces(Piece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
             
             //SaveFileDialog saveFileDialog = new SaveFileDialog();
             //saveFileDialog.Filter = "Text File|*.txt";

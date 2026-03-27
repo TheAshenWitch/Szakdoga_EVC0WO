@@ -355,7 +355,7 @@ törlése</value>
   <data name="EmptyOrderTitle" xml:space="preserve">
     <value>Új megrendelés</value>
   </data>
-  <data name="NoOrderSelectedError" xml:space="preserve">
+  <data name="NoOrderSelectedForModify" xml:space="preserve">
     <value>Kérem válasszon egy megrendelést a módosításhoz.</value>
   </data>
   <data name="UpdateOrderTitle" xml:space="preserve">
@@ -447,5 +447,41 @@ törlése</value>
   </data>
   <data name="CINameIsEmpty" xml:space="preserve">
     <value>A név megadása KÖTELEZŐ!</value>
+  </data>
+  <data name="CMTitle" xml:space="preserve">
+    <value>Megrendelő módosítása</value>
+  </data>
+  <data name="NoCustomerSelectedForModify" xml:space="preserve">
+    <value>A módisításhoz válasszon ki egy megrendelőt</value>
+  </data>
+  <data name="CMCustomerLabel" xml:space="preserve">
+    <value>Megrendelő:</value>
+  </data>
+  <data name="NoCustomerSelectedForDelete" xml:space="preserve">
+    <value>A törléshez válasszon ki egy megrendelőt</value>
+  </data>
+  <data name="CDTitle" xml:space="preserve">
+    <value>Megrendelő törlése</value>
+  </data>
+  <data name="SMTitle" xml:space="preserve">
+    <value>Bútorlap módosítása</value>
+  </data>
+  <data name="SDTitle" xml:space="preserve">
+    <value>Bútorlap törlése</value>
+  </data>
+  <data name="SMSSheetLabel" xml:space="preserve">
+    <value>Bútorlap:</value>
+  </data>
+  <data name="SMNoSheetSelectedForModify" xml:space="preserve">
+    <value>Kérem válasszon egy lapot a módosításhoz</value>
+  </data>
+  <data name="SDNoSheetSelectedForDelete" xml:space="preserve">
+    <value>Lérem válasszon ki egy lapot hogy törölni tudja</value>
+  </data>
+  <data name="ConfrimDelete" xml:space="preserve">
+    <value>Biztosan törölni szeretné?</value>
+  </data>
+  <data name="NoOrderSelectedForDelete" xml:space="preserve">
+    <value>A megrendelés törléséhez válasszon ki egy megrendelést</value>
   </data>
 </root>

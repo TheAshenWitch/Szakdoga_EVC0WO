@@ -360,7 +360,7 @@ sheet</value>
   <data name="EmptyOrderTitle" xml:space="preserve">
     <value>New order</value>
   </data>
-  <data name="NoOrderSelectedError" xml:space="preserve">
+  <data name="NoOrderSelectedForModify" xml:space="preserve">
     <value>Pelase select an order to update</value>
   </data>
   <data name="UpdateOrderTitle" xml:space="preserve">
@@ -452,5 +452,41 @@ sheet</value>
   </data>
   <data name="CINameIsEmpty" xml:space="preserve">
     <value>You MUST input a name!</value>
+  </data>
+  <data name="CMTitle" xml:space="preserve">
+    <value>Modify customer</value>
+  </data>
+  <data name="NoCustomerSelectedForModify" xml:space="preserve">
+    <value>Please select a customer to modify it</value>
+  </data>
+  <data name="CMCustomerLabel" xml:space="preserve">
+    <value>Customer:</value>
+  </data>
+  <data name="NoCustomerSelectedForDelete" xml:space="preserve">
+    <value>Please select a customer to delete it</value>
+  </data>
+  <data name="CDTitle" xml:space="preserve">
+    <value>Delete customer</value>
+  </data>
+  <data name="SMTitle" xml:space="preserve">
+    <value>Modify sheet</value>
+  </data>
+  <data name="SDTitle" xml:space="preserve">
+    <value>Delete sheet</value>
+  </data>
+  <data name="SMSSheetLabel" xml:space="preserve">
+    <value>Sheet</value>
+  </data>
+  <data name="SMNoSheetSelectedForModify" xml:space="preserve">
+    <value>Please select a sheet to modify it</value>
+  </data>
+  <data name="SDNoSheetSelectedForDelete" xml:space="preserve">
+    <value>Please select a sheet to delete it</value>
+  </data>
+  <data name="ConfrimDelete" xml:space="preserve">
+    <value>Are you sure you want to delete this?</value>
+  </data>
+  <data name="NoOrderSelectedForDelete" xml:space="preserve">
+    <value>Please select an order to delete</value>
   </data>
 </root>

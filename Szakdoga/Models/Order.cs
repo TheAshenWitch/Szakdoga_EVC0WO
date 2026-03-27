@@ -16,6 +16,7 @@ namespace Szakdoga.Models
         public string Title { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public int? SheetId { get; set; }
         public Sheet? Sheet { get; set; }
 
         public ICollection<OrderPiece> Pieces { get; set; }

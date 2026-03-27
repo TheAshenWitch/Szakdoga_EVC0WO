@@ -84,17 +84,17 @@ namespace Szakdoga
         }
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
-            OrderInputWindow orderInputWindow = new(Strings.AddNewOrderLabel, null,null,null);
+            OrderInputWindow orderInputWindow = new(Db, Strings.AddNewOrderLabel, null,null,null);
             if (orderInputWindow.ShowDialog() == true)
             {                
                 Order order = new Order();
-                if(orderInputWindow.retCustomer != null)
-                    order.Customer = orderInputWindow.retCustomer;
+                if(orderInputWindow.retCustomerId != null)
+                    order.CustomerId = orderInputWindow.retCustomerId;
 
                 order.Title = orderInputWindow.OrderTitle ?? Strings.EmptyOrderTitle;
 
-                if(orderInputWindow.retSheet != null)
-                    order.Sheet = orderInputWindow.retSheet;
+                if(orderInputWindow.retSheetId != null)
+                    order.SheetId = orderInputWindow.retSheetId;
 
                 order.CreatedAt = DateTime.Now;
 
@@ -108,13 +108,9 @@ namespace Szakdoga
             CustomerInputWindow customerInputWindow = new CustomerInputWindow();
             if (customerInputWindow.ShowDialog() == true)
             {
-                Customer newCustomer = new Customer
-                {
-                    Name = customerInputWindow.CustomerName,
-                    Email = customerInputWindow.Email,
-                    Phone = customerInputWindow.Phone
-                };
-                Db.AddCustomer(newCustomer);
+               if (customerInputWindow.customer == null)
+                   return;             
+                Db.AddCustomer(customerInputWindow.customer);
                 Db.SaveAllChanges();
             }
         }
@@ -123,16 +119,9 @@ namespace Szakdoga
             SheetInputWindow sheetInputWindow = new SheetInputWindow();
             if (sheetInputWindow.ShowDialog() == true)
             {
-                Sheet newSheet = new Sheet
-                {
-                    Name = sheetInputWindow.SheetName,
-                    Description = sheetInputWindow.Description,
-                    Height = sheetInputWindow.height,
-                    Width = sheetInputWindow.width,
-                    Color = sheetInputWindow.Color,
-                    Price = sheetInputWindow.Price
-                };
-                Db.AddSheet(newSheet);
+                if (sheetInputWindow.sheet == null)
+                    return;
+                Db.AddSheet(sheetInputWindow.sheet);
                 Db.SaveAllChanges();
             }
         }
@@ -140,90 +129,106 @@ namespace Szakdoga
         {
             if (OrderListView.SelectedItem == null)
             {
-                MessageBox.Show(Strings.NoOrderSelectedError);
+                MessageBox.Show(Strings.NoOrderSelectedForModify);
                 return;
             }
-            Order order = (Order)OrderListView.SelectedItem as Order;
+            Order order = (Order)OrderListView.SelectedItem;
 
-            //teljes objektum helyett csak idt adj át
-
-            OrderInputWindow orderInputWindow = new(Strings.UpdateOrderTitle, order.Customer, order.Title ?? "",  order.Sheet);
+            OrderInputWindow orderInputWindow = new(Db, Strings.UpdateOrderTitle, order.Customer, order.Title ?? "",  order.Sheet);
             if (orderInputWindow.ShowDialog() == true)
-            {
-                Order selectedOrder = (Order)OrderListView.SelectedItem;
-                if (selectedOrder != null)
+            { 
+                if (order != null)
                 {
-                    selectedOrder.Title = orderInputWindow.OrderTitle;
-                    selectedOrder.Customer = orderInputWindow.retCustomer;
-                    selectedOrder.Sheet = orderInputWindow.retSheet;
+                    order.Title = orderInputWindow.OrderTitle;
+                    if(orderInputWindow.retCustomerId != null)
+                        order.CustomerId = orderInputWindow.retCustomerId;
+                    if(orderInputWindow.retSheetId != null)
+                        order.SheetId = orderInputWindow.retSheetId;
                 }
-                
 
-                Db.UpdateOrder(selectedOrder);
+                Db.UpdateOrder(order!);
                 Db.SaveAllChanges();
+                CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();
             }
         }
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
-            //if (OrderListView.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Please select an order to update its customer.");
-            //    return;
-            //}
-            //Order order = (Order)OrderListView.SelectedItem as Order;
-            //if(order.Customer == null)
-            //{
-            //    MessageBox.Show("Selected order has no customer to update.");
-            //    return;
-            //}
-            //CustomerInputWindow customerInputWindow = new CustomerInputWindow(order.Customer.Name, order.Customer.Email, order.Customer.Phone);
-            //if (customerInputWindow.ShowDialog() == true)
-            //{
-            //    Customer selectedCustomer = order.Customer;
-            //    if (selectedCustomer != null)
-            //    {
-            //        selectedCustomer.Name = customerInputWindow.CustomerName;
-            //        selectedCustomer.Email = customerInputWindow.Email;
-            //        selectedCustomer.Phone = customerInputWindow.Phone;
-            //        Db.UpdateCustomer(selectedCustomer);
-            //        Db.SaveAllChanges();
-            //    }
-            //}
+            CustomerModifyWindow customerModifyWindow = new CustomerModifyWindow(Db);
+            if (customerModifyWindow.ShowDialog() == true)
+            {
+                Customer customer = customerModifyWindow.customer;
+
+                if (customer != null)
+                {
+                    Db.UpdateCustomer(customer);
+                    Db.SaveAllChanges();
+                    CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();
+                }
+            }
+
         }
         private void UpdateSheet(object sender, RoutedEventArgs e)
         {
-            
+            SheetModifyWindow sheetModifyWindow = new SheetModifyWindow(Db);
+            if (sheetModifyWindow.ShowDialog() == true)
+            {
+                Sheet sheet = sheetModifyWindow.sheet;
+                if (sheet != null)
+                {
+                    Db.UpdateSheet(sheet);
+                    Db.SaveAllChanges();
+                    CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();
+                }
+            }
         }
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
+            if (OrderListView.SelectedItem == null)
+            {
+                MessageBox.Show(Strings.NoOrderSelectedForDelete);
+                return;
+            }
+
             Order selectedOrder = (Order)OrderListView.SelectedItem;
             if (selectedOrder != null)
             {
-                Db.DeleteOrder(selectedOrder);
-                Orders.Remove(selectedOrder);
-                Db.SaveAllChanges();
+                var result = MessageBox.Show(Strings.ConfrimDelete, Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Db.DeleteOrder(selectedOrder);
+                    Orders.Remove(selectedOrder);
+                    Db.SaveAllChanges();
+                }
             }
         }
         private void DeleteCustomer(object sender, RoutedEventArgs e)
         {
-            //if (OrderListView.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Please select an order to delete its customer.");
-            //    return;
-            //}
-            //Order order = (Order)OrderListView.SelectedItem as Order;
-            //if(order.Customer == null)
-            //{
-            //    MessageBox.Show("Selected order has no customer to delete.");
-            //    return;
-            //}
-            //Db.DeleteCustomer(order.Customer);
-            //order.Customer = null;
-            //Db.SaveAllChanges();
+            CustomerModifyWindow customerDeleteWindow = new CustomerModifyWindow(Db, true);
+            if (customerDeleteWindow.ShowDialog() == true)
+            {
+                Customer customer = customerDeleteWindow.customer;
+
+                if (customer != null)
+                {
+                    Db.DeleteCustomer(customer);
+                    Db.SaveAllChanges();
+                    CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();
+                }
+            }
         }
         private void DeleteSheet(object sender, RoutedEventArgs e)
         {
-
+            SheetModifyWindow sheetDeleteWindow = new SheetModifyWindow(Db, true);
+            if (sheetDeleteWindow.ShowDialog() == true)
+            {
+                Sheet sheet = sheetDeleteWindow.sheet;
+                if (sheet != null)
+                {
+                    Db.DeleteSheet(sheet);
+                    Db.SaveAllChanges();
+                    CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();
+                }
+            }
         }
         private void OpenOrder(object sender, MouseButtonEventArgs e)
         {
@@ -233,11 +238,10 @@ namespace Szakdoga
                 return;
             }
             
-            Order selectedOrder = (Order)OrderListView.SelectedItem as Order;
+            Order selectedOrder = (Order)OrderListView.SelectedItem;
             List<Piece> pieces = new List<Piece>();
 
-            Piece piece = new Piece();//??????????
-            pieces = piece.OrderPiecesToPieces(Db.GetOrderPiecesByOrderId(selectedOrder.Id));
+            pieces = Piece.OrderPiecesToPieces(Db.GetOrderPiecesByOrderId(selectedOrder.Id));
             MainWindow mainWindow = new MainWindow(selectedOrder.Id,pieces);
 
             mainWindow.Show();

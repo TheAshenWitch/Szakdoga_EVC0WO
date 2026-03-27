@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -127,6 +127,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete customer.
+        /// </summary>
+        internal static string CDTitle {
+            get {
+                return ResourceManager.GetString("CDTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email....
         /// </summary>
         internal static string CIEmailHint {
@@ -208,6 +217,24 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer:.
+        /// </summary>
+        internal static string CMCustomerLabel {
+            get {
+                return ResourceManager.GetString("CMCustomerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify customer.
+        /// </summary>
+        internal static string CMTitle {
+            get {
+                return ResourceManager.GetString("CMTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
@@ -222,6 +249,15 @@ namespace Szakdoga.Resources {
         internal static string ConfirmClearText {
             get {
                 return ResourceManager.GetString("ConfirmClearText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        internal static string ConfrimDelete {
+            get {
+                return ResourceManager.GetString("ConfrimDelete", resourceCulture);
             }
         }
         
@@ -460,6 +496,24 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a customer to delete it.
+        /// </summary>
+        internal static string NoCustomerSelectedForDelete {
+            get {
+                return ResourceManager.GetString("NoCustomerSelectedForDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a customer to modify it.
+        /// </summary>
+        internal static string NoCustomerSelectedForModify {
+            get {
+                return ResourceManager.GetString("NoCustomerSelectedForModify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of
         ///pieces.
         /// </summary>
@@ -480,11 +534,20 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select an order to delete.
+        /// </summary>
+        internal static string NoOrderSelectedForDelete {
+            get {
+                return ResourceManager.GetString("NoOrderSelectedForDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pelase select an order to update.
         /// </summary>
-        internal static string NoOrderSelectedError {
+        internal static string NoOrderSelectedForModify {
             get {
-                return ResourceManager.GetString("NoOrderSelectedError", resourceCulture);
+                return ResourceManager.GetString("NoOrderSelectedForModify", resourceCulture);
             }
         }
         
@@ -657,6 +720,24 @@ namespace Szakdoga.Resources {
         internal static string SaveSuccessText {
             get {
                 return ResourceManager.GetString("SaveSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a sheet to delete it.
+        /// </summary>
+        internal static string SDNoSheetSelectedForDelete {
+            get {
+                return ResourceManager.GetString("SDNoSheetSelectedForDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete sheet.
+        /// </summary>
+        internal static string SDTitle {
+            get {
+                return ResourceManager.GetString("SDTitle", resourceCulture);
             }
         }
         
@@ -891,6 +972,33 @@ namespace Szakdoga.Resources {
         internal static string SIWidthLabel {
             get {
                 return ResourceManager.GetString("SIWidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a sheet to modify it.
+        /// </summary>
+        internal static string SMNoSheetSelectedForModify {
+            get {
+                return ResourceManager.GetString("SMNoSheetSelectedForModify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet.
+        /// </summary>
+        internal static string SMSSheetLabel {
+            get {
+                return ResourceManager.GetString("SMSSheetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify sheet.
+        /// </summary>
+        internal static string SMTitle {
+            get {
+                return ResourceManager.GetString("SMTitle", resourceCulture);
             }
         }
         

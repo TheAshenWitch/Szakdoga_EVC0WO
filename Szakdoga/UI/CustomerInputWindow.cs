@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Szakdoga.Models;
 using Szakdoga.Resources;
 
 namespace Szakdoga
@@ -11,9 +12,7 @@ namespace Szakdoga
         private TextBox emailBox;
         private TextBox phoneBox;
 
-        public string CustomerName => nameBox.Text;
-        public string Email => emailBox.Text;
-        public string Phone => phoneBox.Text;
+        public Customer customer;
 
         public CustomerInputWindow()
         {
@@ -124,6 +123,13 @@ namespace Szakdoga
                 {
                     phoneBox.Text = "";
                 }
+
+                customer = new Customer
+                {
+                    Name = nameBox.Text,
+                    Email = emailBox.Text,
+                    Phone = phoneBox.Text
+                };
 
                 DialogResult = true;
                 Close();

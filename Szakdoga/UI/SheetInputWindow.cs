@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Szakdoga.Models;
 using Szakdoga.Resources;
 
 namespace Szakdoga
@@ -15,12 +16,7 @@ namespace Szakdoga
         private TextBox heightBox;
         private TextBox priceBox;
 
-        public string SheetName => nameBox.Text;
-        public string Description => descriptionBox.Text;
-        public string Color => colorBox.Text;
-        public double width => Convert.ToDouble(widthBox.Text);
-        public double height => Convert.ToDouble(heightBox.Text);
-        public double Price => Convert.ToDouble(priceBox.Text);
+        public Sheet sheet;
 
         public SheetInputWindow()
         {
@@ -207,6 +203,16 @@ namespace Szakdoga
                 
                 if (string.IsNullOrEmpty(priceBox.Text) || priceBox.Text == priceHint)
                     priceBox.Text = "0";
+
+                sheet = new Sheet
+                {
+                    Name = nameBox.Text,
+                    Description = descriptionBox.Text,
+                    Color = colorBox.Text,
+                    Width = Convert.ToDouble(widthBox.Text),
+                    Height = Convert.ToDouble(heightBox.Text),
+                    Price = Convert.ToDouble(priceBox.Text)
+                };
 
                 DialogResult = true;
                 Close();
