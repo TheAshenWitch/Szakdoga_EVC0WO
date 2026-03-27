@@ -724,6 +724,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to save pieces list to a separate file?.
+        /// </summary>
+        internal static string SaveToTxtOrOnlyDb {
+            get {
+                return ResourceManager.GetString("SaveToTxtOrOnlyDb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a sheet to delete it.
         /// </summary>
         internal static string SDNoSheetSelectedForDelete {

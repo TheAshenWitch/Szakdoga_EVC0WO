@@ -489,4 +489,7 @@ sheet</value>
   <data name="NoOrderSelectedForDelete" xml:space="preserve">
     <value>Please select an order to delete</value>
   </data>
+  <data name="SaveToTxtOrOnlyDb" xml:space="preserve">
+    <value>Do you want to save pieces list to a separate file?</value>
+  </data>
 </root>

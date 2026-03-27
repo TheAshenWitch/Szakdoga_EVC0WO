@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using Szakdoga.Models;
 using Szakdoga.Resources;
 using Szakdoga.Services;
-using static Szakdoga.App; //
+using static Szakdoga.App; 
 
 namespace Szakdoga.UI
 {
@@ -82,14 +82,11 @@ namespace Szakdoga.UI
             DataContext = viewModel;
             PiecesListView.DataContext = viewModel;
             sheetId = 1;
-
-            SizeChanged += MainWindow_SizeChanged;
             SheetIdBox.Text = sheetId.ToString();
 
             _pch = PieceCanvas.Height;
             _pcw = PieceCanvas.Width;
             OptMode = "Test";
-            //StateChanged += MainWindow_Maximized;
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ClearInputs();
@@ -135,7 +132,6 @@ namespace Szakdoga.UI
             PiecesListView.DataContext = viewModel;
             sheetId = 1;
             
-            SizeChanged += MainWindow_SizeChanged;
             SheetIdBox.Text = sheetId.ToString();
 
             _pch = PieceCanvas.Height;
@@ -203,8 +199,7 @@ namespace Szakdoga.UI
         
         private void Optimize(object sender, RoutedEventArgs e)
         {
-            manager.optimize(OptMode, (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
-            //manager.optimize("Guillotine", (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
+            manager.Optimize(OptMode, (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
             sheetId = 1;
             PlacePieces();
             SheetIdBox.Text = sheetId.ToString();
@@ -215,8 +210,6 @@ namespace Szakdoga.UI
             }
             catch (Exception)
             {}
-            //statistics.CalculateStatistics(manager.Pieces, settings);
-            //statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
         }
 
         private void Export(object sender, RoutedEventArgs e)
@@ -332,8 +325,7 @@ namespace Szakdoga.UI
                 }
             }
 
-            GCSettings.LargeObjectHeapCompactionMode =
-                GCLargeObjectHeapCompactionMode.CompactOnce;
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
 
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
             GC.WaitForPendingFinalizers();
@@ -381,37 +373,6 @@ namespace Szakdoga.UI
             WasteAreaThisShet.Clear();
         }
 
-        //ez amúgy nem kell
-        private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (e.PreviousSize.Width == 0 || e.PreviousSize.Height == 0)
-                return;
-
-            //double wscale = _pcw / PieceCanvas.Width;// e.NewSize.Width / e.PreviousSize.Width;
-            //double hscale = _pch / PieceCanvas.Height; // e.NewSize.Height / e.PreviousSize.Height;
-            //_pcw = PieceCanvas.Width;
-            //_pch = PieceCanvas.Height;
-            //foreach (var child in PieceCanvas.Children.OfType<Rectangle>())
-            //{
-            //    double left = Canvas.GetLeft(child);
-            //    double top = Canvas.GetTop(child);
-            //    if (e.PreviousSize.Width != e.NewSize.Width)
-            //    {
-            //        child.Width = child.Width * wscale;
-            //        child.Height = child.Height * wscale;
-            //        Canvas.SetTop(child, top * wscale);
-            //        Canvas.SetLeft(child, left * wscale);
-            //    }
-            //    else if (e.PreviousSize.Height != e.NewSize.Height)
-            //    {
-            //        child.Height = child.Height * hscale;
-            //        child.Width = child.Width * hscale;
-            //        Canvas.SetLeft(child, left * hscale);
-            //        Canvas.SetTop(child, top * hscale);
-            //    }
-            //}
-        }
-
         private void PiecesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NameTxt.Text = string.Empty;
@@ -430,35 +391,43 @@ namespace Szakdoga.UI
 
         private void Save(object sender, RoutedEventArgs e)
         {
-            DB.AddOrderPieces(Piece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
+            var result = MessageBox.Show(Strings.SaveToTxtOrOnlyDb, Strings.SavePromptText, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
             
-            //SaveFileDialog saveFileDialog = new SaveFileDialog();
-            //saveFileDialog.Filter = "Text File|*.txt";
-            //saveFileDialog.Title = Strings.SavePromptText;
-            //saveFileDialog.ShowDialog();
-            //if (saveFileDialog.FileName != "")
-            //{
-            //    FileStream fs = (FileStream)saveFileDialog.OpenFile();
-            //    try
-            //    {
-            //        using (StreamWriter sw = new StreamWriter(fs))
-            //        {
-            //            foreach (var piece in manager.Pieces)
-            //            {
-            //                if (piece.x == null || piece.y == null || piece.SheetId == null)
-            //                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
-            //                else
-            //                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x,2)};{Math.Round((double)piece.y,2)};{piece.SheetId}");
-            //            }
-            //        }
-            //        MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            //    }
-            //    fs.Close();
-            //}
+            if(result == MessageBoxResult.Cancel)
+                return;
+
+            DB.AddOrderPieces(Piece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
+
+            if (result == MessageBoxResult.Yes)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Text File|*.txt";
+                saveFileDialog.Title = Strings.SavePromptText;
+                saveFileDialog.ShowDialog();
+                if (saveFileDialog.FileName != "")
+                {
+                    FileStream fs = (FileStream)saveFileDialog.OpenFile();
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(fs))
+                        {
+                            foreach (var piece in manager.Pieces)
+                            {
+                                if (piece.x == null || piece.y == null || piece.SheetId == null)
+                                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
+                                else
+                                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x, 2)};{Math.Round((double)piece.y, 2)};{piece.SheetId}");
+                            }
+                        }
+                        MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    fs.Close();
+                }
+            }
         }
 
         private void Load(object sender, RoutedEventArgs e)
@@ -562,11 +531,10 @@ namespace Szakdoga.UI
         public void PlacePieces()
         {
             PieceCanvas.Children.Clear();
-            
-            string virtualPieceName = "";
 
             double wscale = PieceCanvas.ActualHeight / (double)(settings.SheetHeight ?? 2070.0);
             double hscale = PieceCanvas.ActualWidth / (double)(settings.SheetWidth ?? 2800.0);
+            
             foreach (var piece in manager.Pieces)
             {
                 if (piece.SheetId == sheetId)
@@ -581,49 +549,8 @@ namespace Szakdoga.UI
                         ToolTip = $"ID: {piece.Id}\nName: {piece.Name}\nHeight: {piece.Height}\nWidth: {piece.Width}\nDirection: {piece.CutDirection}"
                     };
 
-                    int fontSize = 14;
-                    virtualPieceName = piece.Name + $"\n{piece.Height}x{piece.Width}";
-                    if (piece.Name.Length > 10)
-                    {
-                        if(piece.Width >= 150 && piece.Height <= 350)
-                        {
-                            virtualPieceName = 
-                                piece.Name.Substring(0, (int)Math.Floor((double)piece.Name.Length / 2)) +
-                                "\n" + piece.Name.Substring(piece.Name.Length / 2, (int)Math.Ceiling((double)piece.Name.Length / 2)) + 
-                                $"\n{piece.Height}x{piece.Width}";
-                        }
-                        else
-                        {
-                            if (piece.Height <= 250)
-                                fontSize = 12;
-                            if (piece.Height <= 200)
-                                fontSize = 10;
-                            if (piece.Height <= 150)
-                                fontSize = 8;
-                            if (piece.Height <= 100)
-                                fontSize = 6;
-                        }
-                    }
-                    if (piece.Name.Length > 20)
-                    {
-                        if(piece.Width >= 150 && piece.Height <= 350)
-                        {
-                            virtualPieceName = piece.Name.Substring(0, (int)Math.Floor((double)piece.Name.Length / 2)) + 
-                                "\n" + piece.Name.Substring(piece.Name.Length / 2, (int)Math.Ceiling((double)piece.Name.Length / 2)) + 
-                                $"\n{piece.Height}x{piece.Width}";
-                        }
-                        else
-                        {
-                            if (piece.Height <= 250)
-                                fontSize = 8;
-                            if (piece.Height <= 200)
-                                fontSize = 7;
-                            if (piece.Height <= 150)
-                                fontSize = 6;
-                            if (piece.Height <= 100)
-                                fontSize = 5;
-                        }
-                    }
+                    string virtualPieceName = FormatPieceName(piece);
+                    int fontSize = CalculateFontSize(piece);
 
                     Label label = new Label
                     {
@@ -642,6 +569,56 @@ namespace Szakdoga.UI
                     PieceCanvas.Children.Add(label);
                 }
             }
+        }
+
+        private string FormatPieceName(Piece piece)
+        {
+            string baseName = $"{piece.Name}\n{piece.Height}x{piece.Width}";
+            
+            if (piece.Name.Length <= 10)
+                return baseName;
+
+            if (piece.Width >= 150 && piece.Height <= 350)
+            {
+                int halfLength = piece.Name.Length / 2;
+                return $"{piece.Name.Substring(0, (int)Math.Floor((double)halfLength))}\n" +
+                       $"{piece.Name.Substring(halfLength, (int)Math.Ceiling((double)(piece.Name.Length - halfLength)))}\n" +
+                       $"{piece.Height}x{piece.Width}";
+            }
+
+            return baseName;
+        }
+
+        private int CalculateFontSize(Piece piece)
+        {
+            int baseSize = 14;
+            
+            if (piece.Name.Length <= 10)
+                return baseSize;
+
+            if (piece.Width >= 150 && piece.Height <= 350)
+                return baseSize;
+
+            if (piece.Name.Length > 20)
+            {
+                return piece.Height switch
+                {
+                    <= 100 => 5,
+                    <= 150 => 6,
+                    <= 200 => 7,
+                    <= 250 => 8,
+                    _ => baseSize
+                };
+            }
+
+            return piece.Height switch
+            {
+                <= 100 => 6,
+                <= 150 => 8,
+                <= 200 => 10,
+                <= 250 => 12,
+                _ => baseSize
+            };
         }
         
         private void NextSheet(object sender, RoutedEventArgs e)

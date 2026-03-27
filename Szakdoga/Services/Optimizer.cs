@@ -764,19 +764,6 @@ namespace Szakdoga.Services
                        a.Y + a.Height <= b.Y + b.Height + EPS;
             }
         }
-
-        // ============================================================================
-        // HEURISTIC ALGORITHM - Placeholder
-        // ============================================================================
-
-        /// <summary>
-        /// Heuristic algorithm: Currently a placeholder - returns pieces unchanged.
-        /// Can be implemented with custom optimization logic in the future.
-        /// </summary>
-        public List<Piece> Heuristic(List<Piece> Pieces, double SheetX = 2800, double SheetY = 2070, double SheetPadding = 10, double BladeThickness = 3)
-        {
-            return Pieces;
-        }
     }
 }
 

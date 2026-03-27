@@ -484,4 +484,7 @@ törlése</value>
   <data name="NoOrderSelectedForDelete" xml:space="preserve">
     <value>A megrendelés törléséhez válasszon ki egy megrendelést</value>
   </data>
+  <data name="SaveToTxtOrOnlyDb" xml:space="preserve">
+    <value>Szeretné külön fájlba menteni a darablistát?</value>
+  </data>
 </root>

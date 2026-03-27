@@ -15,11 +15,12 @@ namespace Szakdoga.Services
         }
         public void AddPiece(double height, double width, CutDirection cutDirection, string? name, int count = 1, bool fromLoad = false, bool optimised = false, double x = 0, double y = 0, double sheetId = 0)
         {
-            if ((Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection && p.Name == name) && count == 1 && !fromLoad && !optimised)
-                && MessageBox.Show(Strings.SamePiecePromt, Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No ) 
+            bool duplicateExists = Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection && p.Name == name);
+            if (duplicateExists && count == 1 && !fromLoad && !optimised && MessageBox.Show(Strings.SamePiecePromt, Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No ) 
             {
                 return;
             }
+
             if(fromLoad && optimised)
             {
                 Piece optimisedPiece = new Piece
@@ -37,11 +38,13 @@ namespace Szakdoga.Services
                 Pieces.Add(optimisedPiece);
                 return;
             }
+
             if (height <= 0 || width <= 0)
             {
                 MessageBox.Show(Strings.DimensionErrorText, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             for (int i = 0; i < count; i++)
             {
                 if (name == "" && name == string.Empty)
@@ -94,7 +97,7 @@ namespace Szakdoga.Services
             Pieces.Clear();
             nextId = 1; // Reset ID counter
         } 
-        public void optimize(string method, double sheetWidth, double sheetHeight, double sheetPadding, double bladeThickness)
+        public void Optimize(string method, double sheetWidth, double sheetHeight, double sheetPadding, double bladeThickness)
         {
             if (Pieces.Count == 0)
             {
@@ -112,7 +115,6 @@ namespace Szakdoga.Services
             {
                 "Test" => optimizer.Test(GetPiecesList(), sheetWidth, sheetHeight, sheetPadding, bladeThickness),
                 "Guillotine" => optimizer.Guillotine(GetPiecesList(), sheetWidth, sheetHeight, sheetPadding, bladeThickness),
-                "Heuristic" => optimizer.Heuristic(GetPiecesList(), sheetWidth, sheetHeight, sheetPadding, bladeThickness),
                 _ => throw new ArgumentException("Invalid optimization method"),
             };
             Pieces.Clear();
