@@ -90,6 +90,8 @@ namespace Szakdoga.UI
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ClearInputs();
+
+            PiecesListView.ItemsSource = viewModel.PieceList;
         }
         public MainWindow(int OrderId,List<Piece>? pieces)
         {
@@ -141,6 +143,8 @@ namespace Szakdoga.UI
            
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ClearInputs();
+
+            PiecesListView.ItemsSource = viewModel.PieceList;
 
             if (pieces != null)
             {
@@ -785,6 +789,13 @@ namespace Szakdoga.UI
             WidthTxt.Text = string.Empty;
             CountTxt.Text = "1";
             viewModel.Direction = CutDirection.Szálirány; // Reset to default direction
+        }
+        public void BackToExplorer(object sender, RoutedEventArgs e)
+        {
+            ProjectExplorer projectExplorer = new ProjectExplorer();
+            projectExplorer.Show();
+
+            this.Close();
         }
     }  
 }

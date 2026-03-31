@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -258,6 +258,15 @@ namespace Szakdoga.Resources {
         internal static string ConfrimDelete {
             get {
                 return ResourceManager.GetString("ConfrimDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue without order.
+        /// </summary>
+        internal static string ContinueWithoutOrder {
+            get {
+                return ResourceManager.GetString("ContinueWithoutOrder", resourceCulture);
             }
         }
         
@@ -625,6 +634,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project explorer.
+        /// </summary>
+        internal static string ProjectExplorerButton {
+            get {
+                return ResourceManager.GetString("ProjectExplorerButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cross direction.
         /// </summary>
         internal static string RadioCrossDir {
@@ -828,6 +846,15 @@ namespace Szakdoga.Resources {
         internal static string SettingsSheetPaddingLabel {
             get {
                 return ResourceManager.GetString("SettingsSheetPaddingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings for width, height, price, and color only apply when the order has no sheet selected..
+        /// </summary>
+        internal static string SettingsTooltipText {
+            get {
+                return ResourceManager.GetString("SettingsTooltipText", resourceCulture);
             }
         }
         

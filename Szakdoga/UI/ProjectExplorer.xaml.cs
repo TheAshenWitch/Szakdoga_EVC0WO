@@ -63,17 +63,25 @@ namespace Szakdoga
 
             LocalizationManager.Instance.Culture = culture;
 
+            if(settings.Language == "hu-HU")
+                AddNewSheetButton.Padding = new Thickness(-25, 0, 0, 0);
+            else
+                AddNewSheetButton.Padding = new Thickness(0, 0, 0, 0);
+
             Orders = new ObservableCollection<Order>(Db.GetAllOrders());
 
             viewModel = new ProjectExplorerViewModel(Orders);
             DataContext = viewModel;
             OrderListView.DataContext = viewModel;
+
+            OrderListView.ItemsSource = viewModel.Orders;
         }
         public class ProjectExplorerViewModel(ObservableCollection<Order> orders) : INotifyPropertyChanged
         {
             public ObservableCollection<Order> Orders =>orders;
             
             public event PropertyChangedEventHandler? PropertyChanged;
+
         }
         private void MainScreen(object sender, RoutedEventArgs e)
         {
@@ -246,10 +254,55 @@ namespace Szakdoga
 
             mainWindow.Show();
 
-            
-
-
             this.Close();
+        }
+        public void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow(settings);
+
+            settingsWindow.Closed += (s, ev) =>
+            {
+                settings.SheetWidth = Convert.ToDouble(settingsWindow.SheetWidth.Text);
+                settings.SheetHeight = Convert.ToDouble(settingsWindow.SheetHeight.Text);
+                settings.BladeThickness = Convert.ToDouble(settingsWindow.BladeThickness.Text);
+                settings.SheetPadding = Convert.ToDouble(settingsWindow.SheetPadding.Text);
+                settings.SheetColor = settingsWindow.SheetColor.Text;
+                settings.SheetManufacturer = settingsWindow.SheetManufacturer.Text;
+                settings.SheetPrice = Convert.ToDouble(settingsWindow.SheetPrice.Text);
+                settings.EdgeSealingPrice = Convert.ToDouble(settingsWindow.EdgeSealingPrice.Text);
+                var selectedItem = (ComboBoxItem)settingsWindow.Lang.SelectedItem;
+                if (selectedItem != null)
+                {
+                    string cultureCode = selectedItem.Tag.ToString()!;
+                    CultureInfo culture = new CultureInfo(cultureCode);
+                    Thread.CurrentThread.CurrentUICulture = culture;
+                    Thread.CurrentThread.CurrentCulture = culture;
+                    settings.Language = cultureCode;
+
+                    LocalizationManager.Instance.Culture = culture;
+
+                    if (settings.Language == "hu-HU")
+                        AddNewSheetButton.Padding = new Thickness(-25, 0, 0, 0);
+                    else
+                        AddNewSheetButton.Padding = new Thickness(0, 0, 0, 0);
+                }
+
+                Properties.Settings.Default.Language = settings.Language;
+                Properties.Settings.Default.DarkMode = settings.DarkMode;
+                Properties.Settings.Default.SheetHeight = settings.SheetHeight ?? 2070.0;
+                Properties.Settings.Default.SheetWidth = settings.SheetWidth ?? 2800.0;
+                Properties.Settings.Default.BladeThickness = settings.BladeThickness;
+                Properties.Settings.Default.SheetPadding = settings.SheetPadding;
+                Properties.Settings.Default.SheetColor = settings.SheetColor;
+                Properties.Settings.Default.SheetManufacturer = settings.SheetManufacturer;
+                Properties.Settings.Default.SheetPrice = settings.SheetPrice ?? 10000.0;
+                Properties.Settings.Default.EdgeSealingPrice = settings.EdgeSealingPrice ?? 150.0;
+                Properties.Settings.Default.Currency = settings.Currency;
+                Properties.Settings.Default.Save();
+            };
+
+            settingsWindow.ShowDialog();
+
         }
     }
 }

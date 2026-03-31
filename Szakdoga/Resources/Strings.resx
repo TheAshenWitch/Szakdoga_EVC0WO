@@ -492,4 +492,13 @@ sheet</value>
   <data name="SaveToTxtOrOnlyDb" xml:space="preserve">
     <value>Do you want to save pieces list to a separate file?</value>
   </data>
+  <data name="ContinueWithoutOrder" xml:space="preserve">
+    <value>Continue without order</value>
+  </data>
+  <data name="ProjectExplorerButton" xml:space="preserve">
+    <value>Project explorer</value>
+  </data>
+  <data name="SettingsTooltipText" xml:space="preserve">
+    <value>Settings for width, height, price, and color only apply when the order has no sheet selected.</value>
+  </data>
 </root>

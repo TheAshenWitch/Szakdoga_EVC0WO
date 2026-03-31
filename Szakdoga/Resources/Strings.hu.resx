@@ -487,4 +487,16 @@ törlése</value>
   <data name="SaveToTxtOrOnlyDb" xml:space="preserve">
     <value>Szeretné külön fájlba menteni a darablistát?</value>
   </data>
+  <data name="ContinueWithoutOrder" xml:space="preserve">
+    <value>Folytatás
+megrendelés
+nélkül</value>
+  </data>
+  <data name="ProjectExplorerButton" xml:space="preserve">
+    <value>Megrendelés
+kezelő</value>
+  </data>
+  <data name="SettingsTooltipText" xml:space="preserve">
+    <value>A szélesség, magasság, ár és szín beállítások csak akkor kerülnek felhasználásra ha a megrendeléshez nincs megadva bútorlap.</value>
+  </data>
 </root>
