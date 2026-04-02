@@ -504,4 +504,16 @@ explorer</value>
   <data name="SettingsTooltipText" xml:space="preserve">
     <value>Settings for width, height, price, and color only apply when the order has no sheet selected.</value>
   </data>
+  <data name="SheetPaddingTooLarge" xml:space="preserve">
+    <value>Sheet padding is too large for the sheet</value>
+  </data>
+  <data name="WrongSheetSizes" xml:space="preserve">
+    <value>Sheet sizes must be positive</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>To export optimize first</value>
+  </data>
+  <data name="CutDiagramTitle" xml:space="preserve">
+    <value>Cut diagram</value>
+  </data>
 </root>

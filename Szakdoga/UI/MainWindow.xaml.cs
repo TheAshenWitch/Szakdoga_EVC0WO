@@ -54,8 +54,8 @@ namespace Szakdoga.UI
                 settings = new Settings(
                         Properties.Settings.Default.Language,
                         Properties.Settings.Default.DarkMode,
-                        Properties.Settings.Default.SheetHeight,
-                        Properties.Settings.Default.SheetWidth,
+                        2070.0,
+                        2800.0,
                         Properties.Settings.Default.BladeThickness,
                         Properties.Settings.Default.SheetPadding,
                         Properties.Settings.Default.SheetColor,
@@ -93,7 +93,7 @@ namespace Szakdoga.UI
 
             PiecesListView.ItemsSource = viewModel.PieceList;
         }
-        public MainWindow(int OrderId,List<Piece>? pieces)
+        public MainWindow(int OrderId,List<Piece>? pieces, Sheet? orderSheet)
         {
             InitializeComponent();
             manager = new Manager();
@@ -106,8 +106,8 @@ namespace Szakdoga.UI
                 settings = new Settings(
                         Properties.Settings.Default.Language,
                         Properties.Settings.Default.DarkMode,
-                        Properties.Settings.Default.SheetHeight,
-                        Properties.Settings.Default.SheetWidth,
+                        2070.0,
+                        2800.0,
                         Properties.Settings.Default.BladeThickness,
                         Properties.Settings.Default.SheetPadding,
                         Properties.Settings.Default.SheetColor,
@@ -119,6 +119,16 @@ namespace Szakdoga.UI
             }catch (Exception)
             {
                 settings = new Settings();
+            }
+
+            if(orderSheet != null)
+            {
+                settings.SheetHeight = orderSheet.Height;
+                settings.SheetWidth = orderSheet.Width;
+                if(orderSheet.Color != null)
+                    settings.SheetColor = orderSheet.Color;
+                if(orderSheet.Price != null)
+                    settings.SheetPrice = orderSheet.Price;
             }
 
             CultureInfo culture = new CultureInfo(settings.Language);
@@ -220,7 +230,7 @@ namespace Szakdoga.UI
         {
             if (PieceCanvas.Children.Count == 0)
             {
-                MessageBox.Show("To export, optimize first", "Export error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.ExportError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -317,7 +327,7 @@ namespace Szakdoga.UI
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
                     Filter = "PDF File|*.pdf",
-                    Title = "Cut diagram"
+                    Title = Strings.CutDiagramTitle
                 };
 
                 if (saveFileDialog.ShowDialog() == true)
@@ -597,7 +607,7 @@ namespace Szakdoga.UI
         {
             int baseSize = 14;
             
-            if (piece.Name.Length <= 10)
+            if (piece.Name!.Length <= 10)
                 return baseSize;
 
             if (piece.Width >= 150 && piece.Height <= 350)

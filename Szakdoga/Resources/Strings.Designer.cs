@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -280,6 +280,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cut diagram.
+        /// </summary>
+        internal static string CutDiagramTitle {
+            get {
+                return ResourceManager.GetString("CutDiagramTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string DeleteButton {
@@ -370,6 +379,15 @@ namespace Szakdoga.Resources {
         internal static string ExportButton {
             get {
                 return ResourceManager.GetString("ExportButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To export optimize first..
+        /// </summary>
+        internal static string ExportError {
+            get {
+                return ResourceManager.GetString("ExportError", resourceCulture);
             }
         }
         
@@ -868,6 +886,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sheet padding is too large for the sheet.
+        /// </summary>
+        internal static string SheetPaddingTooLarge {
+            get {
+                return ResourceManager.GetString("SheetPaddingTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color....
         /// </summary>
         internal static string SIColorHint {
@@ -1167,6 +1194,15 @@ namespace Szakdoga.Resources {
         internal static string WidthLabel {
             get {
                 return ResourceManager.GetString("WidthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet sizes must be positive.
+        /// </summary>
+        internal static string WrongSheetSizes {
+            get {
+                return ResourceManager.GetString("WrongSheetSizes", resourceCulture);
             }
         }
     }

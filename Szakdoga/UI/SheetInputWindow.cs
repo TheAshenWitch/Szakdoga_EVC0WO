@@ -1,4 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Sprache;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -204,14 +206,15 @@ namespace Szakdoga
                 if (string.IsNullOrEmpty(priceBox.Text) || priceBox.Text == priceHint)
                     priceBox.Text = "0";
 
+                double result;
                 sheet = new Sheet
                 {
                     Name = nameBox.Text,
                     Description = descriptionBox.Text,
                     Color = colorBox.Text,
-                    Width = Convert.ToDouble(widthBox.Text),
-                    Height = Convert.ToDouble(heightBox.Text),
-                    Price = Convert.ToDouble(priceBox.Text)
+                    Width = double.TryParse(widthBox.Text.Replace("," , "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 0,
+                    Height = double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 0,
+                    Price = double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 0,
                 };
 
                 DialogResult = true;

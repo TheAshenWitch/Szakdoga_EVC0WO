@@ -499,4 +499,16 @@ kezelő</value>
   <data name="SettingsTooltipText" xml:space="preserve">
     <value>A szélesség, magasság, ár és szín beállítások csak akkor kerülnek felhasználásra ha a megrendeléshez nincs megadva bútorlap.</value>
   </data>
+  <data name="SheetPaddingTooLarge" xml:space="preserve">
+    <value>A lap ráhagyás túl nagy a lapmérethez képest.</value>
+  </data>
+  <data name="WrongSheetSizes" xml:space="preserve">
+    <value>A lap méretek pozitívak legyenek.</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>Az exportáláshoz először optimalizálni kell.</value>
+  </data>
+  <data name="CutDiagramTitle" xml:space="preserve">
+    <value>Vágási terv</value>
+  </data>
 </root>

@@ -250,7 +250,7 @@ namespace Szakdoga
             List<Piece> pieces = new List<Piece>();
 
             pieces = Piece.OrderPiecesToPieces(Db.GetOrderPiecesByOrderId(selectedOrder.Id));
-            MainWindow mainWindow = new MainWindow(selectedOrder.Id,pieces);
+            MainWindow mainWindow = new MainWindow(selectedOrder.Id, pieces, selectedOrder.Sheet);
 
             mainWindow.Show();
 

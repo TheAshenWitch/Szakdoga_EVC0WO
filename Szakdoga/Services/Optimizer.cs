@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Szakdoga.Resources;
 
 namespace Szakdoga.Services
 {
@@ -106,7 +107,7 @@ namespace Szakdoga.Services
         private bool CanFitInCurrentPosition(Piece piece, double CurrentX, double CurrentY, double RowHeight, double SheetX, double SheetY, double BladeThickness)
         {
             // Check if piece fits within sheet boundaries (accounting for padding on right/bottom)
-            return CurrentX + piece.Height + BladeThickness <= SheetX && 
+            return CurrentX + piece.Height + BladeThickness <= (SheetX - 10) && 
                    CurrentY + Math.Max(RowHeight, piece.Width) + BladeThickness <= SheetY;
         }
 
@@ -399,7 +400,7 @@ namespace Szakdoga.Services
             _freeRectangles = new List<Rect> { new Rect(0, 0, _binWidth, _binHeight) };
             
             if (Pieces == null) throw new ArgumentNullException(nameof(Pieces));
-            if (SheetX <= 0 || SheetY <= 0) throw new ArgumentException("Sheet méretek pozitívak legyenek.");
+            if (SheetX <= 0 || SheetY <= 0) throw new ArgumentException(Strings.WrongSheetSizes);
 
             var PiecesRemaining = new List<Piece>(Pieces);
 
@@ -419,7 +420,7 @@ namespace Szakdoga.Services
             double innerWidth = SheetX - 2 * SheetPadding;   // Usable horizontal space
             double innerHeight = SheetY - 2 * SheetPadding;  // Usable vertical space
 
-            if (innerWidth <= 0 || innerHeight <= 0) throw new ArgumentException("SheetPadding túl nagy a lapmérethez képest.");
+            if (innerWidth <= 0 || innerHeight <= 0) throw new ArgumentException(Strings.SheetPaddingTooLarge);
 
             // Place pieces on sheets until all are placed
             while (PiecesRemaining.Count > 0)
