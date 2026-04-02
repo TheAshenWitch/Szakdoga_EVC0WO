@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Szakdoga.Models;
+using Szakdoga.Resources;
 using static Szakdoga.ProjectExplorer;
 
 namespace Szakdoga.UI
@@ -46,16 +47,98 @@ namespace Szakdoga.UI
 
         }
 
-        public void AddNewInventoryItem(object sender, RoutedEventArgs e)
-        {/*
-            var addWindow = new InventoryItemInputWindow();
-            if (addWindow.ShowDialog() == true)
+        public void AddToInventory(object sender, RoutedEventArgs e)
+        {
+            InventoryItem? inventoryItem = InventoryItemListView.SelectedItem as InventoryItem;
+            if (inventoryItem == null)
             {
-                var newItem = addWindow.InventoryItem;
-                Db.AddInventoryItem(newItem);
-                InventoryItems.Add(newItem);
+                MessageBox.Show(Strings.IENoSelectedItem, Strings.Error, MessageBoxButton.OK);
+                return;
             }
-            */
+
+            InventoryMover inventoryMover = new InventoryMover();
+            if (inventoryMover.ShowDialog() == true)
+            {
+                inventoryItem.TotalQuantity += inventoryMover.Quantity;
+                Db.UpdateInventoryItem(inventoryItem);
+                CollectionViewSource.GetDefaultView(InventoryItemListView.ItemsSource).Refresh();
+            }
         }
+        public void AddToReservedInventory(object sender, RoutedEventArgs e)
+        {
+            InventoryItem ? inventoryItem = InventoryItemListView.SelectedItem as InventoryItem;
+            if (inventoryItem == null)
+            {
+                MessageBox.Show(Strings.IENoSelectedItem, Strings.Error, MessageBoxButton.OK);
+                return;
+            }
+
+            InventoryMover inventoryMover = new InventoryMover();
+            if (inventoryMover.ShowDialog() == true)
+            {
+                inventoryItem.ReservedQuantity += inventoryMover.Quantity;
+                Db.UpdateInventoryItem(inventoryItem);
+                CollectionViewSource.GetDefaultView(InventoryItemListView.ItemsSource).Refresh();
+            }
+        }
+        public void RemoveFromReserved(object sender, RoutedEventArgs e)
+        {
+            InventoryItem? inventoryItem = InventoryItemListView.SelectedItem as InventoryItem;
+            if (inventoryItem == null)
+            {
+                MessageBox.Show(Strings.IENoSelectedItem, Strings.Error, MessageBoxButton.OK);
+                return;
+            }
+
+            InventoryMover inventoryMover = new InventoryMover();
+            if (inventoryMover.ShowDialog() == true)
+            {
+                inventoryItem.ReservedQuantity -= inventoryMover.Quantity;
+                Db.UpdateInventoryItem(inventoryItem);
+                CollectionViewSource.GetDefaultView(InventoryItemListView.ItemsSource).Refresh();
+            }
+        }
+        public void RemoveFromInventory(object sender, RoutedEventArgs e)
+        {
+            InventoryItem? inventoryItem = InventoryItemListView.SelectedItem as InventoryItem;
+            if (inventoryItem == null)
+            {
+                MessageBox.Show(Strings.IENoSelectedItem, Strings.Error, MessageBoxButton.OK);
+                return;
+            }
+
+            InventoryMover inventoryMover = new InventoryMover();
+            if (inventoryMover.ShowDialog() == true)
+            {
+                if(inventoryMover.Quantity > inventoryItem.TotalQuantity) 
+                {
+                    MessageBox.Show(Strings.IENotEnoughInInventory, Strings.Error, MessageBoxButton.OK);
+                    return;
+                }
+                (int removeFromTotal , int removeFromReserved) = TryRemoveQuantity(inventoryItem.ReservedQuantity, inventoryMover.Quantity);
+                inventoryItem.TotalQuantity -= removeFromTotal;
+                Db.UpdateInventoryItem(inventoryItem);
+                CollectionViewSource.GetDefaultView(InventoryItemListView.ItemsSource).Refresh();
+            }
+        }
+
+        private (int,int) TryRemoveQuantity(int removeFrom, int toRemove)
+        {
+            int overFlow = 0;
+            int removeFromReserved = 0;
+
+            if (toRemove > removeFrom)
+            {
+                overFlow = toRemove - removeFrom;
+                removeFromReserved = removeFrom;
+            }
+            else
+            {
+                removeFromReserved = toRemove;
+            }
+
+            return (overFlow, removeFromReserved);
+        }
+
     }
 }

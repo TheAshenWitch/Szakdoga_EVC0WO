@@ -474,7 +474,7 @@ sheet</value>
   <data name="SDTitle" xml:space="preserve">
     <value>Delete sheet</value>
   </data>
-  <data name="SMSSheetLabel" xml:space="preserve">
+  <data name="SMSheetLabel" xml:space="preserve">
     <value>Sheet</value>
   </data>
   <data name="SMNoSheetSelectedForModify" xml:space="preserve">
@@ -516,13 +516,68 @@ sheet</value>
   <data name="SIDimensionError" xml:space="preserve">
     <value>Parameters can not be negative!</value>
   </data>
-  <data name="UnknownPieceName" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
   <data name="ManageInventoryButton" xml:space="preserve">
     <value>Manage inventory</value>
   </data>
   <data name="IEAddInventoryButton" xml:space="preserve">
     <value>Add to inventory</value>
+  </data>
+  <data name="IERemoveInventoryButton" xml:space="preserve">
+    <value>Remove from inventory</value>
+  </data>
+  <data name="IEAddReservedButton" xml:space="preserve">
+    <value>Move to reserved</value>
+  </data>
+  <data name="IERemoveReservedButton" xml:space="preserve">
+    <value>Remove from reserved</value>
+  </data>
+  <data name="IEAddInventoryTooltip" xml:space="preserve">
+    <value>Add to total inventory</value>
+  </data>
+  <data name="IEAddReservedTooltip" xml:space="preserve">
+    <value>Move inventory from available to reserved</value>
+  </data>
+  <data name="IERemoveInventoryTooltip" xml:space="preserve">
+    <value>Remove inventory from total count.
+To remove from reserved use Remove from reserved button.</value>
+  </data>
+  <data name="IERemoveReservedTooltip" xml:space="preserve">
+    <value>Remove or move inventory from reserved inventory.</value>
+  </data>
+  <data name="UnknownPieceName" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="IESizeLabel" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="IETotalLabel" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="IEReservedLabel" xml:space="preserve">
+    <value>Reserved</value>
+  </data>
+  <data name="IEAvailableLabel" xml:space="preserve">
+    <value>Avaliable</value>
+  </data>
+  <data name="IEResLabel" xml:space="preserve">
+    <value>Res</value>
+  </data>
+  <data name="IEAvailLabel" xml:space="preserve">
+    <value>Avail</value>
+  </data>
+  <data name="IEMQuantityLabel" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="IEMQuantityHint" xml:space="preserve">
+    <value>Quantity... (10)</value>
+  </data>
+  <data name="IEMInvalidQuantityMessage" xml:space="preserve">
+    <value>Invalid quantity</value>
+  </data>
+  <data name="IENoSelectedItem" xml:space="preserve">
+    <value>Please select an inventory item to modify inventory count.</value>
+  </data>
+  <data name="IENotEnoughInInventory" xml:space="preserve">
+    <value>Not enough item in inventory</value>
   </data>
 </root>

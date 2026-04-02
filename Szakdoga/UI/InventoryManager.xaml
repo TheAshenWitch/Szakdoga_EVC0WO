@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="InventoryManager" Height="600" Width="1200">
+        Title="InventoryManager" Height="600" Width="600">
     <Window.Resources>
         <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
         <ObjectDataProvider x:Key="Loc" 
@@ -16,8 +16,13 @@
                     MethodName="get_Instance"/>
 
     </Window.Resources>
-    <Grid  Width="1180" Height="580" DataContext="{StaticResource Loc}">
-        <ListBox Name="InventoryItemListView" Margin="10,10,0,0" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+    <Grid  Width="590" Height="580" DataContext="{StaticResource Loc}" Margin="20,0,0,0">
+        <Label Content="{Binding [NameLabel]}" FontSize="14" Margin="20,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="{Binding [IESizeLabel]}" FontSize="14" Margin="138,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="{Binding [IETotalLabel]}" FontSize="14" Margin="236,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="{Binding [IEResLabel]}" FontSize="14" Margin="286,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="{Binding [IEReservedLabel]}"/>
+        <Label Content="{Binding [IEAvailLabel]}" FontSize="14" Margin="335,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="{Binding [IEAvailableLabel]}"/>
+        <ListBox Name="InventoryItemListView" Margin="10,30,0,0" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemContainerStyle>
 
                 <Style TargetType="ListBoxItem">
@@ -70,7 +75,7 @@
                            Foreground="Gray"
                            FontSize="12"
                            VerticalAlignment="Center"
-                           Margin="10,0,0,0" />
+                           Margin="5,0,0,0" />
                         
                         <!-- 5. oszlop – ár -->
                         <TextBlock Grid.Column="4"
@@ -78,12 +83,15 @@
                            FontWeight="SemiBold"
                            FontSize="12"
                            VerticalAlignment="Center"
-                           Margin="10,0,0,0" />
+                           Margin="5,0,0,0" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="{Binding [IEAddInventoryButton]}" Margin="400,10,0,0" Click="AddNewInventoryItem" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="80" FontSize="20"/>
+        <Button Content="{Binding [IEAddInventoryButton]}" Margin="400,30,0,0" Click="AddToInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IEAddInventoryTooltip]}"/>
+        <Button Content="{Binding [IEAddReservedButton]}" Margin="400,120,0,0" Click="AddToReservedInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IEAddReservedTooltip]}"/>
+        <Button Content="{Binding [IERemoveReservedButton]}" Margin="400,210,0,0" Click="RemoveFromReserved" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IERemoveReservedTooltip]}"/>
+        <Button Content="{Binding [IERemoveInventoryButton]}" Margin="400,300,0,0" Click="RemoveFromInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IERemoveInventoryTooltip]}"/>
     </Grid>
 </Window>

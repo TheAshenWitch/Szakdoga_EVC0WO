@@ -36,6 +36,16 @@ public class DatabaseService : IDisposable
             
             _db.Sheets.Add(sheet);
             _db.SaveChanges();
+
+            // Create corresponding InventoryItem for the new sheet
+            InventoryItem inventoryItem = new InventoryItem
+            {
+                SheetId = sheet.Id,
+                TotalQuantity = 0,
+                ReservedQuantity = 0
+            };
+            _db.InventoryItems.Add(inventoryItem);
+            _db.SaveChanges();
         }
         catch (DbUpdateException ex)
         {
@@ -152,6 +162,15 @@ public class DatabaseService : IDisposable
             if (sheet == null)
                 throw new ArgumentNullException(nameof(sheet));
             
+            // Delete the corresponding InventoryItem first (without deleting the Sheet reference in Orders)
+            var inventoryItem = _db.InventoryItems.FirstOrDefault(ii => ii.SheetId == sheet.Id);
+            if (inventoryItem != null)
+            {
+                _db.InventoryItems.Remove(inventoryItem);
+                _db.SaveChanges();
+            }
+
+            // Delete the Sheet (Orders will keep their SheetId reference, even if it becomes orphaned)
             _db.Sheets.Remove(sheet);
             _db.SaveChanges();
         }

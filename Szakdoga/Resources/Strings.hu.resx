@@ -175,7 +175,7 @@
     <value>Statisztika</value>
   </data>
   <data name="UpdateButton" xml:space="preserve">
-    <value>Firssítés</value>
+    <value>Frissítés</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
     <value>Szélesség</value>
@@ -469,7 +469,7 @@ törlése</value>
   <data name="SDTitle" xml:space="preserve">
     <value>Bútorlap törlése</value>
   </data>
-  <data name="SMSSheetLabel" xml:space="preserve">
+  <data name="SMSheetLabel" xml:space="preserve">
     <value>Bútorlap:</value>
   </data>
   <data name="SMNoSheetSelectedForModify" xml:space="preserve">
@@ -514,10 +514,6 @@ kezelő</value>
   <data name="SIDimensionError" xml:space="preserve">
     <value>A megadott számok nem lehetnek negatívak vagy 0!</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="UnknownPieceName" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="ManageInventoryButton" xml:space="preserve">
     <value>Készlet
 kezelése</value>
@@ -525,5 +521,67 @@ kezelése</value>
   <data name="IEAddInventoryButton" xml:space="preserve">
     <value>Készlethez
 adás</value>
+  </data>
+  <data name="IERemoveInventoryButton" xml:space="preserve">
+    <value>Elvétel a
+készletből</value>
+  </data>
+  <data name="IEAddReservedButton" xml:space="preserve">
+    <value>Készlet
+lefoglalása</value>
+  </data>
+  <data name="IERemoveReservedButton" xml:space="preserve">
+    <value>Elvétel a
+lefoglalt
+készletből</value>
+  </data>
+  <data name="IEAddInventoryTooltip" xml:space="preserve">
+    <value>A teljes készlethez adás</value>
+  </data>
+  <data name="IEAddReservedTooltip" xml:space="preserve">
+    <value>Készlet mozgatása elérhetőből lefoglaltba</value>
+  </data>
+  <data name="IERemoveInventoryTooltip" xml:space="preserve">
+    <value>Elvétel a teljes készletből. Ez a művelet először a lefoglalt számot csökkenti amíg tudja, majd az elérhetőt csökkenti.
+A lefoglalt készletből való törléshez használja az Elvétel a lefoglalt készletből gombot.</value>
+  </data>
+  <data name="IERemoveReservedTooltip" xml:space="preserve">
+    <value>Elvétel vagy mozgatás a lefoglalt készletből.</value>
+  </data>
+  <data name="UnknownPieceName" xml:space="preserve">
+    <value>Ismeretlen</value>
+  </data>
+  <data name="IESizeLabel" xml:space="preserve">
+    <value>Méret</value>
+  </data>
+  <data name="IETotalLabel" xml:space="preserve">
+    <value>Összes</value>
+  </data>
+  <data name="IEReservedLabel" xml:space="preserve">
+    <value>Lefoglalt</value>
+  </data>
+  <data name="IEAvailableLabel" xml:space="preserve">
+    <value>Elérhető</value>
+  </data>
+  <data name="IEResLabel" xml:space="preserve">
+    <value>Foglalt</value>
+  </data>
+  <data name="IEAvailLabel" xml:space="preserve">
+    <value>Elérhető</value>
+  </data>
+  <data name="IEMQuantityLabel" xml:space="preserve">
+    <value>Mennyiség</value>
+  </data>
+  <data name="IEMQuantityHint" xml:space="preserve">
+    <value>Mennyiség... (10)</value>
+  </data>
+  <data name="IEMInvalidQuantityMessage" xml:space="preserve">
+    <value>A mennyiségnek</value>
+  </data>
+  <data name="IENoSelectedItem" xml:space="preserve">
+    <value>Kérem válasszon egy raktárelemet a készlet módosításához</value>
+  </data>
+  <data name="IENotEnoughInInventory" xml:space="preserve">
+    <value>Nincs elég készlet a raktárban a törléshez</value>
   </data>
 </root>

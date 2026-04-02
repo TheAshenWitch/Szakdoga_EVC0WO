@@ -50,11 +50,20 @@ namespace Szakdoga
             {
                 Text = Strings.SINameLabel,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 10)
+                Margin = new Thickness(0, 0, 10, 10),
+                Foreground = Brushes.OrangeRed
             };
 
             var nameHint = Strings.SINameHint;
             nameBox = CreateHintTextBox(nameHint);
+            nameBox.TextChanged += (s, e) =>
+            {
+                if (nameBox.Text == nameHint || nameBox.Text == "")
+                    nameBox.Foreground = Brushes.Black;
+                else
+                    nameBox.Foreground = Brushes.Black;
+            };
+
 
             Grid.SetRow(nameLabel, 0);
             Grid.SetColumn(nameLabel, 0);
@@ -113,11 +122,19 @@ namespace Szakdoga
             {
                 Text = Strings.SIWidthLabel,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 10)
+                Margin = new Thickness(0, 0, 10, 10),
+                Foreground = Brushes.OrangeRed
             };
 
             var widthHint = Strings.SIWidthHint;
             widthBox = CreateHintTextBox(widthHint);
+            widthBox.TextChanged += (s, e) =>
+            {
+                if (widthBox.Text == widthHint || widthBox.Text == "")
+                    widthBox.Foreground = Brushes.OrangeRed;
+                else
+                    widthBox.Foreground = Brushes.Black;
+            };
 
             Grid.SetRow(widthLabel, 3);
             Grid.SetColumn(widthLabel, 0);
@@ -134,11 +151,19 @@ namespace Szakdoga
             {
                 Text = Strings.SIHeightLabel,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 10)
+                Margin = new Thickness(0, 0, 10, 10),
+                Foreground = Brushes.OrangeRed
             };
 
             var heightHint = Strings.SIHeightHint;
             heightBox = CreateHintTextBox(heightHint);
+            heightBox.TextChanged += (s, e) =>
+            {
+                if (heightBox.Text == heightHint || heightBox.Text == "")
+                    heightBox.Foreground = Brushes.OrangeRed;
+                else
+                    heightBox.Foreground = Brushes.Black;
+            };
 
             Grid.SetRow(heightLabel, 4);
             Grid.SetColumn(heightLabel, 0);

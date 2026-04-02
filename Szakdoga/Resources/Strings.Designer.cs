@@ -410,6 +410,169 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to total inventory.
+        /// </summary>
+        internal static string IEAddInventoryTooltip {
+            get {
+                return ResourceManager.GetString("IEAddInventoryTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to reserved.
+        /// </summary>
+        internal static string IEAddReservedButton {
+            get {
+                return ResourceManager.GetString("IEAddReservedButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move inventory from available to reserved.
+        /// </summary>
+        internal static string IEAddReservedTooltip {
+            get {
+                return ResourceManager.GetString("IEAddReservedTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avaliable.
+        /// </summary>
+        internal static string IEAvailableLabel {
+            get {
+                return ResourceManager.GetString("IEAvailableLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avail.
+        /// </summary>
+        internal static string IEAvailLabel {
+            get {
+                return ResourceManager.GetString("IEAvailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid quantity.
+        /// </summary>
+        internal static string IEMInvalidQuantityMessage {
+            get {
+                return ResourceManager.GetString("IEMInvalidQuantityMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity... (10).
+        /// </summary>
+        internal static string IEMQuantityHint {
+            get {
+                return ResourceManager.GetString("IEMQuantityHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        internal static string IEMQuantityLabel {
+            get {
+                return ResourceManager.GetString("IEMQuantityLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select an inventory item to modify inventory count..
+        /// </summary>
+        internal static string IENoSelectedItem {
+            get {
+                return ResourceManager.GetString("IENoSelectedItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not enough item in inventory.
+        /// </summary>
+        internal static string IENotEnoughInInventory {
+            get {
+                return ResourceManager.GetString("IENotEnoughInInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from inventory.
+        /// </summary>
+        internal static string IERemoveInventoryButton {
+            get {
+                return ResourceManager.GetString("IERemoveInventoryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove inventory from total count.
+        ///To remove from reserved use Remove from reserved button..
+        /// </summary>
+        internal static string IERemoveInventoryTooltip {
+            get {
+                return ResourceManager.GetString("IERemoveInventoryTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from reserved.
+        /// </summary>
+        internal static string IERemoveReservedButton {
+            get {
+                return ResourceManager.GetString("IERemoveReservedButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove or move inventory from reserved inventory..
+        /// </summary>
+        internal static string IERemoveReservedTooltip {
+            get {
+                return ResourceManager.GetString("IERemoveReservedTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reserved.
+        /// </summary>
+        internal static string IEReservedLabel {
+            get {
+                return ResourceManager.GetString("IEReservedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Res.
+        /// </summary>
+        internal static string IEResLabel {
+            get {
+                return ResourceManager.GetString("IEResLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        internal static string IESizeLabel {
+            get {
+                return ResourceManager.GetString("IESizeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        internal static string IETotalLabel {
+            get {
+                return ResourceManager.GetString("IETotalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid count format. Please enter a valid number..
         /// </summary>
         internal static string InvalidNumberCount {
@@ -1077,9 +1240,9 @@ namespace Szakdoga.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sheet.
         /// </summary>
-        internal static string SMSSheetLabel {
+        internal static string SMSheetLabel {
             get {
-                return ResourceManager.GetString("SMSSheetLabel", resourceCulture);
+                return ResourceManager.GetString("SMSheetLabel", resourceCulture);
             }
         }
         

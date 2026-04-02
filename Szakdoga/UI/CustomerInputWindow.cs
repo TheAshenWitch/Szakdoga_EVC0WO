@@ -41,11 +41,20 @@ namespace Szakdoga
             {
                 Text = Strings.CINameLabel,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 10)
+                Margin = new Thickness(0, 0, 10, 10),
+                Foreground = Brushes.OrangeRed
             };
 
             var nameHint = Strings.CINameHint;
             nameBox = CreateHintTextBox(nameHint);
+            nameBox.TextChanged += (s, e) =>
+            {
+                if (nameBox.Text == nameHint || nameBox.Text == "")
+                    nameLabel.Foreground = Brushes.OrangeRed;
+                else
+                    nameLabel.Foreground = Brushes.Black;
+            };
+
 
             Grid.SetRow(nameLabel, 0);
             Grid.SetColumn(nameLabel, 0);

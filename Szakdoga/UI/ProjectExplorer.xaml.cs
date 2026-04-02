@@ -128,7 +128,8 @@ namespace Szakdoga
             if (sheetInputWindow.ShowDialog() == true)
             {
                 if (sheetInputWindow.sheet == null)
-                    return;
+                    return;               
+                // AddSheet now automatically creates InventoryItem
                 Db.AddSheet(sheetInputWindow.sheet);
                 Db.SaveAllChanges();
             }
@@ -231,7 +232,8 @@ namespace Szakdoga
             {
                 Sheet sheet = sheetDeleteWindow.sheet;
                 if (sheet != null)
-                {
+                {             
+                    // DeleteSheet now automatically removes InventoryItem but preserves Orders
                     Db.DeleteSheet(sheet);
                     Db.SaveAllChanges();
                     CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();

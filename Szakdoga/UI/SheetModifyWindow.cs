@@ -50,6 +50,14 @@ namespace Szakdoga.UI
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
             // ===== Customer =======
+            var sheetLabel = new TextBlock
+            {
+                Foreground = Brushes.OrangeRed,
+                Text = Strings.SMSheetLabel,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 10, 10)
+            };
+            
             sheetBox = CreateSearchComboBox();
             var sheetView = System.Windows.Data.CollectionViewSource.GetDefaultView(sheets);
 
@@ -76,6 +84,7 @@ namespace Szakdoga.UI
             {
                 if (sheetBox.SelectedItem is Sheet selectedCustomer)
                 {
+                    sheetLabel.Foreground = Brushes.Black;
                     nameBox.Text = selectedCustomer.Name;
                     descriptionBox.Text = selectedCustomer.Description;
                     colorBox.Text = selectedCustomer.Color;
@@ -83,13 +92,16 @@ namespace Szakdoga.UI
                     heightBox.Text = Convert.ToString(selectedCustomer.Height);
                     priceBox.Text = Convert.ToString(selectedCustomer.Price);
                 }
-            };
-
-            var sheetLabel = new TextBlock
-            {
-                Text = Strings.CMCustomerLabel,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 10)
+                if(sheetBox.SelectedItem == null)
+                {
+                    sheetLabel.Foreground = Brushes.OrangeRed;
+                    nameBox.Text = "";
+                    descriptionBox.Text = "";
+                    colorBox.Text = "";
+                    widthBox.Text = "";
+                    heightBox.Text = "";
+                    priceBox.Text = "";
+                }   
             };
 
             Grid.SetRow(sheetLabel, 0);
@@ -266,6 +278,20 @@ namespace Szakdoga.UI
 
             if (forDelete == true)
             {
+                SolidColorBrush LightGrey = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+                nameBox.IsReadOnly = true;
+                nameBox.Background = LightGrey;
+                descriptionBox.IsReadOnly = true;
+                descriptionBox.Background = LightGrey;
+                colorBox.IsReadOnly = true;
+                colorBox.Background = LightGrey;
+                widthBox.IsReadOnly = true;
+                widthBox.Background = LightGrey;
+                heightBox.IsReadOnly = true;
+                heightBox.Background = LightGrey;
+                priceBox.IsReadOnly = true;
+                priceBox.Background = LightGrey;
+
                 var deleteButton = new Button
                 {
                     Content = Strings.DeleteButton,

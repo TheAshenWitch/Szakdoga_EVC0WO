@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Szakdoga.Resources;
 using System.Windows.Media;
 using Szakdoga.Models;
+using SixLabors.ImageSharp.ColorSpaces;
 
 namespace Szakdoga.UI
 {
@@ -15,7 +16,7 @@ namespace Szakdoga.UI
         private TextBox phoneBox = new TextBox();
         List<Customer> customers;
 
-        public Customer customer;
+        public Customer? customer;
         public CustomerModifyWindow(DatabaseService DB, bool? forDelete = false)
         {
             customers = DB.GetAllCustomers();
@@ -45,6 +46,14 @@ namespace Szakdoga.UI
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
             // ===== Customer =======
+            var customerLabel = new TextBlock
+            {
+                Text = Strings.CMCustomerLabel,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 10, 10),
+                Foreground = Brushes.OrangeRed
+            };
+            
             customerBox = CreateSearchComboBox();
             var customerView = System.Windows.Data.CollectionViewSource.GetDefaultView(customers);
 
@@ -71,17 +80,18 @@ namespace Szakdoga.UI
             {
                 if (customerBox.SelectedItem is Customer selectedCustomer)
                 {
+                    customerLabel.Foreground = Brushes.Black;
                     customerNameBox.Text = selectedCustomer.Name;
                     emailBox.Text = selectedCustomer.Email;
                     phoneBox.Text = selectedCustomer.Phone;
                 }
-            };
-
-            var customerLabel = new TextBlock
-            {
-                Text = Strings.CMCustomerLabel,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 10)
+                if (customerBox.SelectedItem == null)
+                {
+                    customerLabel.Foreground = Brushes.OrangeRed;
+                    customerNameBox.Text = "";
+                    emailBox.Text = "";
+                    phoneBox.Text = "";
+                }
             };
 
             Grid.SetRow(customerLabel, 0);
@@ -197,6 +207,14 @@ namespace Szakdoga.UI
             // ===== Törlés gomb =====
             if (forDelete == true)
             {
+                SolidColorBrush LightGrey = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+                customerNameBox.IsReadOnly = true;
+                customerNameBox.Background = LightGrey;
+                phoneBox.IsReadOnly = true;
+                phoneBox.Background = LightGrey;
+                emailBox.IsReadOnly = true;
+                emailBox.Background = LightGrey;
+
                 var deleteButton = new Button
                 {
                     Content = Strings.DeleteButton,
