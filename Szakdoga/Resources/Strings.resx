@@ -583,4 +583,13 @@ To remove from reserved use Remove from reserved button.</value>
   <data name="IEMExceedsMaxMessage" xml:space="preserve">
     <value>Quantity can not be more than max quantity</value>
   </data>
+  <data name="CIEmailInvalid" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
+  <data name="CIPhoneInvalid" xml:space="preserve">
+    <value>Invalid phone number format.</value>
+  </data>
+  <data name="SIInvalidInput" xml:space="preserve">
+    <value>Invalid number format.</value>
+  </data>
 </root>

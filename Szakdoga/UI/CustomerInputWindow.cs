@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Szakdoga.Models;
@@ -76,6 +77,17 @@ namespace Szakdoga
 
             var emailHint = Strings.CIEmailHint;
             emailBox = CreateHintTextBox(emailHint);
+            emailBox.TextChanged += (s, e) => {
+                if(Regex.IsMatch(emailBox.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
+                {
+                    emailBox.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    emailBox.Foreground = Brushes.Red;
+                }
+            };
+
 
             Grid.SetRow(emailLabel, 1);
             Grid.SetColumn(emailLabel, 0);
@@ -97,6 +109,16 @@ namespace Szakdoga
 
             var phoneHint = Strings.CIPhoneHint;
             phoneBox = CreateHintTextBox(phoneHint);
+            phoneBox.TextChanged += (s, e) => {
+                if (Regex.IsMatch(phoneBox.Text, @"^\+?\d{11}$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
+                {
+                    phoneBox.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    phoneBox.Foreground = Brushes.Red;
+                }
+            };
 
             Grid.SetRow(phoneLabel, 2);
             Grid.SetColumn(phoneLabel, 0);
@@ -128,9 +150,18 @@ namespace Szakdoga
                 {
                     emailBox.Text = "";
                 }
+                else if (!Regex.IsMatch(emailBox.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase)) { 
+                    MessageBox.Show(Strings.CIEmailInvalid, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 if (string.IsNullOrWhiteSpace(phoneBox.Text) || phoneBox.Text == phoneHint)
                 {
                     phoneBox.Text = "";
+                }
+                else if(!Regex.IsMatch(phoneBox.Text, @"^\+?\d{11}$", RegexOptions.IgnoreCase))
+                {
+                    MessageBox.Show(Strings.CIPhoneInvalid, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
                 customer = new Customer

@@ -145,6 +145,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email format..
+        /// </summary>
+        internal static string CIEmailInvalid {
+            get {
+                return ResourceManager.GetString("CIEmailInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email:.
         /// </summary>
         internal static string CIEmailLabel {
@@ -186,6 +195,15 @@ namespace Szakdoga.Resources {
         internal static string CIPhoneHint {
             get {
                 return ResourceManager.GetString("CIPhoneHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid phone number format..
+        /// </summary>
+        internal static string CIPhoneInvalid {
+            get {
+                return ResourceManager.GetString("CIPhoneInvalid", resourceCulture);
             }
         }
         
@@ -1153,6 +1171,15 @@ namespace Szakdoga.Resources {
         internal static string SIHeightLabel {
             get {
                 return ResourceManager.GetString("SIHeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid number format..
+        /// </summary>
+        internal static string SIInvalidInput {
+            get {
+                return ResourceManager.GetString("SIInvalidInput", resourceCulture);
             }
         }
         

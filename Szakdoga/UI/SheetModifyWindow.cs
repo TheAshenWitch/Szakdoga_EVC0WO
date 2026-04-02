@@ -1,8 +1,9 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
-using Szakdoga.Resources;
 using System.Windows.Media;
 using Szakdoga.Models;
+using Szakdoga.Resources;
 
 namespace Szakdoga.UI
 {
@@ -174,6 +175,18 @@ namespace Szakdoga.UI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
+            widthBox.TextChanged += (s, e) =>
+            {
+                if (widthBox.Text == "")
+                    widthLabel.Foreground = Brushes.OrangeRed;
+                else if (!double.TryParse(widthBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    widthBox.Foreground = Brushes.Red;
+                else
+                {
+                    widthLabel.Foreground = Brushes.Black;
+                    widthBox.Foreground = Brushes.Black;
+                }
+            };
 
             Grid.SetRow(widthLabel, 4);
             Grid.SetColumn(widthLabel, 0);
@@ -192,6 +205,18 @@ namespace Szakdoga.UI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
+            heightBox.TextChanged += (s, e) =>
+            {
+                if (heightBox.Text == "")
+                    heightLabel.Foreground = Brushes.OrangeRed;
+                else if (!double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    heightBox.Foreground = Brushes.Red;
+                else
+                {
+                    heightLabel.Foreground = Brushes.Black;
+                    heightBox.Foreground = Brushes.Black;
+                }
+            };
 
             Grid.SetRow(heightLabel, 5);
             Grid.SetColumn(heightLabel, 0);
@@ -209,6 +234,12 @@ namespace Szakdoga.UI
                 Text = Strings.SIPriceLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
+            };
+            priceBox.TextChanged += (s, e) => {
+                if (!double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    priceBox.Foreground = Brushes.Red;
+                else
+                    priceBox.Foreground = Brushes.Black;
             };
 
             Grid.SetRow(priceLabel, 6);
@@ -243,19 +274,36 @@ namespace Szakdoga.UI
                         MessageBox.Show(Strings.SINameIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+
                     if (string.IsNullOrEmpty(widthBox.Text))
                     {
                         MessageBox.Show(Strings.SIWidthIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+                    else if (!double.TryParse(widthBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    {
+                        MessageBox.Show(Strings.SIInvalidInput, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     if (string.IsNullOrEmpty(heightBox.Text))
                     {
                         MessageBox.Show(Strings.SIHeightIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
-                    } 
+                    }
+                    else if (!double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    {
+                        MessageBox.Show(Strings.SIInvalidInput, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
 
                     if (string.IsNullOrEmpty(priceBox.Text))
                         priceBox.Text = "0";
+                    else if (!double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    {
+                        MessageBox.Show(Strings.SIInvalidInput, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
 
                     sheet = (Sheet)sheetBox.SelectedItem;
 

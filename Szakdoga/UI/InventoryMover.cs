@@ -51,6 +51,12 @@ namespace Szakdoga.UI
             {
                 if (QuantityTextBox.Text == Strings.IEMQuantityHint || QuantityTextBox.Text == "")
                     quantityLabel.Foreground = Brushes.OrangeRed;
+                if (int.TryParse(QuantityTextBox.Text, out int qty) && max.HasValue && qty > max.Value)
+                {
+                    quantityLabel.Foreground = Brushes.Red;
+                    QuantityTextBox.Foreground = Brushes.Red;
+                    QuantityTextBox.BorderBrush = Brushes.Red;
+                }
                 else
                     quantityLabel.Foreground = Brushes.Black;
             };

@@ -157,7 +157,7 @@
     <value>Guillotine</value>
   </data>
   <data name="RadioHeuristicOpt" xml:space="preserve">
-    <value>Heusristic</value>
+    <value>Heuristic</value>
   </data>
   <data name="RadioTestOpt" xml:space="preserve">
     <value>Quick (recommended)</value>
@@ -268,13 +268,13 @@ this sheet</value>
     <value>Apply</value>
   </data>
   <data name="SavePromptText" xml:space="preserve">
-    <value>Save pieces list</value>
+    <value>Save piece list</value>
   </data>
   <data name="SaveSuccessText" xml:space="preserve">
     <value>Pieces saved successfully.</value>
   </data>
   <data name="SaveErrorText" xml:space="preserve">
-    <value>Error saving pieces</value>
+    <value>Error saving pieces.</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
@@ -283,10 +283,10 @@ this sheet</value>
     <value>Error</value>
   </data>
   <data name="LoadPromptText" xml:space="preserve">
-    <value>Load pieces list</value>
+    <value>Load piece list</value>
   </data>
   <data name="LoadErrorText" xml:space="preserve">
-    <value>Error during loading</value>
+    <value>Error during loading.</value>
   </data>
   <data name="AddHeightWidthPrompt" xml:space="preserve">
     <value>Please enter both height and width.</value>
@@ -361,7 +361,7 @@ sheet</value>
     <value>New order</value>
   </data>
   <data name="NoOrderSelectedForModify" xml:space="preserve">
-    <value>Pelase select an order to update.</value>
+    <value>Please select an order to update.</value>
   </data>
   <data name="UpdateOrderTitle" xml:space="preserve">
     <value>Update order</value>
@@ -421,13 +421,13 @@ sheet</value>
     <value>Price... (1234.0)</value>
   </data>
   <data name="SINameIsEmpty" xml:space="preserve">
-    <value>You MUST input a name!</value>
+    <value>A name is required.</value>
   </data>
   <data name="SIWidthIsEmpty" xml:space="preserve">
-    <value>You MUST input a width!</value>
+    <value>A width is required.</value>
   </data>
   <data name="SIHeightIsEmpty" xml:space="preserve">
-    <value>You MUST input a height!</value>
+    <value>A height is required.</value>
   </data>
   <data name="CITitle" xml:space="preserve">
     <value>Add new customer</value>
@@ -451,19 +451,19 @@ sheet</value>
     <value>+36301234567</value>
   </data>
   <data name="CINameIsEmpty" xml:space="preserve">
-    <value>You MUST input a name!</value>
+    <value>A name is required.</value>
   </data>
   <data name="CMTitle" xml:space="preserve">
     <value>Modify customer</value>
   </data>
   <data name="NoCustomerSelectedForModify" xml:space="preserve">
-    <value>Please select a customer to modify it</value>
+    <value>Please select a customer to modify.</value>
   </data>
   <data name="CMCustomerLabel" xml:space="preserve">
     <value>Customer:</value>
   </data>
   <data name="NoCustomerSelectedForDelete" xml:space="preserve">
-    <value>Please select a customer to delete it</value>
+    <value>Please select a customer to delete.</value>
   </data>
   <data name="CDTitle" xml:space="preserve">
     <value>Delete customer</value>
@@ -478,19 +478,19 @@ sheet</value>
     <value>Sheet:</value>
   </data>
   <data name="SMNoSheetSelectedForModify" xml:space="preserve">
-    <value>Please select a sheet to modify it</value>
+    <value>Please select a sheet to modify.</value>
   </data>
   <data name="SDNoSheetSelectedForDelete" xml:space="preserve">
-    <value>Please select a sheet to delete it</value>
+    <value>Please select a sheet to delete.</value>
   </data>
   <data name="ConfrimDelete" xml:space="preserve">
     <value>Are you sure you want to delete this?</value>
   </data>
   <data name="NoOrderSelectedForDelete" xml:space="preserve">
-    <value>Please select an order to delete</value>
+    <value>Please select an order to delete.</value>
   </data>
   <data name="SaveToTxtOrOnlyDb" xml:space="preserve">
-    <value>Do you want to save pieces list to a separate file?</value>
+    <value>Do you want to save the piece list to a separate file?</value>
   </data>
   <data name="ContinueWithoutOrder" xml:space="preserve">
     <value>Continue
@@ -505,19 +505,19 @@ explorer</value>
     <value>Settings for width, height, price, and color only apply when the order has no sheet selected.</value>
   </data>
   <data name="SheetPaddingTooLarge" xml:space="preserve">
-    <value>Sheet padding is too large for the sheet</value>
+    <value>Sheet padding is too large for the sheet.</value>
   </data>
   <data name="WrongSheetSizes" xml:space="preserve">
-    <value>Sheet sizes must be positive</value>
+    <value>Sheet dimensions must be positive.</value>
   </data>
   <data name="ExportError" xml:space="preserve">
-    <value>To export optimize first</value>
+    <value>Please optimize before exporting.</value>
   </data>
   <data name="CutDiagramTitle" xml:space="preserve">
     <value>Cut diagram</value>
   </data>
   <data name="SIDimensionError" xml:space="preserve">
-    <value>Parameters can not be negative or 0!</value>
+    <value>Dimensions must be greater than 0.</value>
   </data>
   <data name="ManageInventoryButton" xml:space="preserve">
     <value>Manage
@@ -546,8 +546,7 @@ from reserved</value>
     <value>Move inventory from available to reserved</value>
   </data>
   <data name="IERemoveInventoryTooltip" xml:space="preserve">
-    <value>Remove inventory from total count. This prioritize reserved first, then remove from available after.
-To remove from reserved use Remove from reserved button.</value>
+    <value>Removes items from the total inventory. This prioritizes reserved items first, then available items. To remove only from reserved, use the 'Remove from reserved' button.</value>
   </data>
   <data name="IERemoveReservedTooltip" xml:space="preserve">
     <value>Remove or move inventory from reserved inventory.</value>
@@ -580,15 +579,24 @@ To remove from reserved use Remove from reserved button.</value>
     <value>Quantity...</value>
   </data>
   <data name="IEMInvalidQuantityMessage" xml:space="preserve">
-    <value>Quantity must be a number greater than 0</value>
+    <value>Quantity must be greater than 0.</value>
   </data>
   <data name="IENoSelectedItem" xml:space="preserve">
-    <value>Please select an inventory item to modify inventory count.</value>
+    <value>Please select an inventory item to modify its count.</value>
   </data>
   <data name="IENotEnoughInInventory" xml:space="preserve">
-    <value>Not enough item in inventory</value>
+    <value>Not enough items in inventory.</value>
   </data>
   <data name="IEMExceedsMaxMessage" xml:space="preserve">
-    <value>Quantity can not be more than max quantity</value>
+    <value>Quantity cannot exceed the maximum quantity.</value>
+  </data>
+  <data name="CIEmailInvalid" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
+  <data name="CIPhoneInvalid" xml:space="preserve">
+    <value>Invalid phone number format.</value>
+  </data>
+  <data name="SIInvalidInput" xml:space="preserve">
+    <value>Invalid number format.</value>
   </data>
 </root>

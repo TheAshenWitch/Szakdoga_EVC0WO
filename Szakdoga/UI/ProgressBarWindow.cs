@@ -15,7 +15,7 @@ namespace Szakdoga
 
         public ProgressBarWindow(int start, int end)
         {
-            Title = "Exporting";
+            Title = "Export";
             Width = 300;
             Height = 100;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;

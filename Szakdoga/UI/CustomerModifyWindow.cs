@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using SixLabors.ImageSharp.ColorSpaces;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
-using Szakdoga.Resources;
 using System.Windows.Media;
 using Szakdoga.Models;
-using SixLabors.ImageSharp.ColorSpaces;
+using Szakdoga.Resources;
 
 namespace Szakdoga.UI
 {
@@ -129,6 +130,16 @@ namespace Szakdoga.UI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
+            emailBox.TextChanged += (s, e) => {
+                if (Regex.IsMatch(emailBox.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
+                {
+                    emailBox.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    emailBox.Foreground = Brushes.Red;
+                }
+            };
 
             Grid.SetRow(emailLabel, 2);
             Grid.SetColumn(emailLabel, 0);
@@ -146,6 +157,16 @@ namespace Szakdoga.UI
                 Text = Strings.CIPhoneLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
+            };
+            phoneBox.TextChanged += (s, e) => {
+                if (Regex.IsMatch(phoneBox.Text, @"^\+?\d{11}$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)))
+                {
+                    phoneBox.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    phoneBox.Foreground = Brushes.Red;
+                }
             };
 
             Grid.SetRow(phoneLabel, 3);
@@ -180,13 +201,25 @@ namespace Szakdoga.UI
                         MessageBox.Show(Strings.CINameIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+
                     if (string.IsNullOrWhiteSpace(emailBox.Text))
                     {
                         emailBox.Text = "";
                     }
+                    else if (!Regex.IsMatch(emailBox.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase))
+                    {
+                        MessageBox.Show(Strings.CIEmailInvalid, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     if (string.IsNullOrWhiteSpace(phoneBox.Text))
                     {
                         phoneBox.Text = "";
+                    }
+                    else if (!Regex.IsMatch(phoneBox.Text, @"^\+?\d{11}$", RegexOptions.IgnoreCase))
+                    {
+                        MessageBox.Show(Strings.CIPhoneInvalid, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
 
                     customer = (Customer)customerBox.SelectedItem;

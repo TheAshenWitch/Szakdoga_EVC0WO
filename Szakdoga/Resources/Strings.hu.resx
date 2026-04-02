@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
-    <value>Hozzáad</value>
+    <value>Hozzáadás</value>
   </data>
   <data name="ClearAllButton" xml:space="preserve">
     <value>Lista törlése</value>
@@ -163,7 +163,7 @@
     <value>Gyors (ajánlott)</value>
   </data>
   <data name="RadioVariableDir" xml:space="preserve">
-    <value>Variálható irány</value>
+    <value>Változó irány</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Mentés</value>
@@ -182,11 +182,11 @@
   </data>
   <data name="NoOfSheetsLabel" xml:space="preserve">
     <value>Lapok
-darabszáma</value>
+száma</value>
   </data>
   <data name="NoOfPiecesLabel" xml:space="preserve">
     <value>Elemek
-darabszáma</value>
+száma</value>
   </data>
   <data name="TotalAreaOfPiecesLabel" xml:space="preserve">
     <value>Darabok
@@ -196,27 +196,27 @@ darabszáma</value>
     <value>Összes hulladék</value>
   </data>
   <data name="MaterialUtilizationLabel" xml:space="preserve">
-    <value>Anyag 
+    <value>Anyag-
 kihasználás</value>
   </data>
   <data name="TotalCutLengthLabel" xml:space="preserve">
-    <value>Vágás hossz</value>
+    <value>Vágási hossz</value>
   </data>
   <data name="EdgeSealingNeededLabel" xml:space="preserve">
-    <value>Szükséges élzáró</value>
+    <value>Szükséges élzárás</value>
   </data>
   <data name="TotalSheetCostLabel" xml:space="preserve">
     <value>Lapok ára</value>
   </data>
   <data name="TotalEdgeSealingCostLabel" xml:space="preserve">
-    <value>Élzáró ár</value>
+    <value>Élzárás ára</value>
   </data>
   <data name="TotalCostLabel" xml:space="preserve">
-    <value>Össz ár</value>
+    <value>Végösszeg</value>
   </data>
   <data name="MaterialUtilThisSheetLabel" xml:space="preserve">
-    <value>Anyag kihasználás
-ezen  lapon</value>
+    <value>Anyagkihasználás
+ezen a lapon</value>
   </data>
   <data name="PiecesThisSheetLabel" xml:space="preserve">
     <value>Darabok száma
@@ -233,22 +233,22 @@ ezen a lapon</value>
     <value>Magasság</value>
   </data>
   <data name="SettingsBladeThicknessLabel" xml:space="preserve">
-    <value>Fűrész vastagság</value>
+    <value>Fűrészlap vastagsága</value>
   </data>
   <data name="SettingsSheetPaddingLabel" xml:space="preserve">
-    <value>Lap ráhagyás</value>
+    <value>Lap ráhagyása</value>
   </data>
   <data name="SettingsSheetCostLabel" xml:space="preserve">
-    <value>Lap ár</value>
+    <value>Lap ára</value>
   </data>
   <data name="SettingsEdgeSealingCostLabel" xml:space="preserve">
-    <value>Élzáró ár/m</value>
+    <value>Élzáró ára/m</value>
   </data>
   <data name="SettingsSheetColor" xml:space="preserve">
-    <value>Lap szín</value>
+    <value>Lap színe</value>
   </data>
   <data name="SettingsSheetManufacturerLabel" xml:space="preserve">
-    <value>Lap gyártó</value>
+    <value>Lap gyártója</value>
   </data>
   <data name="LoadButton" xml:space="preserve">
     <value>Betöltés</value>
@@ -266,13 +266,13 @@ ezen a lapon</value>
     <value>Darablista mentése</value>
   </data>
   <data name="SaveSuccessText" xml:space="preserve">
-    <value>Darablista mentése sikeres.</value>
+    <value>A darablista mentése sikeres.</value>
   </data>
   <data name="SaveErrorText" xml:space="preserve">
-    <value>Hiba a darablista mentése közben</value>
+    <value>Hiba a darablista mentése közben.</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>SIkeres</value>
+    <value>Sikeres</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Hiba</value>
@@ -281,34 +281,34 @@ ezen a lapon</value>
     <value>Darablista betöltése</value>
   </data>
   <data name="LoadErrorText" xml:space="preserve">
-    <value>Hiba a betöltés során</value>
+    <value>Hiba a betöltés során.</value>
   </data>
   <data name="AddHeightWidthPrompt" xml:space="preserve">
-    <value>Kérem szélességet és magasságot is adjon meg.</value>
+    <value>Kérjük, adja meg a szélességet és a magasságot is.</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Figyelmeztetés</value>
   </data>
   <data name="InvalidNumberWidth" xml:space="preserve">
-    <value>Hibás szélesség formátum, kérem számot adjon meg.</value>
+    <value>Hibás szélesség formátum, kérem érvényes számot adjon meg.</value>
   </data>
   <data name="InvalidNumberHeight" xml:space="preserve">
-    <value>Hibás magasság formátum, kérem számot adjon meg.</value>
+    <value>Hibás magasság formátum, kérem érvényes számot adjon meg.</value>
   </data>
   <data name="InvalidNumberCount" xml:space="preserve">
-    <value>Hibás darabszám formátum, kérem számot adjon meg.</value>
+    <value>Hibás darabszám formátum, kérem érvényes számot adjon meg.</value>
   </data>
   <data name="ConfirmClearText" xml:space="preserve">
-    <value>Biztosan törölni szeretné a listát?</value>
+    <value>Biztosan törölni szeretné a teljes listát?</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Megerősítés</value>
   </data>
   <data name="SamePiecePromt" xml:space="preserve">
-    <value>Egy darab megegyező névvel és méretekkel már létezik. Szeretné folytatni?</value>
+    <value>Egy darab megegyező névvel, méretekkel és száliránnyal már létezik. Szeretné folytatni?</value>
   </data>
   <data name="DimensionErrorText" xml:space="preserve">
-    <value>A magasságnak és a szélességnek nagyobbnak kell lennie, mint nulla.</value>
+    <value>A magasságnak és a szélességnek nagyobbnak kell lennie nullánál.</value>
   </data>
   <data name="EmptyListError" xml:space="preserve">
     <value>Nincsenek optimalizálandó darabok.</value>
@@ -356,13 +356,13 @@ törlése</value>
     <value>Új megrendelés</value>
   </data>
   <data name="NoOrderSelectedForModify" xml:space="preserve">
-    <value>Kérem válasszon egy megrendelést a módosításhoz.</value>
+    <value>Kérem, válasszon ki egy megrendelést a módosításhoz.</value>
   </data>
   <data name="UpdateOrderTitle" xml:space="preserve">
     <value>Megrendelés módosítása</value>
   </data>
   <data name="OpenOrderError" xml:space="preserve">
-    <value>Kérem válasszon egy megrendelést a módosításhoz</value>
+    <value>Kérem, válasszon ki egy megrendelést a részletek megtekintéséhez.</value>
   </data>
   <data name="OICustomerNameLabel" xml:space="preserve">
     <value>Ügyfél neve:</value>
@@ -377,7 +377,7 @@ törlése</value>
     <value>Megrendelés címe</value>
   </data>
   <data name="SITitle" xml:space="preserve">
-    <value>Új bútorlap hozzáadaása</value>
+    <value>Új bútorlap hozzáadása</value>
   </data>
   <data name="SINameLabel" xml:space="preserve">
     <value>Név:</value>
@@ -416,13 +416,13 @@ törlése</value>
     <value>Ár... (1234.0)</value>
   </data>
   <data name="SINameIsEmpty" xml:space="preserve">
-    <value>A név megadása KÖTELEZŐ!</value>
+    <value>A név megadása kötelező.</value>
   </data>
   <data name="SIWidthIsEmpty" xml:space="preserve">
-    <value>A szélesség megadása KÖTELEZŐ!</value>
+    <value>A szélesség megadása kötelező.</value>
   </data>
   <data name="SIHeightIsEmpty" xml:space="preserve">
-    <value>A magasság megadása KÖTELEZŐ!</value>
+    <value>A magasság megadása kötelező.</value>
   </data>
   <data name="CITitle" xml:space="preserve">
     <value>Új ügyfél hozzáadása</value>
@@ -434,7 +434,7 @@ törlése</value>
     <value>Név...</value>
   </data>
   <data name="CIEmailLabel" xml:space="preserve">
-    <value>Email:</value>
+    <value>E-mail:</value>
   </data>
   <data name="CIEmailHint" xml:space="preserve">
     <value>valami@valami.hu</value>
@@ -446,19 +446,19 @@ törlése</value>
     <value>+36301234567</value>
   </data>
   <data name="CINameIsEmpty" xml:space="preserve">
-    <value>A név megadása KÖTELEZŐ!</value>
+    <value>A név megadása kötelező.</value>
   </data>
   <data name="CMTitle" xml:space="preserve">
     <value>Megrendelő módosítása</value>
   </data>
   <data name="NoCustomerSelectedForModify" xml:space="preserve">
-    <value>A módisításhoz válasszon ki egy megrendelőt</value>
+    <value>Kérem, válasszon ki egy megrendelőt a módosításhoz.</value>
   </data>
   <data name="CMCustomerLabel" xml:space="preserve">
     <value>Megrendelő:</value>
   </data>
   <data name="NoCustomerSelectedForDelete" xml:space="preserve">
-    <value>A törléshez válasszon ki egy megrendelőt</value>
+    <value>Kérem, válasszon ki egy megrendelőt a törléshez.</value>
   </data>
   <data name="CDTitle" xml:space="preserve">
     <value>Megrendelő törlése</value>
@@ -473,19 +473,19 @@ törlése</value>
     <value>Bútorlap:</value>
   </data>
   <data name="SMNoSheetSelectedForModify" xml:space="preserve">
-    <value>Kérem válasszon egy lapot a módosításhoz</value>
+    <value>Kérem, válasszon ki egy lapot a módosításhoz.</value>
   </data>
   <data name="SDNoSheetSelectedForDelete" xml:space="preserve">
-    <value>Lérem válasszon ki egy lapot hogy törölni tudja</value>
+    <value>Kérem, válasszon ki egy lapot a törléshez.</value>
   </data>
   <data name="ConfrimDelete" xml:space="preserve">
     <value>Biztosan törölni szeretné?</value>
   </data>
   <data name="NoOrderSelectedForDelete" xml:space="preserve">
-    <value>A megrendelés törléséhez válasszon ki egy megrendelést</value>
+    <value>Kérem, válasszon ki egy megrendelést a törléshez.</value>
   </data>
   <data name="SaveToTxtOrOnlyDb" xml:space="preserve">
-    <value>Szeretné külön fájlba menteni a darablistát?</value>
+    <value>Szeretné külön fájlba is elmenteni a darablistát?</value>
   </data>
   <data name="ContinueWithoutOrder" xml:space="preserve">
     <value>Folytatás
@@ -497,22 +497,22 @@ nélkül</value>
 kezelő</value>
   </data>
   <data name="SettingsTooltipText" xml:space="preserve">
-    <value>A szélesség, magasság, ár és szín beállítások csak akkor kerülnek felhasználásra ha a megrendeléshez nincs megadva bútorlap.</value>
+    <value>A szélesség, magasság, ár és szín beállítások csak akkor érvényesülnek, ha a megrendeléshez nincs kiválasztva bútorlap.</value>
   </data>
   <data name="SheetPaddingTooLarge" xml:space="preserve">
-    <value>A lap ráhagyás túl nagy a lapmérethez képest.</value>
+    <value>A ráhagyás túl nagy a lapmérethez képest.</value>
   </data>
   <data name="WrongSheetSizes" xml:space="preserve">
-    <value>A lap méretek pozitívak legyenek.</value>
+    <value>A lap méreteinek pozitív számnak kell lenniük.</value>
   </data>
   <data name="ExportError" xml:space="preserve">
-    <value>Az exportáláshoz először optimalizálni kell.</value>
+    <value>Az exportáláshoz először optimalizálásra van szükség.</value>
   </data>
   <data name="CutDiagramTitle" xml:space="preserve">
     <value>Vágási terv</value>
   </data>
   <data name="SIDimensionError" xml:space="preserve">
-    <value>A megadott számok nem lehetnek negatívak vagy 0!</value>
+    <value>A megadott méreteknek nagyobbnak kell lenniük nullánál.</value>
   </data>
   <data name="ManageInventoryButton" xml:space="preserve">
     <value>Készlet
@@ -536,17 +536,16 @@ lefoglalt
 készletből</value>
   </data>
   <data name="IEAddInventoryTooltip" xml:space="preserve">
-    <value>A teljes készlethez adás</value>
+    <value>Hozzáadás a teljes készlethez.</value>
   </data>
   <data name="IEAddReservedTooltip" xml:space="preserve">
-    <value>Készlet mozgatása elérhetőből lefoglaltba</value>
+    <value>Készlet átmozgatása az elérhetőből a lefoglaltak közé.</value>
   </data>
   <data name="IERemoveInventoryTooltip" xml:space="preserve">
-    <value>Elvétel a teljes készletből. Ez a művelet először a lefoglalt számot csökkenti amíg tudja, majd az elérhetőt csökkenti.
-A lefoglalt készletből való törléshez használja az Elvétel a lefoglalt készletből gombot.</value>
+    <value>Elvétel a teljes készletből. A művelet először a lefoglalt mennyiséget csökkenti, majd ha az elfogyott, az elérhetőt. Csak a lefoglalt készletből való törléshez használja az 'Elvétel a lefoglalt készletből' gombot.</value>
   </data>
   <data name="IERemoveReservedTooltip" xml:space="preserve">
-    <value>Elvétel vagy mozgatás a lefoglalt készletből.</value>
+    <value>Mennyiség elvétele a lefoglalt készletből.</value>
   </data>
   <data name="UnknownPieceName" xml:space="preserve">
     <value>Ismeretlen</value>
@@ -576,15 +575,24 @@ A lefoglalt készletből való törléshez használja az Elvétel a lefoglalt k�
     <value>Mennyiség...</value>
   </data>
   <data name="IEMInvalidQuantityMessage" xml:space="preserve">
-    <value>A mennyiségnek</value>
+    <value>A mennyiségnek nagyobbnak kell lennie nullánál.</value>
   </data>
   <data name="IENoSelectedItem" xml:space="preserve">
-    <value>Kérem válasszon egy raktárelemet a készlet módosításához</value>
+    <value>Kérem, válasszon ki egy elemet a készlet módosításához.</value>
   </data>
   <data name="IENotEnoughInInventory" xml:space="preserve">
-    <value>Nincs elég készlet a raktárban a törléshez</value>
+    <value>Nincs elegendő mennyiség a raktárban.</value>
   </data>
   <data name="IEMExceedsMaxMessage" xml:space="preserve">
-    <value>A megadott darabszám nem lehet több mint a max változtatható darabszám.</value>
+    <value>A megadott mennyiség nem haladhatja meg a maximális darabszámot.</value>
+  </data>
+  <data name="CIEmailInvalid" xml:space="preserve">
+    <value>Helytelen email formátum.</value>
+  </data>
+  <data name="CIPhoneInvalid" xml:space="preserve">
+    <value>Helytelen telefonszám formátum.</value>
+  </data>
+  <data name="SIInvalidInput" xml:space="preserve">
+    <value>Helytelen szám formátum.</value>
   </data>
 </root>

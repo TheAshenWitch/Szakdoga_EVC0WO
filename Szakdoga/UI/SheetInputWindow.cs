@@ -131,9 +131,14 @@ namespace Szakdoga
             widthBox.TextChanged += (s, e) =>
             {
                 if (widthBox.Text == widthHint || widthBox.Text == "")
-                    widthBox.Foreground = Brushes.OrangeRed;
+                    widthLabel.Foreground = Brushes.OrangeRed;
+                else if (!double.TryParse(widthBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    widthBox.Foreground = Brushes.Red;
                 else
+                {
+                    widthLabel.Foreground = Brushes.Black;
                     widthBox.Foreground = Brushes.Black;
+                }
             };
 
             Grid.SetRow(widthLabel, 3);
@@ -160,9 +165,14 @@ namespace Szakdoga
             heightBox.TextChanged += (s, e) =>
             {
                 if (heightBox.Text == heightHint || heightBox.Text == "")
-                    heightBox.Foreground = Brushes.OrangeRed;
+                    widthLabel.Foreground = Brushes.OrangeRed;
+                else if (!double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    heightBox.Foreground = Brushes.Red;
                 else
+                {
                     heightBox.Foreground = Brushes.Black;
+                    widthLabel.Foreground = Brushes.Black;
+                }
             };
 
             Grid.SetRow(heightLabel, 4);
@@ -185,6 +195,14 @@ namespace Szakdoga
 
             var priceHint = Strings.SIPriceHint;
             priceBox = CreateHintTextBox(priceHint);
+            priceBox.TextChanged += (s, e) => {
+                if (!double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                    priceBox.Foreground = Brushes.Red;
+                else
+                {
+                    priceBox.Foreground = Brushes.Black;
+                }
+            };
 
             Grid.SetRow(priceLabel, 5);
             Grid.SetColumn(priceLabel, 0);
@@ -229,9 +247,19 @@ namespace Szakdoga
                     MessageBox.Show(Strings.SIWidthIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+                else if (!double.TryParse(widthBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                {
+                    MessageBox.Show(Strings.SIInvalidInput, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 if (string.IsNullOrEmpty(heightBox.Text) || heightBox.Text == heightHint)
                 {
                     MessageBox.Show(Strings.SIHeightIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (!double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                {
+                    MessageBox.Show(Strings.SIInvalidInput, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (descriptionBox.Text == descriptionHint)
@@ -242,6 +270,11 @@ namespace Szakdoga
                 
                 if (string.IsNullOrEmpty(priceBox.Text) || priceBox.Text == priceHint)
                     priceBox.Text = "0";
+                else if (!double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+                {
+                    MessageBox.Show(Strings.SIInvalidInput, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 sheet = new Sheet
                 {
