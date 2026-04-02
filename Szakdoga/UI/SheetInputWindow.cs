@@ -182,11 +182,23 @@ namespace Szakdoga
 
             saveButton.Click += (s, e) =>
             {
+                double result;
+                double _width, _height, _price;
                 if (string.IsNullOrEmpty(nameBox.Text) || nameBox.Text == nameHint)
                 {
                     MessageBox.Show(Strings.SINameIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
+                _width = double.TryParse(widthBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 2800.0;
+                _height = double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 2070.0;
+                _price = double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 10000.0;
+                if (_width <= 0 || _height <= 0 || _price <= 0)
+                {
+                    MessageBox.Show(Strings.SIDimensionError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(widthBox.Text) || widthBox.Text == widthHint)
                 {
                     MessageBox.Show(Strings.SIWidthIsEmpty, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -206,15 +218,14 @@ namespace Szakdoga
                 if (string.IsNullOrEmpty(priceBox.Text) || priceBox.Text == priceHint)
                     priceBox.Text = "0";
 
-                double result;
                 sheet = new Sheet
                 {
                     Name = nameBox.Text,
                     Description = descriptionBox.Text,
                     Color = colorBox.Text,
-                    Width = double.TryParse(widthBox.Text.Replace("," , "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 0,
-                    Height = double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 0,
-                    Price = double.TryParse(priceBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out result) ? result : 0,
+                    Width = _width,
+                    Height = _height,
+                    Price = _price,
                 };
 
                 DialogResult = true;

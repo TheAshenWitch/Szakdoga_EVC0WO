@@ -516,4 +516,10 @@ explorer</value>
   <data name="CutDiagramTitle" xml:space="preserve">
     <value>Cut diagram</value>
   </data>
+  <data name="SIDimensionError" xml:space="preserve">
+    <value>Parameters can not be negative or 0!</value>
+  </data>
+  <data name="UnknownPieceName" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>

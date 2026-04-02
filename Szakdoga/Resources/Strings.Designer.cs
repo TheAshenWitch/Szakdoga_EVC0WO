@@ -931,6 +931,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameters can not be negative!.
+        /// </summary>
+        internal static string SIDimensionError {
+            get {
+                return ResourceManager.GetString("SIDimensionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Height... (1234.0).
         /// </summary>
         internal static string SIHeightHint {
@@ -1148,6 +1157,15 @@ namespace Szakdoga.Resources {
         internal static string TotalWasteAreaLabel {
             get {
                 return ResourceManager.GetString("TotalWasteAreaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string UnknownPieceName {
+            get {
+                return ResourceManager.GetString("UnknownPieceName", resourceCulture);
             }
         }
         

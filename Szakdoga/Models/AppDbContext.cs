@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Szakdoga.Models
 {
@@ -28,10 +29,18 @@ namespace Szakdoga.Models
             {
                 // A "Data Source=szakdoga.db" jelenti, hogy a program mappájában 
                 // jön létre a szakdoga.db fájl.
-                DotNetEnv.Env.Load();
-                string connectionString = DotNetEnv.Env.GetString("DB_CONNECTION_STRING");
-                optionsBuilder.UseSqlServer(connectionString);
-                Console.WriteLine(connectionString);
+                try
+                {
+                    DotNetEnv.Env.Load();
+                    string connectionString = DotNetEnv.Env.GetString("DB_CONNECTION_STRING");
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error loading environment variables: " + ex.Message);
+                    // Ha nem sikerül betölteni a környezeti változókat, akkor egy alapértelmezett értéket használunk
+                    MessageBox.Show("Error loading environment variables: " + ex.Message + "\n :(.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

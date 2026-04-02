@@ -511,4 +511,11 @@ kezelő</value>
   <data name="CutDiagramTitle" xml:space="preserve">
     <value>Vágási terv</value>
   </data>
+  <data name="SIDimensionError" xml:space="preserve">
+    <value>A megadott számok nem lehetnek negatívak vagy 0!</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="UnknownPieceName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

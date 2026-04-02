@@ -26,7 +26,7 @@ namespace Szakdoga
             if (pieces == null || settings == null) return;
 
             NumberOfPieces = pieces.Count;
-            NumberOfSheets = pieces.Any(p => p.SheetId != null) ? (int)pieces.Max(p => p.SheetId)! : 0;
+            NumberOfSheets = pieces.Any(p => p.SheetId != null) ? (int)pieces.Max(p => p.SheetId)! : 1;
 
             // sum in mm^2
             double totalPiecesAreaMm2 = pieces.Sum(p => p.Height * p.Width);
@@ -35,7 +35,7 @@ namespace Szakdoga
             PiecesArea = totalPiecesAreaMm2 * MM2_TO_M2;
 
             // total cut length in meters (perimeter in mm -> m)
-            int numberOfSheets = pieces.Any(p => p.SheetId != null) ? (int)pieces.Max(p => p.SheetId)! : 0;
+            int numberOfSheets = pieces.Any(p => p.SheetId != null) ? (int)pieces.Max(p => p.SheetId)! : 1;
             TotalCutLength = Math.Round((pieces.Sum(p => (p.Height + p.Width)) + (((double)settings.SheetWidth! + (double)settings.SheetHeight!) * numberOfSheets)) / 1000.0, 3);
             EdgeSealingNeeded = Math.Ceiling(pieces.Sum(p => 2*(p.Height+p.Width)/1000.0));
 

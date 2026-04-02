@@ -93,6 +93,7 @@ namespace Szakdoga.UI
 
             PiecesListView.ItemsSource = viewModel.PieceList;
         }
+
         public MainWindow(int OrderId,List<Piece>? pieces, Sheet? orderSheet)
         {
             InitializeComponent();
@@ -123,8 +124,10 @@ namespace Szakdoga.UI
 
             if(orderSheet != null)
             {
+                if(orderSheet.Height > 0)
                 settings.SheetHeight = orderSheet.Height;
-                settings.SheetWidth = orderSheet.Width;
+                if(orderSheet.Width > 0)
+                    settings.SheetWidth = orderSheet.Width;
                 if(orderSheet.Color != null)
                     settings.SheetColor = orderSheet.Color;
                 if(orderSheet.Price != null)
@@ -168,6 +171,7 @@ namespace Szakdoga.UI
                
             }
         }
+
         public void WindowLoaded(object sender, RoutedEventArgs e)
         {
             bool hasOptimizedPieces = manager.Pieces.Any(p => p.x != null && p.y != null && p.SheetId != null);
@@ -179,6 +183,7 @@ namespace Szakdoga.UI
                 FillStatisticsThisSheet();
             }
         }
+
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
         {
             private CutDirection _direction;
@@ -217,13 +222,8 @@ namespace Szakdoga.UI
             sheetId = 1;
             PlacePieces();
             SheetIdBox.Text = sheetId.ToString();
-            try
-            {
-                FillStatistics();
-                FillStatisticsThisSheet();
-            }
-            catch (Exception)
-            {}
+            FillStatistics();
+            FillStatisticsThisSheet();
         }
 
         private void Export(object sender, RoutedEventArgs e)
@@ -235,7 +235,7 @@ namespace Szakdoga.UI
             }
 
             int maxSheet = (int)manager.Pieces.Max(m => m.SheetId)!;
-            sheetId = 1;
+            SetSheet(1);
             double scalePercent = 0.7;     // 70% méret
             double offsetXPercent = 0.01;  // 1% balról
             double offsetYPercent = 0.01;  // 1% felülről
@@ -420,26 +420,28 @@ namespace Szakdoga.UI
                 saveFileDialog.ShowDialog();
                 if (saveFileDialog.FileName != "")
                 {
-                    FileStream fs = (FileStream)saveFileDialog.OpenFile();
-                    try
+                    using (FileStream fs = (FileStream)saveFileDialog.OpenFile())
                     {
-                        using (StreamWriter sw = new StreamWriter(fs))
+                        try
                         {
-                            foreach (var piece in manager.Pieces)
+                            using (StreamWriter sw = new StreamWriter(fs))
                             {
-                                if (piece.x == null || piece.y == null || piece.SheetId == null)
-                                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
-                                else
-                                    sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x, 2)};{Math.Round((double)piece.y, 2)};{piece.SheetId}");
+                                foreach (var piece in manager.Pieces)
+                                {
+                                    if (piece.x == null || piece.y == null || piece.SheetId == null)
+                                        sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection}");
+                                    else
+                                        sw.WriteLine($"{piece.Id};{piece.Name};{piece.Height};{piece.Width};{piece.CutDirection};{Math.Round((double)piece.x, 2)};{Math.Round((double)piece.y, 2)};{piece.SheetId}");
+                                }
                             }
+                            MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
                         }
-                        MessageBox.Show(Strings.SaveSuccessText, Strings.Success, MessageBoxButton.OK, MessageBoxImage.Information);
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        fs.Close();
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"{Strings.SaveErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    fs.Close();
                 }
             }
         }
@@ -453,39 +455,57 @@ namespace Szakdoga.UI
             if (saveFileDialog.FileName != "")
             {
                 // Saves the Image via a FileStream created by the OpenFile method.
-                FileStream fs = (FileStream)saveFileDialog.OpenFile();
-                using (StreamReader sr = new StreamReader(fs))
-                {
-                    manager.ClearPieces();
-                    PieceCanvas.Children.Clear();
-                    string line;
-                    try
+                using (FileStream fs = (FileStream)saveFileDialog.OpenFile()) {
+
+                    using (StreamReader sr = new StreamReader(fs))
                     {
-                        #pragma warning disable CS8600 // sr.Readline() could return null
-                        while ((line = sr.ReadLine()) != null)
+                        manager.ClearPieces();
+                        PieceCanvas.Children.Clear();
+                        string line;
+                        try
                         {
-                            var parts = line.Split(';');
-                            if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
+#pragma warning disable CS8600 // sr.Readline() could return null
+                            while ((line = sr.ReadLine()) != null)
                             {
-                                CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
-                                string name = parts[1];
-                                manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
+                                var parts = line.Split(';');
+                                if (parts.Length == 5 && int.TryParse(parts[0], out int id) && double.TryParse(parts[2], out double height) && double.TryParse(parts[3], out double width))
+                                {
+                                    CutDirection cutDirection;
+                                    try
+                                    {
+                                        cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        cutDirection = CutDirection.Szálirány;
+                                    }
+                                    string name = parts[1];
+                                    manager.AddPiece(height, width, cutDirection, name, fromLoad: true);
+                                }
+                                else if (parts.Length == 8 && int.TryParse(parts[0], out int oid) && double.TryParse(parts[2], out double oheight) && double.TryParse(parts[3], out double owidth) && double.TryParse(parts[5], out double x) && double.TryParse(parts[6], out double y) && double.TryParse(parts[7], out double sheetId))
+                                {
+                                    CutDirection cutDirection;
+                                    try
+                                    {
+                                        cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
+                                    }
+                                    catch(Exception)
+                                    {
+                                        cutDirection = CutDirection.Szálirány;
+                                    }
+                                    string name = parts[1];
+                                    manager.AddPiece(oheight, owidth, cutDirection, name, 1, fromLoad: true, optimised: true, x, y, sheetId);
+                                }
                             }
-                            else if(parts.Length == 8 && int.TryParse(parts[0], out int oid) && double.TryParse(parts[2], out double oheight) && double.TryParse(parts[3], out double owidth) && double.TryParse(parts[5], out double x) && double.TryParse(parts[6], out double y) && double.TryParse(parts[7], out double sheetId))
-                            {
-                                CutDirection cutDirection = (CutDirection)Enum.Parse(typeof(CutDirection), parts[4]);
-                                string name = parts[1];
-                                manager.AddPiece(oheight, owidth, cutDirection, name, 1, fromLoad: true, optimised : true, x, y, sheetId);
-                            }
+#pragma warning restore CS8600 // sr.Readline() could return null
+                            ClearStatistics();
                         }
-                        #pragma warning restore CS8600 // sr.Readline() could return null
-                        ClearStatistics();
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{Strings.LoadErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        fs.Close();
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"{Strings.LoadErrorText}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    fs.Close();
                 }
             }
             bool hasOptimizedPieces = manager.Pieces.Any(p => p.x != null && p.y != null && p.SheetId != null);
@@ -504,14 +524,22 @@ namespace Szakdoga.UI
 
             settingsWindow.Closed += (s, ev) =>
             {
-                settings.SheetWidth = Convert.ToDouble(settingsWindow.SheetWidth.Text);
-                settings.SheetHeight = Convert.ToDouble(settingsWindow.SheetHeight.Text);
-                settings.BladeThickness = Convert.ToDouble(settingsWindow.BladeThickness.Text);
-                settings.SheetPadding = Convert.ToDouble(settingsWindow.SheetPadding.Text);
+                double.TryParse(settingsWindow.SheetWidth.Text, out double _sheetWidth);
+                double.TryParse(settingsWindow.SheetHeight.Text, out double _sheetHeight);
+                double.TryParse(settingsWindow.BladeThickness.Text, out double _bladeThickness);
+                double.TryParse(settingsWindow.SheetPadding.Text, out double _sheetPadding);
+                double.TryParse(settingsWindow.SheetPrice.Text, out double _sheetPrice);
+                double.TryParse(settingsWindow.EdgeSealingPrice.Text, out double _edgeSealingPrice);
+
+                settings.SheetWidth = _sheetWidth;
+                settings.SheetHeight = _sheetHeight;
+                settings.BladeThickness = _bladeThickness;
+                settings.SheetPadding = _sheetPadding;
                 settings.SheetColor = settingsWindow.SheetColor.Text;
                 settings.SheetManufacturer = settingsWindow.SheetManufacturer.Text;
-                settings.SheetPrice = Convert.ToDouble(settingsWindow.SheetPrice.Text);
-                settings.EdgeSealingPrice = Convert.ToDouble(settingsWindow.EdgeSealingPrice.Text);
+                settings.SheetPrice = _sheetPrice;
+                settings.EdgeSealingPrice = _edgeSealingPrice;
+
                 var selectedItem = (ComboBoxItem)settingsWindow.Lang.SelectedItem;
                 if (selectedItem != null)
                 {
@@ -587,9 +615,12 @@ namespace Szakdoga.UI
 
         private string FormatPieceName(Piece piece)
         {
+            if (piece.Name == null)
+                return $"{piece.Height}x{piece.Width}";
+
             string baseName = $"{piece.Name}\n{piece.Height}x{piece.Width}";
             
-            if (piece.Name.Length <= 10)
+            if (piece.Name!.Length <= 10)
                 return baseName;
 
             if (piece.Width >= 150 && piece.Height <= 350)
@@ -637,6 +668,11 @@ namespace Szakdoga.UI
         
         private void NextSheet(object sender, RoutedEventArgs e)
         {
+            if (PieceCanvas.Children.Count == 0)
+            {
+                sheetId = 1;
+                return;
+            }
             if (manager.Pieces.Max(p => p.SheetId) > sheetId)
             {
                 sheetId++;
@@ -656,6 +692,11 @@ namespace Szakdoga.UI
 
         private void NextSheet()
         {
+            if (PieceCanvas.Children.Count == 0)
+            {
+                sheetId = 1;
+                return;
+            }
             if (manager.Pieces.Max(p => p.SheetId) > sheetId)
             {
                 sheetId++;
@@ -675,6 +716,11 @@ namespace Szakdoga.UI
 
         private void PrevSheet(object sender, RoutedEventArgs e)
         {
+            if (PieceCanvas.Children.Count == 0)
+            {
+                sheetId = 1;
+                return;
+            }
             if (sheetId > 1)
             {
                 sheetId--;
@@ -690,6 +736,24 @@ namespace Szakdoga.UI
                 statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
             }
             FillStatisticsThisSheet();
+        }
+
+        private void SetSheet(int _sheetId)
+        {
+            if(manager.Pieces.Count == 0)
+            {
+                sheetId = 1;
+                return;
+            }
+            if (_sheetId >= 1 && _sheetId <= (manager.Pieces.Max(p => p.SheetId) ?? 1))
+            {
+                sheetId = _sheetId;
+                PlacePieces();
+                SheetIdBox.Text = sheetId.ToString();
+                statistics.CalculateStatisticsForSheet(manager.Pieces, settings, sheetId);
+                FillStatisticsThisSheet();
+            }
+            
         }
 
         private void Add(object sender, RoutedEventArgs e)
@@ -800,6 +864,7 @@ namespace Szakdoga.UI
             CountTxt.Text = "1";
             viewModel.Direction = CutDirection.Szálirány; // Reset to default direction
         }
+
         public void BackToExplorer(object sender, RoutedEventArgs e)
         {
             ProjectExplorer projectExplorer = new ProjectExplorer();

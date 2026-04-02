@@ -8,11 +8,13 @@ namespace Szakdoga.Services
         public ObservableCollection<Piece> Pieces { get; set; }
        
         private int nextId;
+
         public Manager()
         {
             Pieces = new ObservableCollection<Piece>();
             nextId = 1;
         }
+
         public void AddPiece(double height, double width, CutDirection cutDirection, string? name, int count = 1, bool fromLoad = false, bool optimised = false, double x = 0, double y = 0, double sheetId = 0)
         {
             bool duplicateExists = Pieces.Any(p => p.Height == height && p.Width == width && p.CutDirection == cutDirection && p.Name == name);
@@ -23,7 +25,10 @@ namespace Szakdoga.Services
 
             if(fromLoad && optimised)
             {
-                Piece optimisedPiece = new Piece
+                if (name == "" || name == string.Empty)
+                    name = Strings.UnknownPieceName;
+
+                Piece optimizedPiece = new Piece
                 {
                     Name = name,
                     Id = nextId++,
@@ -35,7 +40,7 @@ namespace Szakdoga.Services
                     y = y,
                     SheetId = (int)sheetId
                 };
-                Pieces.Add(optimisedPiece);
+                Pieces.Add(optimizedPiece);
                 return;
             }
 
@@ -47,10 +52,8 @@ namespace Szakdoga.Services
 
             for (int i = 0; i < count; i++)
             {
-                if (name == "" && name == string.Empty)
-                {
-                    name = "Unknown";
-                }
+                if (name == "" || name == string.Empty)
+                    name = Strings.UnknownPieceName;
 
                 Piece piece = new Piece
                 {
@@ -76,14 +79,17 @@ namespace Szakdoga.Services
                 piece.CutDirection = cutDirection;
             }
         }
+
         public List<Piece> GetPiecesList()
         {
             return Pieces.ToList();
         }
+
         public ObservableCollection<Piece> GetPieces()
         {
             return Pieces;
         }
+
         public void RemovePiece(int id)
         {
             var piece = Pieces.FirstOrDefault(p => p.Id == id);
@@ -92,11 +98,13 @@ namespace Szakdoga.Services
                 Pieces.Remove(piece);
             }
         }
+
         public void ClearPieces()
         {
             Pieces.Clear();
             nextId = 1; // Reset ID counter
         } 
+
         public void Optimize(string method, double sheetWidth, double sheetHeight, double sheetPadding, double bladeThickness)
         {
             if (Pieces.Count == 0)
