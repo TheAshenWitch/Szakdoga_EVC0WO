@@ -63,7 +63,7 @@ namespace Szakdoga
 
             LocalizationManager.Instance.Culture = culture;
 
-            if(settings.Language == "hu-HU")
+            if (settings.Language == "hu-HU")
                 AddNewSheetButton.Padding = new Thickness(-25, 0, 0, 0);
             else
                 AddNewSheetButton.Padding = new Thickness(0, 0, 0, 0);
@@ -78,8 +78,8 @@ namespace Szakdoga
         }
         public class ProjectExplorerViewModel(ObservableCollection<Order> orders) : INotifyPropertyChanged
         {
-            public ObservableCollection<Order> Orders =>orders;
-            
+            public ObservableCollection<Order> Orders => orders;
+
             public event PropertyChangedEventHandler? PropertyChanged;
 
         }
@@ -87,21 +87,21 @@ namespace Szakdoga
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
-            
+
             this.Close();
         }
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
-            OrderInputWindow orderInputWindow = new(Db, Strings.AddNewOrderLabel, null,null,null);
+            OrderInputWindow orderInputWindow = new(Db, Strings.AddNewOrderLabel, null, null, null);
             if (orderInputWindow.ShowDialog() == true)
-            {                
+            {
                 Order order = new Order();
-                if(orderInputWindow.retCustomerId != null)
+                if (orderInputWindow.retCustomerId != null)
                     order.CustomerId = orderInputWindow.retCustomerId;
 
                 order.Title = orderInputWindow.OrderTitle ?? Strings.EmptyOrderTitle;
 
-                if(orderInputWindow.retSheetId != null)
+                if (orderInputWindow.retSheetId != null)
                     order.SheetId = orderInputWindow.retSheetId;
 
                 order.CreatedAt = DateTime.Now;
@@ -116,8 +116,8 @@ namespace Szakdoga
             CustomerInputWindow customerInputWindow = new CustomerInputWindow();
             if (customerInputWindow.ShowDialog() == true)
             {
-               if (customerInputWindow.customer == null)
-                   return;             
+                if (customerInputWindow.customer == null)
+                    return;
                 Db.AddCustomer(customerInputWindow.customer);
                 Db.SaveAllChanges();
             }
@@ -142,15 +142,15 @@ namespace Szakdoga
             }
             Order order = (Order)OrderListView.SelectedItem;
 
-            OrderInputWindow orderInputWindow = new(Db, Strings.UpdateOrderTitle, order.Customer, order.Title ?? "",  order.Sheet);
+            OrderInputWindow orderInputWindow = new(Db, Strings.UpdateOrderTitle, order.Customer, order.Title ?? "", order.Sheet);
             if (orderInputWindow.ShowDialog() == true)
-            { 
+            {
                 if (order != null)
                 {
                     order.Title = orderInputWindow.OrderTitle;
-                    if(orderInputWindow.retCustomerId != null)
+                    if (orderInputWindow.retCustomerId != null)
                         order.CustomerId = orderInputWindow.retCustomerId;
-                    if(orderInputWindow.retSheetId != null)
+                    if (orderInputWindow.retSheetId != null)
                         order.SheetId = orderInputWindow.retSheetId;
                 }
 
@@ -245,7 +245,7 @@ namespace Szakdoga
                 MessageBox.Show(Strings.OpenOrderError);
                 return;
             }
-            
+
             Order selectedOrder = (Order)OrderListView.SelectedItem;
             List<Piece> pieces = new List<Piece>();
 
@@ -303,6 +303,12 @@ namespace Szakdoga
 
             settingsWindow.ShowDialog();
 
+        }
+
+        public void OpenInventoryManager(object sender, RoutedEventArgs e)
+        {
+            InventoryManager inventoryManagerWindow = new InventoryManager();
+            inventoryManagerWindow.ShowDialog();
         }
     }
 }

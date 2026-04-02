@@ -401,6 +401,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to inventory.
+        /// </summary>
+        internal static string IEAddInventoryButton {
+            get {
+                return ResourceManager.GetString("IEAddInventoryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid count format. Please enter a valid number..
         /// </summary>
         internal static string InvalidNumberCount {
@@ -451,6 +460,15 @@ namespace Szakdoga.Resources {
         internal static string LoadPromptText {
             get {
                 return ResourceManager.GetString("LoadPromptText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage inventory.
+        /// </summary>
+        internal static string ManageInventoryButton {
+            get {
+                return ResourceManager.GetString("ManageInventoryButton", resourceCulture);
             }
         }
         

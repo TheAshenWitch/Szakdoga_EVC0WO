@@ -518,4 +518,12 @@ kezelő</value>
   <data name="UnknownPieceName" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="ManageInventoryButton" xml:space="preserve">
+    <value>Készlet
+kezelése</value>
+  </data>
+  <data name="IEAddInventoryButton" xml:space="preserve">
+    <value>Készlethez
+adás</value>
+  </data>
 </root>

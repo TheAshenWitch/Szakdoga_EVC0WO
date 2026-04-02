@@ -519,4 +519,10 @@ sheet</value>
   <data name="UnknownPieceName" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="ManageInventoryButton" xml:space="preserve">
+    <value>Manage inventory</value>
+  </data>
+  <data name="IEAddInventoryButton" xml:space="preserve">
+    <value>Add to inventory</value>
+  </data>
 </root>

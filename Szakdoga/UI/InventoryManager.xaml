@@ -1,0 +1,89 @@
+﻿<Window x:Class="Szakdoga.UI.InventoryManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Szakdoga"
+        xmlns:loc="clr-namespace:Szakdoga"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="InventoryManager" Height="600" Width="1200">
+    <Window.Resources>
+        <local:EnumToBooleanConverter x:Key="EnumToBoolConverter"/>
+        <ObjectDataProvider x:Key="Loc" 
+                    ObjectType="{x:Type loc:LocalizationManager}" 
+                    MethodName="get_Instance"/>
+
+    </Window.Resources>
+    <Grid  Width="1180" Height="580" DataContext="{StaticResource Loc}">
+        <ListBox Name="InventoryItemListView" Margin="10,10,0,0" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListBox.ItemContainerStyle>
+
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="White"/>
+
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#F0F0F0"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2" Height="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+                        <!-- 1. oszlop – Név -->
+                        <TextBlock Grid.Column="0"
+                           Text="{Binding Sheet.Name}"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           Margin="5,0" />
+
+                        <!-- 3. oszlop – Méret -->
+                        <TextBlock Grid.Column="1"
+                            Text="{Binding Sheet.sizeString}"
+                            FontWeight="SemiBold"
+                            FontSize="13"
+                            VerticalAlignment="Center"
+                            Margin="5,0" />
+
+                        <!-- 3. oszlop – Leírás -->
+                        <TextBlock Grid.Column="2"
+                           Text="{Binding TotalQuantity, TargetNullValue=-}"
+                           FontSize="13"
+                           VerticalAlignment="Center"
+                           Margin="5,0" />
+
+                        <!-- 4. oszlop – szín -->
+                        <TextBlock Grid.Column="3"
+                           Text="{Binding ReservedQuantity, TargetNullValue=-}"
+                           Foreground="Gray"
+                           FontSize="12"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                        
+                        <!-- 5. oszlop – ár -->
+                        <TextBlock Grid.Column="4"
+                           Text="{Binding AvailableQuantity, TargetNullValue=-}"
+                           FontWeight="SemiBold"
+                           FontSize="12"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Content="{Binding [IEAddInventoryButton]}" Margin="400,10,0,0" Click="AddNewInventoryItem" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="80" FontSize="20"/>
+    </Grid>
+</Window>

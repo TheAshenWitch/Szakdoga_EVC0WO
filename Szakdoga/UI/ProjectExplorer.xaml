@@ -17,7 +17,7 @@
 
     </Window.Resources>
     <Grid Width="1180" Height="580" DataContext="{StaticResource Loc}">
-        <ListBox Name="OrderListView" Margin="10,10,685,70" Height="500" MouseDoubleClick="OpenOrder" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2">
+        <ListBox Name="OrderListView" Margin="10,10,685,50" MouseDoubleClick="OpenOrder" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2">
             <ListBox.ItemContainerStyle>
 
                 <Style TargetType="ListBoxItem">
@@ -78,5 +78,6 @@
         <Button Content="{Binding [ContinueWithoutOrder]}" Margin="0,10,10,0" Click="MainScreen" Width="130" HorizontalAlignment="Right" Height="80" VerticalAlignment="Top" FontSize="18"/>
         <Button Content="{Binding [SettingsButton]}" Margin="0,95,10,0" Click="OpenSettings" Width="130" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20"/>
 
+        <Button Content="{Binding [ManageInventoryButton]}" Margin="500,0,0,50" Width="130" Height="80" Click="OpenInventoryManager"  HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20"/>
     </Grid>
 </Window>

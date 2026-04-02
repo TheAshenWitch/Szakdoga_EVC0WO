@@ -19,6 +19,7 @@ namespace Szakdoga.Models
         public double Height { get; set; }
 
         public double? Price { get; set; }
+        public string? sizeString => $"{Width}x{Height}";
 
         public override string ToString()
         {
