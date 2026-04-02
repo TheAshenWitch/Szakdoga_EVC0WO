@@ -12,9 +12,10 @@ namespace Szakdoga.UI
         private TextBox QuantityTextBox;
         public int Quantity;
 
-        public InventoryMover()
+        public InventoryMover(int? max)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            ResizeMode = ResizeMode.NoResize;
 
             Width = 300;
             Height = 150;
@@ -31,22 +32,24 @@ namespace Szakdoga.UI
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
+
             var quantityLabel = new TextBlock
             {
                 Foreground = Brushes.OrangeRed,
-                Text = Strings.SMSheetLabel,
+                Text = Strings.IEMQuantityLabel,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
 
-            Grid.SetRow(QuantityTextBox, 0);
-            Grid.SetColumn(QuantityTextBox, 0);
-            grid.Children.Add(QuantityTextBox);
+            Grid.SetRow(quantityLabel, 0);
+            Grid.SetColumn(quantityLabel, 0);
+            grid.Children.Add(quantityLabel);
 
-            QuantityTextBox = CreateHintTextBox(Strings.IEMQuantityHint);
+            string text = max.HasValue ? $"{Strings.IEMQuantityHint} (max: {max.Value})" : Strings.IEMQuantityHint;
+            QuantityTextBox = CreateHintTextBox(text);
             QuantityTextBox.TextChanged += (s, e) =>
             {
-                if (QuantityTextBox.Text != Strings.IEMQuantityHint || QuantityTextBox.Text != "")
+                if (QuantityTextBox.Text == Strings.IEMQuantityHint || QuantityTextBox.Text == "")
                     quantityLabel.Foreground = Brushes.OrangeRed;
                 else
                     quantityLabel.Foreground = Brushes.Black;
@@ -71,6 +74,11 @@ namespace Szakdoga.UI
             saveButton.Click += (s, e) =>
             {
                 Quantity = int.TryParse(QuantityTextBox.Text, out int qty) ? qty : 0;
+                if (Quantity > max)
+                {
+                    MessageBox.Show(Strings.IEMExceedsMaxMessage, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 if (Quantity > 0)
                 {
                     DialogResult = true;

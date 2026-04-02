@@ -573,7 +573,7 @@ A lefoglalt készletből való törléshez használja az Elvétel a lefoglalt k�
     <value>Mennyiség</value>
   </data>
   <data name="IEMQuantityHint" xml:space="preserve">
-    <value>Mennyiség... (10)</value>
+    <value>Mennyiség...</value>
   </data>
   <data name="IEMInvalidQuantityMessage" xml:space="preserve">
     <value>A mennyiségnek</value>
@@ -583,5 +583,8 @@ A lefoglalt készletből való törléshez használja az Elvétel a lefoglalt k�
   </data>
   <data name="IENotEnoughInInventory" xml:space="preserve">
     <value>Nincs elég készlet a raktárban a törléshez</value>
+  </data>
+  <data name="IEMExceedsMaxMessage" xml:space="preserve">
+    <value>A megadott darabszám nem lehet több mint a max változtatható darabszám.</value>
   </data>
 </root>

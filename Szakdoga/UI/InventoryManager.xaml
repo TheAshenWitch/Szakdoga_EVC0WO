@@ -22,7 +22,7 @@
         <Label Content="{Binding [IETotalLabel]}" FontSize="14" Margin="236,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="{Binding [IEResLabel]}" FontSize="14" Margin="286,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="{Binding [IEReservedLabel]}"/>
         <Label Content="{Binding [IEAvailLabel]}" FontSize="14" Margin="335,2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="{Binding [IEAvailableLabel]}"/>
-        <ListBox Name="InventoryItemListView" Margin="10,30,0,0" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox Name="InventoryItemListView" Margin="10,30,0,0" Height="500" Width="385" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemContainerStyle>
 
                 <Style TargetType="ListBoxItem">

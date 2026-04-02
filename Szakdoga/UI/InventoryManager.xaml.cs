@@ -56,7 +56,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover();
+            InventoryMover inventoryMover = new InventoryMover(null);
             if (inventoryMover.ShowDialog() == true)
             {
                 inventoryItem.TotalQuantity += inventoryMover.Quantity;
@@ -73,7 +73,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover();
+            InventoryMover inventoryMover = new InventoryMover(inventoryItem.AvailableQuantity);
             if (inventoryMover.ShowDialog() == true)
             {
                 inventoryItem.ReservedQuantity += inventoryMover.Quantity;
@@ -90,7 +90,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover();
+            InventoryMover inventoryMover = new InventoryMover(inventoryItem.ReservedQuantity);
             if (inventoryMover.ShowDialog() == true)
             {
                 inventoryItem.ReservedQuantity -= inventoryMover.Quantity;
@@ -107,7 +107,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover();
+            InventoryMover inventoryMover = new InventoryMover(inventoryItem.TotalQuantity);
             if (inventoryMover.ShowDialog() == true)
             {
                 if(inventoryMover.Quantity > inventoryItem.TotalQuantity) 
@@ -115,29 +115,20 @@ namespace Szakdoga.UI
                     MessageBox.Show(Strings.IENotEnoughInInventory, Strings.Error, MessageBoxButton.OK);
                     return;
                 }
-                (int removeFromTotal , int removeFromReserved) = TryRemoveQuantity(inventoryItem.ReservedQuantity, inventoryMover.Quantity);
+                (int removeFromReserved, int  removeFromTotal) = calculateRemoveQuantity(inventoryItem.ReservedQuantity, inventoryMover.Quantity);
+                inventoryItem.ReservedQuantity -= removeFromReserved;
                 inventoryItem.TotalQuantity -= removeFromTotal;
                 Db.UpdateInventoryItem(inventoryItem);
                 CollectionViewSource.GetDefaultView(InventoryItemListView.ItemsSource).Refresh();
             }
         }
 
-        private (int,int) TryRemoveQuantity(int removeFrom, int toRemove)
+        private (int,int) calculateRemoveQuantity(int quantity, int toRemove)
         {
-            int overFlow = 0;
-            int removeFromReserved = 0;
+            if (quantity >= toRemove)
+                return (toRemove, toRemove);
 
-            if (toRemove > removeFrom)
-            {
-                overFlow = toRemove - removeFrom;
-                removeFromReserved = removeFrom;
-            }
-            else
-            {
-                removeFromReserved = toRemove;
-            }
-
-            return (overFlow, removeFromReserved);
+            return (quantity, toRemove);
         }
 
     }

@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -451,6 +451,15 @@ namespace Szakdoga.Resources {
         internal static string IEAvailLabel {
             get {
                 return ResourceManager.GetString("IEAvailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity can not be more than max quantity.
+        /// </summary>
+        internal static string IEMExceedsMaxMessage {
+            get {
+                return ResourceManager.GetString("IEMExceedsMaxMessage", resourceCulture);
             }
         }
         

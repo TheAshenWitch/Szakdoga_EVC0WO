@@ -577,7 +577,7 @@ To remove from reserved use Remove from reserved button.</value>
     <value>Quantity</value>
   </data>
   <data name="IEMQuantityHint" xml:space="preserve">
-    <value>Quantity... (10)</value>
+    <value>Quantity...</value>
   </data>
   <data name="IEMInvalidQuantityMessage" xml:space="preserve">
     <value>Quantity must be a number greater than 0</value>
@@ -587,5 +587,8 @@ To remove from reserved use Remove from reserved button.</value>
   </data>
   <data name="IENotEnoughInInventory" xml:space="preserve">
     <value>Not enough item in inventory</value>
+  </data>
+  <data name="IEMExceedsMaxMessage" xml:space="preserve">
+    <value>Quantity can not be more than max quantity</value>
   </data>
 </root>

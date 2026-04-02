@@ -580,4 +580,7 @@ To remove from reserved use Remove from reserved button.</value>
   <data name="IENotEnoughInInventory" xml:space="preserve">
     <value>Not enough item in inventory</value>
   </data>
+  <data name="IEMExceedsMaxMessage" xml:space="preserve">
+    <value>Quantity can not be more than max quantity</value>
+  </data>
 </root>
