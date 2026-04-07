@@ -21,7 +21,7 @@ namespace Szakdoga
         public CutDirection VirtualCutDirection { get; set; } // cut direction used in the algorithm
         public override string ToString()
         {
-            return $"{Id}. {Name} : {Height} x {Width}  |  {CutDirection}";
+            return $"{Id}. {Name} : {Height} x {Width}  |  {GetLocalizedCutDirection()}";
         }
         public Piece()
         {
@@ -122,6 +122,28 @@ namespace Szakdoga
                 oPieces.Add(PieceToOrderPiece(piece, orderId));
             }
             return oPieces;
+        }
+
+        /// <summary>
+        /// Gets the localized display name for this piece's cut direction
+        /// </summary>
+        public string GetLocalizedCutDirection()
+        {
+            return GetLocalizedCutDirection(this.CutDirection);
+        }
+
+        /// <summary>
+        /// Gets the localized display name for any cut direction
+        /// </summary>
+        public static string GetLocalizedCutDirection(CutDirection direction)
+        {
+            return direction switch
+            {
+                CutDirection.Szálirány => Resources.Strings.RadioGrainDir,
+                CutDirection.Keresztirány => Resources.Strings.RadioCrossDir,
+                CutDirection.Vegyes => Resources.Strings.RadioVariableDir,
+                _ => direction.ToString()
+            };
         }
     }
 }

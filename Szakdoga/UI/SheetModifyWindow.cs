@@ -121,6 +121,13 @@ namespace Szakdoga.UI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 0, 10, 10)
             };
+            nameBox.TextChanged += (s, e) =>
+            {
+                if (nameBox.Text == "")
+                    nameLabel.Foreground = Brushes.OrangeRed;
+                else
+                    nameLabel.Foreground = Brushes.Black;
+            };
 
             Grid.SetRow(nameLabel, 1);
             Grid.SetColumn(nameLabel, 0);

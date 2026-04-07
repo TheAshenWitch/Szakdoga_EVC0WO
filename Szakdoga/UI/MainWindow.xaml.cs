@@ -9,6 +9,7 @@ using System.Runtime;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Szakdoga.Models;
@@ -88,6 +89,16 @@ namespace Szakdoga.UI
             _pcw = PieceCanvas.Width;
             OptMode = "Test";
 
+            PreviewMouseDown += (s, e) =>
+            {
+                bool isMouseOverRadioButton = RadioGrainButton.IsMouseOver || RadioCrossButton.IsMouseOver || RadioVarButton.IsMouseOver;
+                bool isMouseOverListView = PiecesListView.IsMouseOver;
+                bool isMouseOverInputFields = NameTxt.IsMouseOver || HeighgtTxt.IsMouseOver || WidthTxt.IsMouseOver || UpdateButton.IsMouseOver;
+
+                if (!isMouseOverInputFields && !isMouseOverListView && !isMouseOverRadioButton)
+                    PiecesListView.SelectedItem = null;
+            };
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ClearInputs();
 
@@ -152,8 +163,17 @@ namespace Szakdoga.UI
             _pch = PieceCanvas.Height;
             _pcw = PieceCanvas.Width;
             OptMode = "Test";
-            //StateChanged += MainWindow_Maximized;
-           
+
+            PreviewMouseDown += (s, e) =>
+            {
+                bool isMouseOverRadioButton = RadioGrainButton.IsMouseOver || RadioCrossButton.IsMouseOver || RadioVarButton.IsMouseOver;
+                bool isMouseOverListView = PiecesListView.IsMouseOver;
+                bool isMouseOverInputFields = NameTxt.IsMouseOver || HeighgtTxt.IsMouseOver || WidthTxt.IsMouseOver || CountTxt.IsMouseOver || UpdateButton.IsMouseOver;
+
+                if (!isMouseOverInputFields && !isMouseOverListView && !isMouseOverRadioButton)
+                    PiecesListView.SelectedItem = null;
+            };
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ClearInputs();
 
@@ -218,7 +238,8 @@ namespace Szakdoga.UI
         
         private void Optimize(object sender, RoutedEventArgs e)
         {
-            manager.Optimize(OptMode, (double)settings.SheetWidth!, (double)settings.SheetHeight!,settings.SheetPadding,settings.BladeThickness);
+            if (!manager.Optimize(OptMode, (double)settings.SheetWidth!, (double)settings.SheetHeight!, settings.SheetPadding, settings.BladeThickness))
+                return;
             sheetId = 1;
             PlacePieces();
             SheetIdBox.Text = sheetId.ToString();
@@ -550,6 +571,8 @@ namespace Szakdoga.UI
                     settings.Language = cultureCode;
 
                     LocalizationManager.Instance.Culture = culture;
+
+                    CollectionViewSource.GetDefaultView(PiecesListView.ItemsSource).Refresh();
                 }
 
                 Properties.Settings.Default.Language = settings.Language;
@@ -567,7 +590,6 @@ namespace Szakdoga.UI
             };
 
             settingsWindow.ShowDialog();
-
         }
 
         public void PlacePieces()

@@ -105,12 +105,12 @@ namespace Szakdoga.Services
             nextId = 1; // Reset ID counter
         } 
 
-        public void Optimize(string method, double sheetWidth, double sheetHeight, double sheetPadding, double bladeThickness)
+        public bool Optimize(string method, double sheetWidth, double sheetHeight, double sheetPadding, double bladeThickness)
         {
             if (Pieces.Count == 0)
             {
                 MessageBox.Show(Strings.EmptyListError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return false;
             }
             foreach (var piece in Pieces)
             {
@@ -130,6 +130,7 @@ namespace Szakdoga.Services
             {
                 Pieces.Add(piece);
             }
+            return true;
         }
     }
 }

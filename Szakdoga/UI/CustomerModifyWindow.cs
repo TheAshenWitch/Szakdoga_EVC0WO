@@ -274,7 +274,7 @@ namespace Szakdoga.UI
                     customer.Email = emailBox.Text;
                     customer.Phone = phoneBox.Text;
 
-                    var result = MessageBox.Show(string.Format(Strings.DeleteButton, customer.Name), Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBox.Show(string.Format(Strings.ConfrimDelete, customer.Name), Strings.Confirm, MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     if (result == MessageBoxResult.Yes)
                     {
                         DialogResult = true;

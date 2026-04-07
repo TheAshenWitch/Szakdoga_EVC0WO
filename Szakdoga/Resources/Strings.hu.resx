@@ -595,4 +595,7 @@ készletből</value>
   <data name="SIInvalidInput" xml:space="preserve">
     <value>Helytelen szám formátum.</value>
   </data>
+  <data name="InvalidNumberFormat" xml:space="preserve">
+    <value>Hibás szám formátum. Kérem adjon meg egy számot.</value>
+  </data>
 </root>

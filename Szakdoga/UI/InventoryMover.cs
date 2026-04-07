@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Szakdoga.Resources;
 using System.Windows.Media;
 using Szakdoga.Models;
+using System.Globalization;
 
 
 namespace Szakdoga.UI
@@ -49,16 +50,21 @@ namespace Szakdoga.UI
             QuantityTextBox = CreateHintTextBox(text);
             QuantityTextBox.TextChanged += (s, e) =>
             {
+                bool NaN = !int.TryParse(QuantityTextBox.Text, out _);
+                bool largerThanMax = int.TryParse(QuantityTextBox.Text, out int qty) && max.HasValue && qty > max.Value;
                 if (QuantityTextBox.Text == Strings.IEMQuantityHint || QuantityTextBox.Text == "")
                     quantityLabel.Foreground = Brushes.OrangeRed;
-                if (int.TryParse(QuantityTextBox.Text, out int qty) && max.HasValue && qty > max.Value)
+                if (largerThanMax || NaN)
                 {
                     quantityLabel.Foreground = Brushes.Red;
                     QuantityTextBox.Foreground = Brushes.Red;
                     QuantityTextBox.BorderBrush = Brushes.Red;
                 }
                 else
+                {
                     quantityLabel.Foreground = Brushes.Black;
+                    QuantityTextBox.Foreground = Brushes.Black;
+                }
             };
 
             Grid.SetRow(QuantityTextBox, 0);

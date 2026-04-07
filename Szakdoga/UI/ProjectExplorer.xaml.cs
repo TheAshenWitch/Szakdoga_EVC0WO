@@ -75,6 +75,12 @@ namespace Szakdoga
             OrderListView.DataContext = viewModel;
 
             OrderListView.ItemsSource = viewModel.Orders;
+
+            PreviewMouseDown += (s, e) =>
+            {
+                if(!OrderListView.IsMouseOver)
+                    OrderListView.SelectedItem = null;
+            };
         }
         public class ProjectExplorerViewModel(ObservableCollection<Order> orders) : INotifyPropertyChanged
         {

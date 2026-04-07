@@ -592,4 +592,7 @@ To remove from reserved use Remove from reserved button.</value>
   <data name="SIInvalidInput" xml:space="preserve">
     <value>Invalid number format.</value>
   </data>
+  <data name="InvalidNumberFormat" xml:space="preserve">
+    <value>Invalid number format. Please enter a valid number.</value>
+  </data>
 </root>

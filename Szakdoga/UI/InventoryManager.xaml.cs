@@ -38,6 +38,12 @@ namespace Szakdoga.UI
             InventoryItemListView.DataContext = viewModel;
 
             InventoryItemListView.ItemsSource = viewModel.InventoryItems;
+
+            PreviewMouseDown += (s, e) =>
+            {
+                if (!InventoryItemListView.IsMouseOver)
+                    InventoryItemListView.SelectedItem = null;
+            };
         }
         public class ProjectExplorerViewModel(ObservableCollection<InventoryItem> inventoryItems) : INotifyPropertyChanged
         {

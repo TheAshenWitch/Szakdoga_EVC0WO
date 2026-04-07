@@ -59,9 +59,9 @@ namespace Szakdoga
             nameBox.TextChanged += (s, e) =>
             {
                 if (nameBox.Text == nameHint || nameBox.Text == "")
-                    nameBox.Foreground = Brushes.Black;
+                    nameLabel.Foreground = Brushes.OrangeRed;
                 else
-                    nameBox.Foreground = Brushes.Black;
+                    nameLabel.Foreground = Brushes.Black;
             };
 
 
@@ -165,13 +165,13 @@ namespace Szakdoga
             heightBox.TextChanged += (s, e) =>
             {
                 if (heightBox.Text == heightHint || heightBox.Text == "")
-                    widthLabel.Foreground = Brushes.OrangeRed;
+                    heightLabel.Foreground = Brushes.OrangeRed;
                 else if (!double.TryParse(heightBox.Text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
-                    heightBox.Foreground = Brushes.Red;
+                    heightLabel.Foreground = Brushes.Red;
                 else
                 {
                     heightBox.Foreground = Brushes.Black;
-                    widthLabel.Foreground = Brushes.Black;
+                    heightLabel.Foreground = Brushes.Black;
                 }
             };
 
