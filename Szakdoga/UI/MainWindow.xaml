@@ -65,7 +65,7 @@
 
         <Grid Grid.Column="3" Grid.Row="0">
             <ListBox Name="PiecesListView"  Height="816" Margin="22,20,0,0"  VerticalAlignment="Top" SelectionChanged="PiecesListView_SelectionChanged" HorizontalAlignment="Left" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-            <Button Content="{Binding [DeleteButton]}"        Height="44" Margin="0,70,126,0"  VerticalAlignment="Top" Click="Delete" HorizontalAlignment="Right" Width="109" Foreground="Red"/>
+            <Button Content="{Binding [DeleteButton]}" Name="DeleteButton" Height="44" Margin="0,70,126,0"  VerticalAlignment="Top" Click="Delete" HorizontalAlignment="Right" Width="109" Foreground="Red"/>
             <Button Content="{Binding [ClearAllButton]}"     Height="44" Margin="0,120,126,0" VerticalAlignment="Top" Click="Clear"  HorizontalAlignment="Right" Width="109" Foreground="Red" BorderBrush="Red" FontFamily="Arial"/>
             <Button Content="{Binding [UpdateButton]}" Name="UpdateButton" Height="44" Margin="0,20,126,0"  VerticalAlignment="Top" Click="Update" HorizontalAlignment="Right" Width="109"/>
             <Button Content="{Binding [ExportButton]}"        Height="44" Margin="0,169,126,0" VerticalAlignment="Top" Click="Export" HorizontalAlignment="Right" Width="109"/>

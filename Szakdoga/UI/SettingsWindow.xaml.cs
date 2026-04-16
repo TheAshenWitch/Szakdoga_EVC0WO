@@ -44,6 +44,8 @@ namespace Szakdoga
             else
                 Lang.SelectedIndex = 1;
 
+            Title = Strings.SettingsTitle;
+
             SheetWidth.TextChanged += (s, e) =>
             {
                 if (SheetWidth.Text == "")

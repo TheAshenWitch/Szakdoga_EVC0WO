@@ -17,7 +17,7 @@
 
     </Window.Resources>
     <Grid Width="1180" Height="580" DataContext="{StaticResource Loc}">
-        <ListBox Height="520" Width="520" Name="OrderListView" Margin="10,10,0,0" MouseDoubleClick="OpenOrder" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox Height="520" Width="520" Name="OrderListView" Margin="10,30,0,0" MouseDoubleClick="OpenOrder" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Hidden" AlternationCount="2" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemContainerStyle>
 
                 <Style TargetType="ListBoxItem">
@@ -74,18 +74,23 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="{Binding [AddNewOrderLabel]}" Margin="540,10,0,0" Click="AddNewOrder" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [AddNewCustomerLabel]}" Margin="540,95,0,0" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [AddNewSheetLabel]}" Margin="540,180,0,0" Click="AddNewSheet" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"  Name="AddNewSheetButton"/>
-        <Button Content="{Binding [ModifyOderLabel]}" Margin="675,10,0,0" Click="UpdateOrder" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [ModifyCustomerLabel]}" Margin="675,95,0,0" Click="UpdateCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [ModifySheetLabel]}" Margin="675,180,0,0" Click="UpdateSheet" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [DeleteOrderLabel]}" Margin="810,10,0,0" Click="DeleteOrder" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [DeleteCustomerLabel]}" Margin="810,95,0,0" Click="DeleteCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [DeleteSheetLabel]}" Margin="810,180,0,0" Click="DeleteSheet" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="{Binding [ContinueWithoutOrder]}" Margin="0,10,10,0" Click="MainScreen" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18"/>
-        <Button Content="{Binding [SettingsButton]}" Margin="0,95,10,0" Click="OpenSettings" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="{Binding [PEOrderTitle]}" Margin="17, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontWeight="SemiBold"/>
+        <Label Content="{Binding [PECustomerName]}" Margin="187, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="{Binding [PESheetName]}" Margin="307, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="{Binding [PEDate]}" Margin="427, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" FontWeight="Light" />
 
-        <Button Content="{Binding [ManageInventoryButton]}" Margin="540,0,0,50" Click="OpenInventoryManager" HorizontalContentAlignment="Center" Width="130" Height="80"  HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20"/>
+        <Button Content="{Binding [AddNewOrderLabel]}" Margin="540, 30, 0, 0" Click="AddNewOrder" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="{Binding [AddNewCustomerLabel]}" Margin="540, 115, 0, 0" Click="AddNewCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="{Binding [AddNewSheetLabel]}" Margin="540, 200, 0, 0" Click="AddNewSheet" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"  Name="AddNewSheetButton"/>
+        <Button Content="{Binding [ModifyOderLabel]}" Margin="675, 30, 0, 0" Click="UpdateOrder" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Name="ModifyOrderButon"/>
+        <Button Content="{Binding [ModifyCustomerLabel]}" Margin="675, 115, 0, 0" Click="UpdateCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="{Binding [ModifySheetLabel]}" Margin="675, 200, 0, 0" Click="UpdateSheet" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="{Binding [DeleteOrderLabel]}" Margin="810, 30, 0, 0" Click="DeleteOrder" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Name="DeleteOrderButton"/>
+        <Button Content="{Binding [DeleteCustomerLabel]}" Margin="810, 115, 0, 0" Click="DeleteCustomer" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="{Binding [DeleteSheetLabel]}" Margin="810, 200, 0, 0" Click="DeleteSheet" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"/>
+        <Button Content="{Binding [ContinueWithoutOrder]}" Margin="0, 30, 10, 0" Click="MainScreen" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18"/>
+        <Button Content="{Binding [SettingsButton]}" Margin="0, 115, 10, 0" Click="OpenSettings" HorizontalContentAlignment="Center" Width="130" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20"/>
+
+        <Button Content="{Binding [ManageInventoryButton]}" Margin="540, 0, 0, 30" Click="OpenInventoryManager" HorizontalContentAlignment="Center" Width="130" Height="80"  HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20"/>
     </Grid>
 </Window>

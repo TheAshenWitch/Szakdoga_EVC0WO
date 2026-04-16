@@ -27,7 +27,7 @@ namespace Szakdoga.UI
             };
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition ());
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });

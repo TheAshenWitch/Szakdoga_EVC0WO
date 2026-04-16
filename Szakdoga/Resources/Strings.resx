@@ -595,4 +595,28 @@ To remove from reserved use Remove from reserved button.</value>
   <data name="InvalidNumberFormat" xml:space="preserve">
     <value>Invalid number format. Please enter a valid number.</value>
   </data>
+  <data name="PEOrderTitle" xml:space="preserve">
+    <value>Order title</value>
+  </data>
+  <data name="PECustomerName" xml:space="preserve">
+    <value>Customer name</value>
+  </data>
+  <data name="PESheetName" xml:space="preserve">
+    <value>Sheet</value>
+  </data>
+  <data name="PEDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ProjectExplorerTitle" xml:space="preserve">
+    <value>Project explorer</value>
+  </data>
+  <data name="MainScreenTitle" xml:space="preserve">
+    <value>Optimization</value>
+  </data>
+  <data name="InventoryManagerTitle" xml:space="preserve">
+    <value>Inventory manager</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

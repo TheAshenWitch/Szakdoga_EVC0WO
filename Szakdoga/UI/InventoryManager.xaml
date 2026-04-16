@@ -89,9 +89,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="{Binding [IEAddInventoryButton]}" Margin="400,30,0,0" Click="AddToInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IEAddInventoryTooltip]}"/>
-        <Button Content="{Binding [IEAddReservedButton]}" Margin="400,120,0,0" Click="AddToReservedInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IEAddReservedTooltip]}"/>
-        <Button Content="{Binding [IERemoveReservedButton]}" Margin="400,210,0,0" Click="RemoveFromReserved" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IERemoveReservedTooltip]}"/>
-        <Button Content="{Binding [IERemoveInventoryButton]}" Margin="400,300,0,0" Click="RemoveFromInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" ToolTip="{Binding [IERemoveInventoryTooltip]}"/>
+        <Button Content="{Binding [IEAddInventoryButton]}" Margin="400,30,0,0" Click="AddToInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" Name="AddToInventoryButton" ToolTip="{Binding [IEAddInventoryTooltip]}"/>
+        <Button Content="{Binding [IEAddReservedButton]}" Margin="400,120,0,0" Click="AddToReservedInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" Name="MoveToReserved" ToolTip="{Binding [IEAddReservedTooltip]}"/>
+        <Button Content="{Binding [IERemoveReservedButton]}" Margin="400,210,0,0" Click="RemoveFromReserved" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" Name="MoveToAvaliable" ToolTip="{Binding [IERemoveReservedTooltip]}"/>
+        <Button Content="{Binding [IERemoveInventoryButton]}" Margin="400,300,0,0" Click="RemoveFromInventory" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Height="85" FontSize="20" Name="DeleteFromInventory" ToolTip="{Binding [IERemoveInventoryTooltip]}"/>
     </Grid>
 </Window>

@@ -598,4 +598,28 @@ készletből</value>
   <data name="InvalidNumberFormat" xml:space="preserve">
     <value>Hibás szám formátum. Kérem adjon meg egy számot.</value>
   </data>
+  <data name="PEOrderTitle" xml:space="preserve">
+    <value>Megrendelés címe</value>
+  </data>
+  <data name="PECustomerName" xml:space="preserve">
+    <value>Megrendelő</value>
+  </data>
+  <data name="PESheetName" xml:space="preserve">
+    <value>Bútorlap</value>
+  </data>
+  <data name="PEDate" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="ProjectExplorerTitle" xml:space="preserve">
+    <value>Megrendelés kezelő</value>
+  </data>
+  <data name="MainScreenTitle" xml:space="preserve">
+    <value>Optimalizálás</value>
+  </data>
+  <data name="InventoryManagerTitle" xml:space="preserve">
+    <value>Raktár kezelő</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
 </root>

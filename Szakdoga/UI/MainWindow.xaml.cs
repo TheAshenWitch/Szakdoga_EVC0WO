@@ -38,6 +38,7 @@ namespace Szakdoga.UI
         Manager manager;
         DatabaseService DB;
 
+        bool saveToDatabase;
         int sheetId;
         int orderId;
         double _pcw;
@@ -49,6 +50,7 @@ namespace Szakdoga.UI
             InitializeComponent();
             manager = new Manager();
             DB = new DatabaseService();
+            saveToDatabase = false;
 
             try
             {
@@ -93,7 +95,7 @@ namespace Szakdoga.UI
             {
                 bool isMouseOverRadioButton = RadioGrainButton.IsMouseOver || RadioCrossButton.IsMouseOver || RadioVarButton.IsMouseOver;
                 bool isMouseOverListView = PiecesListView.IsMouseOver;
-                bool isMouseOverInputFields = NameTxt.IsMouseOver || HeighgtTxt.IsMouseOver || WidthTxt.IsMouseOver || UpdateButton.IsMouseOver;
+                bool isMouseOverInputFields = NameTxt.IsMouseOver || HeighgtTxt.IsMouseOver || WidthTxt.IsMouseOver || UpdateButton.IsMouseOver || DeleteButton.IsMouseOver;
 
                 if (!isMouseOverInputFields && !isMouseOverListView && !isMouseOverRadioButton)
                     PiecesListView.SelectedItem = null;
@@ -111,6 +113,7 @@ namespace Szakdoga.UI
             manager = new Manager();
             DB = new DatabaseService();
 
+            saveToDatabase = true;
             orderId = OrderId;
 
             try
@@ -202,6 +205,7 @@ namespace Szakdoga.UI
                 FillStatistics();
                 FillStatisticsThisSheet();
             }
+            Title = Strings.MainScreenTitle;
         }
 
         public class MainViewModel(ObservableCollection<Piece> pieces) : INotifyPropertyChanged
@@ -257,21 +261,25 @@ namespace Szakdoga.UI
 
             int maxSheet = (int)manager.Pieces.Max(m => m.SheetId)!;
             SetSheet(1);
-            double scalePercent = 0.7;     // 70% méret
-            double offsetXPercent = 0.01;  // 1% balról
-            double offsetYPercent = 0.01;  // 1% felülről
+            double scalePercent = 0.70;
+            double offsetXPercent = 0.01;
+            double offsetYPercent = 0.01;
             ProgressBarWindow progbar = new ProgressBarWindow(1, maxSheet);
             progbar.Show();
             using (PdfDocument pdf = new PdfDocument())
             {
                 for (int i = 1; i <= maxSheet; i++)
                 {
+                    // FONTOS: Canvas teljes elrendezés frissítése
+                    PieceCanvas.Measure(new System.Windows.Size(PieceCanvas.ActualWidth, PieceCanvas.ActualHeight));
+                    PieceCanvas.Arrange(new System.Windows.Rect(0, 0, PieceCanvas.ActualWidth, PieceCanvas.ActualHeight));
+                    PieceCanvas.UpdateLayout();
                     double canvasWidth = PieceCanvas.ActualWidth;
                     double canvasHeight = PieceCanvas.ActualHeight;
 
                     RenderTargetBitmap? rtb = new RenderTargetBitmap(
-                        (int)canvasWidth + 10,
-                        (int)canvasHeight + 10,
+                        (int)canvasWidth,
+                        (int)canvasHeight + 25,
                         96, 96,
                         PixelFormats.Pbgra32);
 
@@ -279,10 +287,6 @@ namespace Szakdoga.UI
                     var oldCache = PieceCanvas.CacheMode;
                     PieceCanvas.CacheMode = new BitmapCache();
 
-                    // FONTOS: Canvas teljes elrendezés frissítése
-                    PieceCanvas.Measure(new System.Windows.Size(PieceCanvas.ActualWidth, PieceCanvas.ActualHeight));
-                    PieceCanvas.Arrange(new System.Windows.Rect(0, 0, PieceCanvas.ActualWidth, PieceCanvas.ActualHeight));
-                    PieceCanvas.UpdateLayout();
 
                     // Render a bitmapre
                     rtb.Render(PieceCanvas);
@@ -431,7 +435,8 @@ namespace Szakdoga.UI
             if(result == MessageBoxResult.Cancel)
                 return;
 
-            DB.AddOrderPieces(Piece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
+            if (saveToDatabase) 
+                DB.AddOrderPieces(Piece.PiecesToOrderPieces(manager.GetPiecesList(), orderId));
 
             if (result == MessageBoxResult.Yes)
             {
@@ -574,6 +579,8 @@ namespace Szakdoga.UI
 
                     CollectionViewSource.GetDefaultView(PiecesListView.ItemsSource).Refresh();
                 }
+
+                Title = Strings.MainScreenTitle;
 
                 Properties.Settings.Default.Language = settings.Language;
                 Properties.Settings.Default.DarkMode = settings.DarkMode;

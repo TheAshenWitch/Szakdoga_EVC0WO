@@ -29,8 +29,6 @@ namespace Szakdoga.UI
 
         string orderTitleHint = Strings.OIOrderTitleHint;
 
-        private string searchText;
-        private bool isSelecting = false;
         public OrderInputWindow(DatabaseService DB, string title, Customer? customer, string? orderTitle, Sheet? sheet)
         {
             customers = DB.GetAllCustomers();
@@ -190,7 +188,7 @@ namespace Szakdoga.UI
                 retCustomerId = retCustomer?.Id;
                 retSheetId = retSheet?.Id;
 
-                if (titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text))
+                if (titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text) || titleBox.Text == "")
                 {
                     orderTitle = null;
                 }

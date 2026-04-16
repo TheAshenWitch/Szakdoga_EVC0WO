@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -636,6 +636,15 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inventory manager.
+        /// </summary>
+        internal static string InventoryManagerTitle {
+            get {
+                return ResourceManager.GetString("InventoryManagerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load.
         /// </summary>
         internal static string LoadButton {
@@ -659,6 +668,15 @@ namespace Szakdoga.Resources {
         internal static string LoadPromptText {
             get {
                 return ResourceManager.GetString("LoadPromptText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optimization.
+        /// </summary>
+        internal static string MainScreenTitle {
+            get {
+                return ResourceManager.GetString("MainScreenTitle", resourceCulture);
             }
         }
         
@@ -850,6 +868,42 @@ namespace Szakdoga.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer name.
+        /// </summary>
+        internal static string PECustomerName {
+            get {
+                return ResourceManager.GetString("PECustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string PEDate {
+            get {
+                return ResourceManager.GetString("PEDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order title.
+        /// </summary>
+        internal static string PEOrderTitle {
+            get {
+                return ResourceManager.GetString("PEOrderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet.
+        /// </summary>
+        internal static string PESheetName {
+            get {
+                return ResourceManager.GetString("PESheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pieces this
         ///sheet.
         /// </summary>
@@ -874,6 +928,15 @@ namespace Szakdoga.Resources {
         internal static string ProjectExplorerButton {
             get {
                 return ResourceManager.GetString("ProjectExplorerButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project explorer.
+        /// </summary>
+        internal static string ProjectExplorerTitle {
+            get {
+                return ResourceManager.GetString("ProjectExplorerTitle", resourceCulture);
             }
         }
         
@@ -1081,6 +1144,15 @@ namespace Szakdoga.Resources {
         internal static string SettingsSheetPaddingLabel {
             get {
                 return ResourceManager.GetString("SettingsSheetPaddingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
             }
         }
         

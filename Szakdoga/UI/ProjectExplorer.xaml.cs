@@ -78,9 +78,11 @@ namespace Szakdoga
 
             PreviewMouseDown += (s, e) =>
             {
-                if(!OrderListView.IsMouseOver)
+                if(!OrderListView.IsMouseOver && !ModifyOrderButon.IsMouseOver && !DeleteOrderButton.IsMouseOver)
                     OrderListView.SelectedItem = null;
             };
+
+            Title = Strings.ProjectExplorerTitle;
         }
         public class ProjectExplorerViewModel(ObservableCollection<Order> orders) : INotifyPropertyChanged
         {
@@ -294,6 +296,8 @@ namespace Szakdoga
                     else
                         AddNewSheetButton.Padding = new Thickness(0, 0, 0, 0);
                 }
+
+                Title = Strings.ProjectExplorerTitle;
 
                 Properties.Settings.Default.Language = settings.Language;
                 Properties.Settings.Default.DarkMode = settings.DarkMode;

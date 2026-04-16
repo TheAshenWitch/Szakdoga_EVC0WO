@@ -75,7 +75,7 @@ namespace Szakdoga.Services
                     if (piece.x == null && piece.y == null && piece.SheetId == null)
                     {
                         // Try to place piece in current position
-                        if (CanFitInCurrentPosition(piece, CurrentX, CurrentY, RowHeight, SheetX, SheetY, BladeThickness))
+                        if (CanFitInCurrentPosition(piece, CurrentX, CurrentY, RowHeight, SheetX, SheetY, BladeThickness, SheetPadding))
                         {
                             PlacePieceAtCurrentPosition(piece, CurrentX, CurrentY, _SheetId);
                             CurrentX += piece.Height + BladeThickness;
@@ -104,11 +104,13 @@ namespace Szakdoga.Services
         /// Checks if a piece can fit in the current position without exceeding sheet boundaries.
         /// </summary>
         /// <returns>True if piece fits horizontally and vertically at current position</returns>
-        private bool CanFitInCurrentPosition(Piece piece, double CurrentX, double CurrentY, double RowHeight, double SheetX, double SheetY, double BladeThickness)
+        private bool CanFitInCurrentPosition(Piece piece, double CurrentX, double CurrentY, double RowHeight, double SheetX, double SheetY, double BladeThickness, double SheetPadding)
         {
             // Check if piece fits within sheet boundaries (accounting for padding on right/bottom)
-            return CurrentX + piece.Height + BladeThickness <= (SheetX - 10) && 
-                   CurrentY + Math.Max(RowHeight, piece.Width) + BladeThickness <= SheetY;
+            // Note: We only need blade thickness to be counted if there's likely another piece after this one.
+            // However, for safety, we assume there will be, but we don't need it after the rightmost piece.
+            return CurrentX + piece.Height <= (SheetX - SheetPadding) && 
+                   CurrentY + Math.Max(RowHeight, piece.Width) <= SheetY - SheetPadding;
         }
 
         /// <summary>
@@ -139,8 +141,8 @@ namespace Szakdoga.Services
         /// <returns>True if another placement was made (triggers retry); False if piece was placed in new row</returns>
         private bool TryFitInGapOrNextRow(Piece piece, List<Piece> Pieces, List<Piece> PiecesRemaining, ref double CurrentX, ref double CurrentY, ref double RowHeight, double SheetX, double SheetY, double SheetPadding, double BladeThickness, int _SheetId)
         {
-            // Try to find a smaller piece that fits in the remaining gap
-            Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX), RowHeight, (int)piece.Id!);
+            // Try to find a smaller piece that fits in the remaining gap (accounting for blade before it)
+            Piece? StillFittingPiece = TryFitMorePiece(PiecesRemaining, (SheetX - SheetPadding - CurrentX - BladeThickness), RowHeight, (int)piece.Id!);
             if (StillFittingPiece != null)
             {
                 // Found a piece that fits in the gap - place it and continue

@@ -41,9 +41,10 @@ namespace Szakdoga.UI
 
             PreviewMouseDown += (s, e) =>
             {
-                if (!InventoryItemListView.IsMouseOver)
+                if (!InventoryItemListView.IsMouseOver && !AddToInventoryButton.IsMouseOver && !MoveToReserved.IsMouseOver && !MoveToAvaliable.IsMouseOver && !DeleteFromInventory.IsMouseOver)
                     InventoryItemListView.SelectedItem = null;
             };
+            Title = Strings.InventoryManagerTitle;
         }
         public class ProjectExplorerViewModel(ObservableCollection<InventoryItem> inventoryItems) : INotifyPropertyChanged
         {
