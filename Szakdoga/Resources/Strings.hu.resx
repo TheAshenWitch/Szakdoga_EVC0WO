@@ -203,7 +203,8 @@ kihasználás</value>
     <value>Vágási hossz</value>
   </data>
   <data name="EdgeSealingNeededLabel" xml:space="preserve">
-    <value>Szükséges élzárás</value>
+    <value>Szükséges
+élzáró</value>
   </data>
   <data name="TotalSheetCostLabel" xml:space="preserve">
     <value>Lapok ára</value>
@@ -425,7 +426,7 @@ törlése</value>
     <value>A magasság megadása kötelező.</value>
   </data>
   <data name="CITitle" xml:space="preserve">
-    <value>Új ügyfél hozzáadása</value>
+    <value>Új megrendelő hozzáadása</value>
   </data>
   <data name="CINameLabel" xml:space="preserve">
     <value>Név:</value>
@@ -621,5 +622,20 @@ készletből</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Beállítások</value>
+  </data>
+  <data name="AdNewOrderTitle" xml:space="preserve">
+    <value>Új megrendelés</value>
+  </data>
+  <data name="IMAddToInventory" xml:space="preserve">
+    <value>Készlethez adás</value>
+  </data>
+  <data name="IMAddtoReserved" xml:space="preserve">
+    <value>Lefoglalthoz adás</value>
+  </data>
+  <data name="IMRemoveFromReserved" xml:space="preserve">
+    <value>Elvétel a lefoglaltból</value>
+  </data>
+  <data name="IMRemoveFromTotal" xml:space="preserve">
+    <value>Elvétel az összesből</value>
   </data>
 </root>

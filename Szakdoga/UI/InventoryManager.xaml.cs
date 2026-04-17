@@ -63,7 +63,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover(null);
+            InventoryMover inventoryMover = new InventoryMover(Strings.IMAddToInventory, null);
             if (inventoryMover.ShowDialog() == true)
             {
                 inventoryItem.TotalQuantity += inventoryMover.Quantity;
@@ -80,7 +80,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover(inventoryItem.AvailableQuantity);
+            InventoryMover inventoryMover = new InventoryMover(Strings.IMAddtoReserved,inventoryItem.AvailableQuantity);
             if (inventoryMover.ShowDialog() == true)
             {
                 inventoryItem.ReservedQuantity += inventoryMover.Quantity;
@@ -97,7 +97,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover(inventoryItem.ReservedQuantity);
+            InventoryMover inventoryMover = new InventoryMover(Strings.IMRemoveFromReserved,inventoryItem.ReservedQuantity);
             if (inventoryMover.ShowDialog() == true)
             {
                 inventoryItem.ReservedQuantity -= inventoryMover.Quantity;
@@ -114,7 +114,7 @@ namespace Szakdoga.UI
                 return;
             }
 
-            InventoryMover inventoryMover = new InventoryMover(inventoryItem.TotalQuantity);
+            InventoryMover inventoryMover = new InventoryMover(Strings.IMRemoveFromTotal,inventoryItem.TotalQuantity);
             if (inventoryMover.ShowDialog() == true)
             {
                 if(inventoryMover.Quantity > inventoryItem.TotalQuantity) 

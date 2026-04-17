@@ -322,7 +322,7 @@ namespace Szakdoga.UI
                         double lineSpacing = font.Size * 1.2;
 
                         double listOffsetX = offsetX + scaledWidth + 10; // kezdő X koordináta
-                        double listOffsetY = offsetY + 10;
+                        double listOffsetY = offsetY + 20;
 
                         for (int j = 0; j < totalItems; j++)
                         {

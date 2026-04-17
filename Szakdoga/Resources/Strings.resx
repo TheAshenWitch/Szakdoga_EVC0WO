@@ -619,4 +619,19 @@ To remove from reserved use Remove from reserved button.</value>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="AdNewOrderTitle" xml:space="preserve">
+    <value>Add new order</value>
+  </data>
+  <data name="IMAddToInventory" xml:space="preserve">
+    <value>Add to inventory</value>
+  </data>
+  <data name="IMAddtoReserved" xml:space="preserve">
+    <value>Move to reserved</value>
+  </data>
+  <data name="IMRemoveFromReserved" xml:space="preserve">
+    <value>Remove from reserved</value>
+  </data>
+  <data name="IMRemoveFromTotal" xml:space="preserve">
+    <value>Remove from total</value>
+  </data>
 </root>

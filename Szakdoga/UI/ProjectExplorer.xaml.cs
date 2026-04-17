@@ -100,7 +100,7 @@ namespace Szakdoga
         }
         private void AddNewOrder(object sender, RoutedEventArgs e)
         {
-            OrderInputWindow orderInputWindow = new(Db, Strings.AddNewOrderLabel, null, null, null);
+            OrderInputWindow orderInputWindow = new(Db, Strings.AddNewOrderTitle, null, null, null);
             if (orderInputWindow.ShowDialog() == true)
             {
                 Order order = new Order();
@@ -192,6 +192,12 @@ namespace Szakdoga
                 Sheet sheet = sheetModifyWindow.sheet;
                 if (sheet != null)
                 {
+                    InventoryItem? inventoryItem = Db.GetInventoryItemBySheetId(sheet.Id);
+                    if (inventoryItem != null)
+                    {
+                        inventoryItem.Sheet = sheet; // Update the Sheet reference in InventoryItem
+                        Db.UpdateInventoryItem(inventoryItem); // Update InventoryItem to reflect changes in Sheet
+                    }
                     Db.UpdateSheet(sheet);
                     Db.SaveAllChanges();
                     CollectionViewSource.GetDefaultView(OrderListView.ItemsSource).Refresh();

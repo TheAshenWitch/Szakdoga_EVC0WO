@@ -13,8 +13,9 @@ namespace Szakdoga.UI
         private TextBox QuantityTextBox;
         public int Quantity;
 
-        public InventoryMover(int? max)
+        public InventoryMover(string title, int? max)
         {
+            Title = title;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ResizeMode = ResizeMode.NoResize;
 

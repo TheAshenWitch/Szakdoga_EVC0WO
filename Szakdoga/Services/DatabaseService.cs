@@ -631,6 +631,21 @@ public class DatabaseService : IDisposable
         }
     }
 
+    public InventoryItem? GetInventoryItemBySheetId(int sheetId)
+    {
+        try
+        {
+            return _db.InventoryItems
+                .Include(ii => ii.Sheet)
+                .FirstOrDefault(ii => ii.SheetId == sheetId);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Failed to retrieve inventory item: {ex.Message}", "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return null;
+        }
+    }
+
     public void UpdateInventoryItem(InventoryItem inventoryItem)
     {
         try

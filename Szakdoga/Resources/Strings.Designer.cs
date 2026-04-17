@@ -19,7 +19,7 @@ namespace Szakdoga.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -114,6 +114,15 @@ namespace Szakdoga.Resources {
         internal static string AddNewSheetLabel {
             get {
                 return ResourceManager.GetString("AddNewSheetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new order.
+        /// </summary>
+        internal static string AdNewOrderTitle {
+            get {
+                return ResourceManager.GetString("AdNewOrderTitle", resourceCulture);
             }
         }
         
@@ -596,6 +605,42 @@ namespace Szakdoga.Resources {
         internal static string IETotalLabel {
             get {
                 return ResourceManager.GetString("IETotalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to inventory.
+        /// </summary>
+        internal static string IMAddToInventory {
+            get {
+                return ResourceManager.GetString("IMAddToInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to reserved.
+        /// </summary>
+        internal static string IMAddtoReserved {
+            get {
+                return ResourceManager.GetString("IMAddtoReserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from reserved.
+        /// </summary>
+        internal static string IMRemoveFromReserved {
+            get {
+                return ResourceManager.GetString("IMRemoveFromReserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from total.
+        /// </summary>
+        internal static string IMRemoveFromTotal {
+            get {
+                return ResourceManager.GetString("IMRemoveFromTotal", resourceCulture);
             }
         }
         

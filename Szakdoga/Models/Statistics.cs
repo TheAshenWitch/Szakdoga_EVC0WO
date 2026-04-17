@@ -29,10 +29,10 @@ namespace Szakdoga
             NumberOfSheets = pieces.Any(p => p.SheetId != null) ? (int)pieces.Max(p => p.SheetId)! : 1;
 
             // sum in mm^2
-            double totalPiecesAreaMm2 = pieces.Sum(p => p.Height * p.Width);
+            double totalPiecesAreaMm2 = Math.Round(pieces.Sum(p => p.Height * p.Width), 1);
 
             // pieces area in m^2
-            PiecesArea = totalPiecesAreaMm2 * MM2_TO_M2;
+            PiecesArea = Math.Round(totalPiecesAreaMm2 * MM2_TO_M2, 1);
 
             // total cut length in meters (perimeter in mm -> m)
             int numberOfSheets = pieces.Any(p => p.SheetId != null) ? (int)pieces.Max(p => p.SheetId)! : 1;

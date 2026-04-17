@@ -188,9 +188,10 @@ namespace Szakdoga.UI
                 retCustomerId = retCustomer?.Id;
                 retSheetId = retSheet?.Id;
 
-                if (titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text) || titleBox.Text == "")
+                if (titleBox.Text == orderTitleHint || string.IsNullOrWhiteSpace(titleBox.Text) || titleBox.Text == " ")
                 {
-                    orderTitle = null;
+                    titleBox.Text = Strings.EmptyOrderTitle;
+                    orderTitle = Strings.EmptyOrderTitle;
                 }
                 DialogResult = true;
                 Close();
