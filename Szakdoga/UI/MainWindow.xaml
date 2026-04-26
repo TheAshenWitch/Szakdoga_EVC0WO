@@ -80,7 +80,7 @@
 
             <!--Statistics-->
             <Border BorderBrush="Black" BorderThickness="1" Margin="229,272,6,0" Height="564" VerticalAlignment="Top"/>
-            <Label Content="{Binding [StatisticsLabel]}" Margin="336,272,6,0" VerticalAlignment="Top" FontSize="24" VerticalContentAlignment="Center"/>
+            <Label Content="{Binding [StatisticsLabel]}" Margin="229,272,6,0" VerticalAlignment="Top" FontSize="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Name="NoOfSheets" HorizontalAlignment="Left" Height="35" Margin="343,316,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
             <Label Content="{Binding [NoOfSheetsLabel]}" HorizontalAlignment="Left" Height="40" Margin="230,311,0,0" VerticalAlignment="Top" Width="101" VerticalContentAlignment="Center"/>
             <TextBox Name="NoOfPices"  HorizontalAlignment="Left" Height="35" Margin="343,356,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="107" IsEnabled="False"/>
